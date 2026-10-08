@@ -1,0 +1,9 @@
+[project]
+name = "k1-two-clocks-theory"
+version = "0.1.0"
+description = "Two Clocks: theory, diagnosis, and the closure benchmarks (paper0 + paper1)"
+requires-python = ">=3.10"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
