@@ -306,7 +306,7 @@ def verdicts(out):
         equilibrium_oscillator_reversible_with_parity=bool(
             s["osc_re_carrier_max"] < 0.05 and s["osc_im_carrier_min"] > 0.3),
         two_temperature_irreversible=bool(
-            s["two_temp_epr"] > 1e-3 and abs(s["two_temp_equal_epr"]) < 1e-6),
+            s["two_temp_epr"] > 1e-3 and abs(s["two_temp_equal_epr"]) < 1e-5),
         nonreciprocal_increases_epr=bool(
             s["nonrecip_epr"] > s["nonrecip_epr_a0"] > 1e-3),
         parity_epr_nonnegative=bool(s["positivity_min"] > -1e-9),

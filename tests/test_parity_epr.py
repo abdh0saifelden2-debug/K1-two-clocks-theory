@@ -70,7 +70,11 @@ def test_oscillator_quadrature_reversible_with_parity(out):
 def test_two_temperature_irreversible_and_equalT_reversible(out):
     s = out["synthetic"]
     assert s["two_temp_epr"] > 1e-3
-    assert abs(s["two_temp_equal_epr"]) < 1e-6
+    # equal-T EPR is analytically 0; sde_epr's tan-mapped trapezoid leaves an
+    # O(1/n) truncation residual (measured ~2.2e-6 at n=30001, halving per
+    # grid doubling), so the reversible control must sit above that floor.
+    assert abs(s["two_temp_equal_epr"]) < 1e-5
+    assert abs(s["two_temp_equal_epr"]) < 1e-3 * s["two_temp_epr"]
     # explicit heat-current monotonicity in Delta T
     e1 = sde_epr(*two_temperature(T1=1.0, T2=2.0)[:2], np.array([1, 1]))
     e2 = sde_epr(*two_temperature(T1=1.0, T2=4.0)[:2], np.array([1, 1]))

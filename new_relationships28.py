@@ -79,7 +79,7 @@ import os
 import numpy as np
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-REPO = os.path.dirname(HERE)
+REPO = HERE
 MAT = os.path.join(REPO, "glaciers", "subglacial", "data", "bushuk",
                    "melt_data_timestring_sub2.mat")
 DERIVED = os.path.join(REPO, "glaciers", "subglacial", "data",

@@ -62,7 +62,7 @@ import numpy as np
 
 _HERE = os.path.dirname(os.path.abspath(__file__))
 _CACHE = os.path.normpath(os.path.join(
-    _HERE, "..", "glaciers", "validation", "external", "data",
+    _HERE, "glaciers", "validation", "external", "data",
     "tidal_admittance_field_cache.json"))
 _FIGDIR = os.path.join(_HERE, "figures")
 

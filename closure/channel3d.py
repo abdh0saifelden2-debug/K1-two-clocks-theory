@@ -161,10 +161,12 @@ class Channel3D:
         rhs = divm.copy()
         rhs[:, 0] = vm[:, 0]
         rhs[:, -1] = vm[:, -1]
-        # the k=0 horizontal mean is a pure-Neumann problem: pin phi[0]=0 (gauge)
+        # the k=0 horizontal mean is a pure-Neumann problem: pin phi[0]=0 (gauge).
+        # KX/KZ both place a zero wavenumber at index 0 and at index nx/2 (and
+        # nz/2), so several packed modes have k^2=0; pin EVERY one of them or the
+        # batched solve hits a singular constant-nullspace matrix.
         k0 = np.where(to_host(k2) <= 1e-14)[0]
-        if k0.size:
-            j0 = int(k0[0])
+        for j0 in k0:
             L[j0, 0, :] = 0.0
             L[j0, 0, 0] = 1.0
             rhs[j0, 0] = 0.0
