@@ -215,7 +215,7 @@ elliptic field. They cannot be modelled as one coupled scalar.**
 python3 -m venv .venv && . .venv/bin/activate
 pip install -r requirements.txt
 python run_closure.py --out-dir figures
-python -m pytest            # 684 tests
+python -m pytest            # 683 passed, 1 skipped
 ```
 
 ## Lean formalization scope
