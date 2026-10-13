@@ -257,3 +257,6 @@ The pristine monorepo was snapshotted **before** any edit:
 and paper outline are deliberately **not** copied here — they live only in that
 archive. [`AUDIT.md`](AUDIT.md) records the full split audit: every vendored
 file, every edit, and the AST verification result.
+
+## TODO (future)
+- (8) Lean on surrogate skeleton (statements first, proofs second, finite-dimensional only)
