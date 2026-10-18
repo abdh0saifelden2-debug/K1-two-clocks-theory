@@ -176,8 +176,8 @@ divergence cleaning, penalization relaxation, or a few iterations of an approxim
 projection. The natural question is then quantitative: *how fast must the cleaning be?*
 
 Deploying the Dedner (2002) GLM cleaning system as a tunable approximate projector on a
-frozen BEDMAP1 cavity field (`../glaciers/subglacial/theory_tests.py::result_dedner_cleaning`; see
-`../glaciers/subglacial/THEORY_CAVITY.md` §3.2–3.3) gives a sharp, **measured** answer. With the single
+frozen BEDMAP1 cavity field ([`theory_tests.py`](https://github.com/abdh0saifelden2-debug/K2-subglacial-cavity/blob/792cbed31b3677bad51f1cfe4473405e5e877978/subglacial/theory_tests.py)::result_dedner_cleaning; see
+[`THEORY_CAVITY.md`](https://github.com/abdh0saifelden2-debug/K2-subglacial-cavity/blob/792cbed31b3677bad51f1cfe4473405e5e877978/subglacial/THEORY_CAVITY.md) §3.2–3.3) in `K2-subglacial-cavity` gives a sharp, **measured** answer. With the single
 dimensionless knob G = γ_clean·τ_adj (cleaning rate × pressure-adjustment transit), the
 constraint-violation residual after one transit collapses through a **finite window**:
 

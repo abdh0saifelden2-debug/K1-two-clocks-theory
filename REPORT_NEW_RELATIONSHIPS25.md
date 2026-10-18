@@ -1,7 +1,7 @@
 # New cross-relationship — NR48 (`general_two_clocks/new_relationships25.py`) — theory
 
 Continues the derived-and-verified program (NR1–NR47; see
-[`papers/CROSS_RELATIONSHIPS_INDEX.md`](../papers/CROSS_RELATIONSHIPS_INDEX.md)).
+`papers/CROSS_RELATIONSHIPS_INDEX.md`).
 CPU-only, offline-safe — the synthetic checks are self-contained, and the
 real-data reads come from the committed cache
 [`data/nr48_minphase_cache.json`](data/nr48_minphase_cache.json)

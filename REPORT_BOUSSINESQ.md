@@ -37,8 +37,8 @@ A 2D pedagogical demonstration of how the projection method *is* the two-clocks 
 
 ## Figures
 
-![22_boussinesq_convection](22_boussinesq_convection.png)
+![22_boussinesq_convection](figures/22_boussinesq_convection.png)
 
-![23_projection_step](23_projection_step.png)
+![23_projection_step](figures/23_projection_step.png)
 
-![24_spde_limit](24_spde_limit.png)
+![24_spde_limit](figures/24_spde_limit.png)

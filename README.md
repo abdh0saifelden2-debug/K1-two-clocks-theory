@@ -197,7 +197,7 @@ elliptic field. They cannot be modelled as one coupled scalar.**
   diffusivity, `F = −κ(x)∇C` with `κ ≥ 0` (scalar or PSD tensor), has `F·∇C ≤ 0`
   *pointwise*, so the alignment `C_G = ⟨F·∇C⟩/⟨|F||∇C|⟩` is pinned at `−1` — it
   **cannot** represent the counter-gradient flux (`C_G > −1`) measured in RESULT 11
-  ([`../K2-subglacial-cavity/REPORT_CG_BUOYANCY.md`](../K2-subglacial-cavity/REPORT_CG_BUOYANCY.md)). The
+  ([`REPORT_CG_BUOYANCY.md`](https://github.com/abdh0saifelden2-debug/K2-subglacial-cavity/blob/792cbed31b3677bad51f1cfe4473405e5e877978/REPORT_CG_BUOYANCY.md) in `K2-subglacial-cavity`). The
   correction is a scale-dependent (nonlocal) eddy diffusivity `κ̂(k)` —
   `F̂ = −κ̂(k)(ik)Ĉ` — that admits backscatter (`κ̂ < 0` in a band); it reproduces the
   counter-gradient truth exactly while reducing to local Fick when `κ̂` is constant
@@ -283,7 +283,8 @@ The pristine monorepo was snapshotted **before** any edit:
 (`K-monorepo-archive.sha256`). The cross-repo claim ledger (`FUTURE_WORK.md`)
 and paper outline are deliberately **not** copied here — they live only in that
 archive. [`AUDIT.md`](AUDIT.md) records the full split audit: every vendored
-file, every edit, and the AST verification result.
+file, every edit, and the AST verification result (reproduce it with
+[`K-audit` v1.0](https://github.com/abdh0saifelden2-debug/K-audit/tree/v1.0)).
 
 ## TODO (future)
 - (8) Lean on surrogate skeleton (statements first, proofs second, finite-dimensional only)

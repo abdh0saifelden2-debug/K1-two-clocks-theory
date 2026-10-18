@@ -1,7 +1,7 @@
 # New cross-relationship — NR56 (`general_two_clocks/new_relationships33.py`) — theory + real data
 
 Continues the derived-and-verified program (NR1–NR55; see
-[`papers/CROSS_RELATIONSHIPS_INDEX.md`](../papers/CROSS_RELATIONSHIPS_INDEX.md)).
+`papers/CROSS_RELATIONSHIPS_INDEX.md`).
 CPU-only, offline-safe — the real reads come from the committed cache
 [`data/nr56_stokes_cache.json`](data/nr56_stokes_cache.json)
 (8280 ANDRO deep floats: per-float zero-lag Q, U and lag-1 V; regenerate

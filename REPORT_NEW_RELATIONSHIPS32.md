@@ -1,7 +1,7 @@
 # New cross-relationship — NR55 (`general_two_clocks/new_relationships32.py`) — theory capstone
 
 Closes the NR47–NR54 arc (see
-[`papers/CROSS_RELATIONSHIPS_INDEX.md`](../papers/CROSS_RELATIONSHIPS_INDEX.md)).
+`papers/CROSS_RELATIONSHIPS_INDEX.md`).
 CPU-only, offline-safe — reads only the committed NR47–NR54 figure
 artifacts. Unit-proofs in
 [`tests/test_response_anatomy.py`](tests/test_response_anatomy.py) (8 tests).

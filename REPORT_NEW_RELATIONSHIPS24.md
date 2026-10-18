@@ -1,7 +1,7 @@
 # New cross-relationship — NR47 (`general_two_clocks/new_relationships24.py`) — theory capstone
 
 Continues the derived-and-verified program (NR1–NR46; see
-[`papers/CROSS_RELATIONSHIPS_INDEX.md`](../papers/CROSS_RELATIONSHIPS_INDEX.md)).
+`papers/CROSS_RELATIONSHIPS_INDEX.md`).
 CPU-only, offline-safe — the closed-form invariant is self-contained, and the
 real-data reads come from the committed cache
 [`data/nr47_memory_phase_cache.json`](data/nr47_memory_phase_cache.json)

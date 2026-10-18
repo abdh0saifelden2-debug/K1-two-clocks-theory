@@ -1,7 +1,7 @@
 # New cross-relationship — NR45 (`general_two_clocks/new_relationships22.py`) — real-data (ledger E11)
 
 Continues the derived-and-verified program (NR1–NR44; see
-[`papers/CROSS_RELATIONSHIPS_INDEX.md`](../papers/CROSS_RELATIONSHIPS_INDEX.md)).
+`papers/CROSS_RELATIONSHIPS_INDEX.md`).
 CPU-only; offline-safe — every number re-derives from the committed per-float
 accumulator cache [`data/nr45_andro_gser_cache.json`](data/nr45_andro_gser_cache.json)
 (964 KB; the raw 0.5 GB ANDRO deposit is *not* committed — set

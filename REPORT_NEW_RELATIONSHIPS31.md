@@ -1,7 +1,7 @@
 # New cross-relationship — NR54 (`general_two_clocks/new_relationships31.py`) — theory + real data
 
 Continues the derived-and-verified program (NR1–NR53; see
-[`papers/CROSS_RELATIONSHIPS_INDEX.md`](../papers/CROSS_RELATIONSHIPS_INDEX.md)).
+`papers/CROSS_RELATIONSHIPS_INDEX.md`).
 CPU-only, offline-safe — the real reads come from the committed cache
 [`data/nr54_spin_drift_cache.json`](data/nr54_spin_drift_cache.json)
 (8275 ANDRO deep floats: per-float spin, atlas-residual drift, latitude;

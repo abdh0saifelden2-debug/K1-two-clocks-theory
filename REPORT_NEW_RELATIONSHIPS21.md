@@ -1,7 +1,7 @@
 # New cross-relationship — NR44 (`general_two_clocks/new_relationships21.py`) — literature-data (ledger E8)
 
 Continues the derived-and-verified program (NR1–NR43; see
-[`papers/CROSS_RELATIONSHIPS_INDEX.md`](../papers/CROSS_RELATIONSHIPS_INDEX.md)).
+`papers/CROSS_RELATIONSHIPS_INDEX.md`).
 CPU-only, no downloads (all inputs are published-table transcriptions);
 unit-proofs in [`tests/test_bl_bedform_table.py`](tests/test_bl_bedform_table.py)
 (11 tests).

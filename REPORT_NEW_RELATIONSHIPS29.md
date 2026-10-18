@@ -1,7 +1,7 @@
 # New cross-relationship — NR52 (`general_two_clocks/new_relationships29.py`) — theory + real data
 
 Continues the derived-and-verified program (NR1–NR51; see
-[`papers/CROSS_RELATIONSHIPS_INDEX.md`](../papers/CROSS_RELATIONSHIPS_INDEX.md)).
+`papers/CROSS_RELATIONSHIPS_INDEX.md`).
 CPU-only, offline-safe — the real reads come from the committed cache
 [`data/nr52_odd_spin_cache.json`](data/nr52_odd_spin_cache.json)
 (7258 ANDRO deep floats, 700–1300 dbar, 10-day cycles; regenerate with

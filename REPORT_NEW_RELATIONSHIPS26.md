@@ -1,11 +1,11 @@
 # New cross-relationship — NR49 (`general_two_clocks/new_relationships26.py`) — theory
 
 Continues the derived-and-verified program (NR1–NR48; see
-[`papers/CROSS_RELATIONSHIPS_INDEX.md`](../papers/CROSS_RELATIONSHIPS_INDEX.md)).
+`papers/CROSS_RELATIONSHIPS_INDEX.md`).
 CPU-only, offline-safe — the real reads are the committed Bushuk `.mat`
-([`glaciers/subglacial/data/bushuk/melt_data_timestring_sub2.mat`](../glaciers/subglacial/data/bushuk/melt_data_timestring_sub2.mat),
+([`glaciers/subglacial/data/bushuk/melt_data_timestring_sub2.mat`](glaciers/subglacial/data/bushuk/melt_data_timestring_sub2.mat),
 12 frames, Δt = 300 s) and the committed tracker cache
-([`glaciers/subglacial/data/bushuk_raw_derived.json`](../glaciers/subglacial/data/bushuk_raw_derived.json)).
+([`glaciers/subglacial/data/bushuk_raw_derived.json`](glaciers/subglacial/data/bushuk_raw_derived.json)).
 Unit-proofs in
 [`tests/test_dispersion_boost.py`](tests/test_dispersion_boost.py) (13 tests).
 

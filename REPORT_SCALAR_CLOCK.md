@@ -16,7 +16,7 @@ sees is `K_φ = K_u/Sc_t^(φ)`, and the turbulent Prandtl/Schmidt number only
 the turbulence, identical across scalars — not a property of the individual scalar.
  
 This is **falsifiable** in the double-diffusion solver
-(`../glaciers/subglacial/candidate2_doublediff.py`), which advects two buoyancy-active scalars
+(`subglacial/candidate2_doublediff.py`; the double-diffusion *runs* live in `K5-ocean-probes`), which advects two buoyancy-active scalars
 with the *same* velocity field but a 100× molecular-diffusivity contrast:
  
 - temperature `θ`, diffusivity `κ_T`;

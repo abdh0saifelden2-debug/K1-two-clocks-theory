@@ -1,7 +1,7 @@
 # New cross-relationship — NR50 (`general_two_clocks/new_relationships27.py`) — theory
 
 Continues the derived-and-verified program (NR1–NR49; see
-[`papers/CROSS_RELATIONSHIPS_INDEX.md`](../papers/CROSS_RELATIONSHIPS_INDEX.md)).
+`papers/CROSS_RELATIONSHIPS_INDEX.md`).
 CPU-only, offline-safe — the real-data reads come from the committed NR48
 cache [`data/nr48_minphase_cache.json`](data/nr48_minphase_cache.json)
 (ocean GSER from NR45's ANDRO analysis; BiSON × GOLF delay pair from NR46's

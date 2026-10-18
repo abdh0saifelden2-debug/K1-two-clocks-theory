@@ -1,7 +1,7 @@
 # New cross-relationship — NR42 (`general_two_clocks/new_relationships19.py`) — ledger E9
 
 Continues the derived-and-verified program (NR1–NR41; see
-[`papers/CROSS_RELATIONSHIPS_INDEX.md`](../papers/CROSS_RELATIONSHIPS_INDEX.md)).
+`papers/CROSS_RELATIONSHIPS_INDEX.md`).
 CPU-only; unit-proofs in
 [`tests/test_new_relationships19.py`](tests/test_new_relationships19.py) (10 tests).
 Run:

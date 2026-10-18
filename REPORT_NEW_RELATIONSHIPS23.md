@@ -1,7 +1,7 @@
 # New cross-relationship — NR46 (`general_two_clocks/new_relationships23.py`) — real-data (ledger E12)
 
 Continues the derived-and-verified program (NR1–NR45; see
-[`papers/CROSS_RELATIONSHIPS_INDEX.md`](../papers/CROSS_RELATIONSHIPS_INDEX.md)).
+`papers/CROSS_RELATIONSHIPS_INDEX.md`).
 CPU-only; offline-safe — every number re-derives from the committed 34 KB
 aggregate cache [`data/nr46_solar_cache.json`](data/nr46_solar_cache.json)
 (raw archives are the public SOHO mission-long bundles + BiSON open-data

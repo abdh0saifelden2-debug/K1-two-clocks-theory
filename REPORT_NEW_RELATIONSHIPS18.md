@@ -1,7 +1,14 @@
 # New cross-relationship — NR41 (`general_two_clocks/new_relationships18.py`) — the theory pass
 
 Continues the derived-and-verified program (NR1–NR40; see
-[`papers/CROSS_RELATIONSHIPS_INDEX.md`](../papers/CROSS_RELATIONSHIPS_INDEX.md)).
+`papers/CROSS_RELATIONSHIPS_INDEX.md`).
+
+> **Relocation (split-repo release):** the NR33–NR35 chains referenced here now
+> live in [`K2-subglacial-cavity`](https://github.com/abdh0saifelden2-debug/K2-subglacial-cavity/tree/792cbed31b3677bad51f1cfe4473405e5e877978)
+> (reports [`NR33`](https://github.com/abdh0saifelden2-debug/K2-subglacial-cavity/blob/792cbed31b3677bad51f1cfe4473405e5e877978/REPORT_NEW_RELATIONSHIPS10.md),
+> [`NR34`](https://github.com/abdh0saifelden2-debug/K2-subglacial-cavity/blob/792cbed31b3677bad51f1cfe4473405e5e877978/REPORT_NEW_RELATIONSHIPS11.md),
+> [`NR35`](https://github.com/abdh0saifelden2-debug/K2-subglacial-cavity/blob/792cbed31b3677bad51f1cfe4473405e5e877978/REPORT_NEW_RELATIONSHIPS12.md)).
+
 CPU-only; unit-proofs in
 [`tests/test_new_relationships18.py`](tests/test_new_relationships18.py) (7 tests).
 Run:

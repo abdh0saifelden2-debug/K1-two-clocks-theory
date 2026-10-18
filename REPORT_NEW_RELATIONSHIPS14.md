@@ -1,7 +1,7 @@
 # New cross-relationship — NR37 (`general_two_clocks/new_relationships14.py`)
 
 Continues the derived-and-verified program (NR1–NR36; see
-[`papers/CROSS_RELATIONSHIPS_INDEX.md`](../papers/CROSS_RELATIONSHIPS_INDEX.md)).
+`papers/CROSS_RELATIONSHIPS_INDEX.md`).
 CPU-only; unit-proofs in
 [`tests/test_new_relationships14.py`](tests/test_new_relationships14.py) (9 tests).
 Run:
