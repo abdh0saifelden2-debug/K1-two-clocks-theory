@@ -277,7 +277,7 @@ Split out of the **K** monorepo, partitioned by claim cluster:
 
 The pristine monorepo was snapshotted **before** any edit:
 `K-monorepo-archive.tar.gz`, SHA-256
-`3c30c68b4d4287787af00539b2cbe75a47dc0536491ec0d1b17a0f61d80b5304`
+`ef637ff55f912a5d1404f677429f9429eccc8102a8cab23cee79cf055bbf1220`
 (`K-monorepo-archive.sha256`). The cross-repo claim ledger (`FUTURE_WORK.md`)
 and paper outline are deliberately **not** copied here — they live only in that
 archive. [`AUDIT.md`](AUDIT.md) records the full split audit: every vendored

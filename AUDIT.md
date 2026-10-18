@@ -95,4 +95,4 @@ OK K1-two-clocks-theory: no external edges
 
 ## Provenance
 
-Pristine snapshot taken **before** any edit: `K-monorepo-archive.tar.gz` (SHA-256 `3c30c68b4d4287787af00539b2cbe75a47dc0536491ec0d1b17a0f61d80b5304`). `FUTURE_WORK.md` / `PAPER_OUTLINE.md` were deliberately left in the archive.
+Pristine snapshot taken **before** any edit: `K-monorepo-archive.tar.gz` (SHA-256 recorded in [`README.md`](README.md) and `K-monorepo-archive.sha256`). `FUTURE_WORK.md` / `PAPER_OUTLINE.md` were deliberately left in the archive.
