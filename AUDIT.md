@@ -17,6 +17,8 @@ Source: `general_two_clocks/**` (theory + closure + observations + its 81-test s
 | modified (see *Edits*) | 3 |
 | new (not in the monorepo) | 1 |
 
+The counts above are the split-time classification. The link fixes applied after the split (listed under *Edits*) change the byte-identity of additional report files but not the traced/new composition.
+
 Source directories, by file count:
 
 - `general_two_clocks/` — 173
