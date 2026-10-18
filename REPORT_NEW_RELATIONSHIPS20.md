@@ -1,7 +1,7 @@
 # New cross-relationship — NR43 (`general_two_clocks/new_relationships20.py`) — real-data (ICESat-2)
 
 Continues the derived-and-verified program (NR1–NR42; see
-[`papers/CROSS_RELATIONSHIPS_INDEX.md`](../papers/CROSS_RELATIONSHIPS_INDEX.md)).
+`papers/CROSS_RELATIONSHIPS_INDEX.md`).
 CPU-only; unit-proofs in
 [`tests/test_new_relationships20.py`](tests/test_new_relationships20.py) (7 tests).
 Offline-safe: the analysis + tests read the committed derived cache

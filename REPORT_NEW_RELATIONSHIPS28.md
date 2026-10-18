@@ -1,10 +1,10 @@
 # New cross-relationship — NR51 (`general_two_clocks/new_relationships28.py`) — theory
 
 Continues the derived-and-verified program (NR1–NR50; see
-[`papers/CROSS_RELATIONSHIPS_INDEX.md`](../papers/CROSS_RELATIONSHIPS_INDEX.md)).
+`papers/CROSS_RELATIONSHIPS_INDEX.md`).
 CPU-only, offline-safe — the real reads are the committed Bushuk `.mat`
 (12 frames) and the committed Paper-3 flux cache
-([`glaciers/subglacial/data/bushuk_raw_derived.json`](../glaciers/subglacial/data/bushuk_raw_derived.json)).
+([`glaciers/subglacial/data/bushuk_raw_derived.json`](glaciers/subglacial/data/bushuk_raw_derived.json)).
 Unit-proofs in [`tests/test_triad_parity.py`](tests/test_triad_parity.py)
 (15 tests).
 

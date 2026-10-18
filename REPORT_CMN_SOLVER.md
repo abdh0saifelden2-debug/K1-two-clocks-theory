@@ -13,7 +13,7 @@ null in steady state* — the §H.3 forecast, which was previously flagged
 
 - **Identity [DERIVED, exact]:** `[∂_t, D]θ = ∇·((∂_t K_u)∇θ)`, with
   `D[θ] = ∇·(K_u ∇θ)`. Verified numerically (identity, steady null, linearity,
-  dimensional signature) by `../glaciers/validation/synthetic/cmn_synthetic.py`.
+  dimensional signature) by [`cmn_synthetic.py`](https://github.com/abdh0saifelden2-debug/K2-subglacial-cavity/blob/792cbed31b3677bad51f1cfe4473405e5e877978/validation/synthetic/cmn_synthetic.py) in `K2-subglacial-cavity`.
 - **Coefficient [DERIVED + MEASURED]:** dimensional analysis forces `CMN ≡ τ_c`
   (a time, not an `O(1)` constant); `τ_c` is measured `≈0.02–0.03` with
   `sign(τ_c)=+` (RESULT 12, `gle_coefficients.py`).

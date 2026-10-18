@@ -1,7 +1,7 @@
 # New cross-relationship — NR26 (`general_two_clocks/new_relationships3.py`)
 
 Continues the derived-and-verified program (NR1–NR25; see
-[`papers/CROSS_RELATIONSHIPS_INDEX.md`](../papers/CROSS_RELATIONSHIPS_INDEX.md)).
+`papers/CROSS_RELATIONSHIPS_INDEX.md`).
 CPU-only, deterministic; unit-proofs in
 [`tests/test_new_relationships3.py`](tests/test_new_relationships3.py). Run:
 

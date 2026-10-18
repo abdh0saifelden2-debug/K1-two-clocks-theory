@@ -1,7 +1,7 @@
 # New cross-relationship — NR53 (`general_two_clocks/new_relationships30.py`) — theory + real data
 
 Continues the derived-and-verified program (NR1–NR52; see
-[`papers/CROSS_RELATIONSHIPS_INDEX.md`](../papers/CROSS_RELATIONSHIPS_INDEX.md)).
+`papers/CROSS_RELATIONSHIPS_INDEX.md`).
 CPU-only, offline-safe — the real reads come from the committed cache
 [`data/nr53_spin_bands_cache.json`](data/nr53_spin_bands_cache.json)
 (11 latitude bands of the NR52 per-float spin accumulators; ANDRO deep

@@ -1,7 +1,7 @@
 # New cross-relationship — NR57 (`general_two_clocks/new_relationships34.py`) — theory + real data
 
 Continues the derived-and-verified program (NR1–NR56; see
-[`papers/CROSS_RELATIONSHIPS_INDEX.md`](../papers/CROSS_RELATIONSHIPS_INDEX.md)).
+`papers/CROSS_RELATIONSHIPS_INDEX.md`).
 CPU-only, offline-safe — the real spin comes from the committed NR52 cache
 [`data/nr52_odd_spin_cache.json`](data/nr52_odd_spin_cache.json).
 Unit-proofs in

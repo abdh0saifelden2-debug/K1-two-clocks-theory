@@ -1,7 +1,7 @@
 # New cross-relationship — NR59 (`general_two_clocks/new_relationships36.py`) — theory + real data
 
 Continues the derived-and-verified program (NR1–NR58; see
-[`papers/CROSS_RELATIONSHIPS_INDEX.md`](../papers/CROSS_RELATIONSHIPS_INDEX.md)).
+`papers/CROSS_RELATIONSHIPS_INDEX.md`).
 CPU-only, offline-safe — the real integrals come from the committed NR52
 band cache
 [`data/nr52_odd_spin_cache.json`](data/nr52_odd_spin_cache.json).

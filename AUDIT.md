@@ -1,12 +1,12 @@
 # Split audit — K1-two-clocks-theory
 
-How this repository was carved out of the pristine **K** monorepo. Regenerate the classification with `python3 K-audit/classify.py K1-two-clocks-theory` and re-check the import graph with `python3 K-audit/verify_repo.py K1-two-clocks-theory`.
+How this repository was carved out of the pristine **K** monorepo. Regenerate the classification with [`K-audit` v1.0](https://github.com/abdh0saifelden2-debug/K-audit/tree/v1.0) — `python3 classify.py --mono K K1-two-clocks-theory` — and re-check the import graph with `python3 verify_repo.py --mono K K1-two-clocks-theory` (both run from a clone of `K-audit` against a clone of the monorepo).
 
 ## Claim cluster
 
 the observation, the two-clocks theory, and the closure benchmarks.
 
-Source: `general_two_clocks/**` (theory + closure + observations + its 81-test suite, minus 3 excluded) plus six files vendored from `glaciers/**` that the theory cluster imports.
+Source: `general_two_clocks/**` (theory + closure + observations + its 81-test suite, minus 3 relocated to K2) plus six files vendored from `glaciers/**` that the theory cluster imports.
 
 ## Composition
 
@@ -69,25 +69,28 @@ Copied byte-for-byte from the monorepo paths below (this is what makes the repo 
 - `README.md` — rewritten to stand alone: no `../` links into sibling monorepo folders, run commands given from the repo root, and a Provenance section pointing at the archive.
 - `pyproject.toml` — rewritten for this repo: `testpaths`/`pythonpath` scoped to this repo instead of all five monorepo domains, and the dependency list trimmed to the libraries this claim cluster imports.
 - `requirements.txt` — rewritten for this repo: `testpaths`/`pythonpath` scoped to this repo instead of all five monorepo domains, and the dependency list trimmed to the libraries this claim cluster imports.
+- Link fixes after the split: the `../papers/CROSS_RELATIONSHIPS_INDEX.md` links in 31 reports were un-linked (the text stays; the index is archive-only); the Bushuk links in `REPORT_NEW_RELATIONSHIPS26/28.md` now target the repo-local `glaciers/` copies; `REPORT_RB_RA_SWEEP.md` and `REPORT_BOUSSINESQ.md` bare figure names now point at `figures/`; `REPORT_SCALAR_CLOCK.md` points at the repo-local `subglacial/candidate2_doublediff.py`; `REPORT_CMN_SOLVER.md` and `REPORT_CLOSURE.md` link the K2-owned modules at their merge-commit permalinks.
+- `REPORT_NEW_RELATIONSHIPS15.md`, `REPORT_NEW_RELATIONSHIPS18.md`, `REPORT_NEW_RELATIONSHIPS35.md` — relocation notes added, pointing NR33–NR35 at `K2-subglacial-cavity` at merge commit `792cbed`.
 
 ## Runtime note
 
 - `new_relationships26.py` (NR49) and `new_relationships28.py` (NR51) read the author-provided Bushuk adjustment arrays from a path that is **not committed to the monorepo either** — they are unchanged by the split and have no tests.
 
-## Excluded files
+## Relocated to K2
 
 - `new_relationships10.py`, `new_relationships11.py`, `new_relationships12.py`
 - `REPORT_NEW_RELATIONSHIPS10.md`, `REPORT_NEW_RELATIONSHIPS11.md`, `REPORT_NEW_RELATIONSHIPS12.md`
 - `tests/test_new_relationships10.py`, `tests/test_new_relationships11.py`, `tests/test_new_relationships12.py`
-- — these three claim chains load `../glaciers/validation/**` figures and reports that belong to the K2 validation cluster (they have no other cross-cluster dependency, so removing them is a clean cut).
+- plus their `figures/nr3{3,4,5}_*` artifacts.
+- — these three claim chains load `../glaciers/validation/**` figures and reports that belong to the K2 validation cluster, and the paper chain depends on their numbers (paper4a §6.4), so they now live in [`K2-subglacial-cavity`](https://github.com/abdh0saifelden2-debug/K2-subglacial-cavity/tree/792cbed31b3677bad51f1cfe4473405e5e877978) (merged at `792cbed`); K2's `AUDIT.md` records the relocation.
 
 ## Test-suite accounting
 
-`tests/` carries **78 test files** (general_two_clocks/tests (81) − 3 excluded); the whole monorepo has 136 test files across the five repos (78+36+15+2+2 = 133, plus the 3 excluded in K1).
+`tests/` carries **78 test files** (general_two_clocks/tests (81) − 3 relocated to K2); the whole monorepo has 136 test files across the five repos (78+39+15+2+2 = 136).
 
 ## Verification
 
-`K-audit/verify_repo.py` walks the **AST import graph** of every Python file in this repo, expands each unqualified import against every `sys.path` root the file would actually see, and reports any import that resolves only outside the repository. Result:
+[`K-audit`](https://github.com/abdh0saifelden2-debug/K-audit/tree/v1.0) `verify_repo.py` walks the **AST import graph** of every Python file in this repo, expands each unqualified import against every `sys.path` root the file would actually see, and reports any import that resolves only outside the repository. Result:
 
 ```
 OK K1-two-clocks-theory: no external edges
@@ -95,4 +98,4 @@ OK K1-two-clocks-theory: no external edges
 
 ## Provenance
 
-Pristine snapshot taken **before** any edit: `K-monorepo-archive.tar.gz` (SHA-256 recorded in [`README.md`](README.md) and `K-monorepo-archive.sha256`). `FUTURE_WORK.md` / `PAPER_OUTLINE.md` were deliberately left in the archive.
+Pristine snapshot taken **before** any edit: `K-monorepo-archive.tar.gz`, SHA-256 `ef637ff55f912a5d1404f677429f9429eccc8102a8cab23cee79cf055bbf1220` (also recorded in [`README.md`](README.md) and `K-monorepo-archive.sha256`). The archive is and remains the **frozen pre-edit reference** — no split or relocation edit is ever applied to it. `FUTURE_WORK.md` / `PAPER_OUTLINE.md` were deliberately left in the archive.
