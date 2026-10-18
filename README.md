@@ -174,7 +174,9 @@ elliptic field. They cannot be modelled as one coupled scalar.**
   fraction of **0.480** that Smagorinsky's positive eddy viscosity cannot
   represent (**0.000**) — are the structural features through which the
   recently-proved singularity mechanism operates; the benchmark measures the
-  diagnostics, not regularity. [`REPORT_CLOSURE3D.md`](REPORT_CLOSURE3D.md),
+  diagnostics, not regularity. The `0.480` is the fraction of points with
+  `Π<0` (the Gaussian-law form `Φ(−μ/σ)`); the 4.9% figure is the separate ratio
+  `μ/σ`, not a fraction of injection. [`REPORT_CLOSURE3D.md`](REPORT_CLOSURE3D.md),
   `figures/61–64` (`run_closure3d.py`).
 - **RESULT 12 [MEASURED]** — the memory coefficient is real: `τ_c ≈ 0.02–0.03`,
   sign **+**, measured from the SGS eddy-diffusivity autocorrelation; bath weights
