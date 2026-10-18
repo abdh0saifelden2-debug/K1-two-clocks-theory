@@ -61,6 +61,8 @@ The three diagnostics confirm the prediction from REPORT_THEORY.md §7:
 2. The spectrum-matched surrogate has E_m(k) correct but fails divergence and transfer — "energy yes, structure no" (Fig 24 of Part 6, promoted to a closure test).
 3. The projected-FDT model passes all three: correct spectrum, solenoidal, and the right transfer including backscatter — "energy AND structure."
 
+**Sharpened PFD clause.** The match is certified before projection; the Leray projection (anisotropic symbol `I − kkᵀ/|k|²`) is exactly the operation that breaks per-mode matching.
+
 This is the concrete demonstration that the MZ/FDT/projected closure repairs the exact
 deficiencies of single-K closure that Parts 1–7 isolated.
 

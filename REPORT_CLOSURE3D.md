@@ -80,7 +80,9 @@ necessary, not merely "2D with an extra index":
 The 2D Part-9b verdicts survive verbatim in 3D: Smagorinsky is purely dissipative
 (zero backscatter volume), the spectrum-matched surrogate has the right energy but
 breaks solenoidality, and the projected-FDT closure passes spectrum + divergence +
-transfer.  Crucially, the **3D-only** physics -- positive vortex-stretching production,
+transfer.  **Sharpened PFD clause.** The match is certified before projection; the
+Leray projection (anisotropic symbol `I − kkᵀ/|k|²`) is exactly the operation that
+breaks per-mode matching.  Crucially, the **3D-only** physics -- positive vortex-stretching production,
 the intermediate-eigenvector alignment, and the ~1/2 backscatter volume fraction --
 exposes a K-theory failure that the 2D test *structurally cannot see*: a positive-
 definite eddy viscosity cannot represent local backscatter, which in 3D is not a

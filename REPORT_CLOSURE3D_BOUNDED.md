@@ -36,6 +36,12 @@ gradient and (squared) the Laplacian, so the discrete Hodge projection is exact.
 The naive periodic projector -- the operator that is exact in a box -- leaves an
 order-one wall-normal velocity on the walls. The wall-aware projector does not.
 
+*Post-gauge-fix re-run (commit `7209ba1`, which pins every packed `k²=0` mode in the
+wall-normal Poisson solve): every headline number in this report is unchanged
+(`0.513`, `3.06e-16`, `0.0226`, `7.4e+13`, `34x`); only the machine-precision
+residuals above move in the last digit (re-run values: `8.42e-15`, `6.87e-15`,
+`5.78e-15`). The conclusions do not depend on the gauge choice.*
+
 ## Result 2 -- the filter and the projector STOP commuting at the wall
 
 | `|| [F,P] w || / || w ||` | value |

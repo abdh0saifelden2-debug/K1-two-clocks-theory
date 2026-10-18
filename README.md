@@ -164,6 +164,18 @@ elliptic field. They cannot be modelled as one coupled scalar.**
   (no backscatter), spectral cusp. Projected-FDT: correlation **1.000**, solenoidal
   by construction, correct forward/backscatter partition — "energy AND structure".
   [`REPORT_CLOSURE.md`](REPORT_CLOSURE.md), `figures/28–30` (`run_closure.py`).
+- **The same verdicts in 3D, with vortex stretching active [VERIFIED]** — Part 9c
+  re-runs the identical benchmark in a 128³ forced incompressible DNS (convergence-
+  checked at 128–192³): Smagorinsky stays purely dissipative, the spectrum-matched
+  surrogate keeps the right energy but breaks solenoidality, and projected-FDT
+  matches spectrum + divergence + transfer. The 3D-only diagnostics — positive
+  stretching production (`⟨ωSω⟩* = 0.168`, identically `0.000` in 2D),
+  intermediate-eigenvector alignment (`e₂ ≈ 0.65`), and a backscatter volume
+  fraction of **0.480** that Smagorinsky's positive eddy viscosity cannot
+  represent (**0.000**) — are the structural features through which the
+  recently-proved singularity mechanism operates; the benchmark measures the
+  diagnostics, not regularity. [`REPORT_CLOSURE3D.md`](REPORT_CLOSURE3D.md),
+  `figures/61–64` (`run_closure3d.py`).
 - **RESULT 12 [MEASURED]** — the memory coefficient is real: `τ_c ≈ 0.02–0.03`,
   sign **+**, measured from the SGS eddy-diffusivity autocorrelation; bath weights
   closed (slow:fast = Stefan number). [`REPORT_GLE_COEFFICIENTS.md`](REPORT_GLE_COEFFICIENTS.md),
@@ -237,6 +249,19 @@ and the benchmark library `closure/{dns2d,dns3d,sgs,sgs3d,spectral3d}.py` — th
 finite-dimensional form. Numerical solver tolerances and iterative-convergence
 claims are excluded: a Lean statement fixes the discretization and reasons about
 *that*, not about how close an iterative solve got.
+
+The formalization is frozen at commit `249e357`; the citable summary is:
+
+> *The spectral bookkeeping of the pre-projection surrogate — DFT inversion,
+> Hermitian reality, per-mode amplitude and phase identity, finite Parseval, and
+> bin/multiplier invariance — is machine-verified in Lean 4 against mathlib
+> (finite-dimensional discrete setting, exact arithmetic; frozen statement and
+> line-by-line audit at
+> [`Parseval.lean`](https://github.com/abdh0saifelden2-debug/K1-lean/blob/249e357959a859e2995cc5bc86d6b193a649d72f/Src/K1Lean/Parseval.lean),
+> audit document at
+> [`STATEMENT_MATCH.md`](https://github.com/abdh0saifelden2-debug/K1-lean/blob/249e357959a859e2995cc5bc86d6b193a649d72f/STATEMENT_MATCH.md)).
+> The divergence/geometry failure of spectrum-matching (E5) is empirical and
+> outside the formalized scope.*
 
 ## Provenance
 
