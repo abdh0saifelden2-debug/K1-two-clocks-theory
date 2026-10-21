@@ -1,0 +1,53 @@
+name: Paper
+
+on:
+  push:
+    branches: [ main ]
+    tags: [ 'paper0-v*' ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-paper:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install XeLaTeX
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            texlive-xetex texlive-latex-extra texlive-fonts-recommended \
+            fonts-lmodern fonts-dejavu-core
+      - name: Build paper
+        run: |
+          xelatex -interaction=nonstopmode -halt-on-error -file-line-error paper0_two_clocks.tex
+          xelatex -interaction=nonstopmode -halt-on-error -file-line-error paper0_two_clocks.tex
+      - name: Check PDF
+        run: test -s paper0_two_clocks.pdf
+      - uses: actions/upload-artifact@v4
+        with:
+          name: paper0-two-clocks-pdf
+          path: paper0_two_clocks.pdf
+          if-no-files-found: error
+
+  release-paper:
+    if: startsWith(github.ref, 'refs/tags/paper0-v')
+    needs: build-paper
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: paper0-two-clocks-pdf
+      - name: Publish PDF
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          gh release create "$TAG" \
+            --repo "$GITHUB_REPOSITORY" \
+            --verify-tag \
+            --title "paper0 ${TAG#paper0-}" \
+            --notes "CI-built PDF for paper0 at $GITHUB_SHA." \
+            paper0_two_clocks.pdf

@@ -281,10 +281,19 @@ The pristine monorepo was snapshotted **before** any edit:
 `K-monorepo-archive.tar.gz`, SHA-256
 `ef637ff55f912a5d1404f677429f9429eccc8102a8cab23cee79cf055bbf1220`
 (`K-monorepo-archive.sha256`). The cross-repo claim ledger (`FUTURE_WORK.md`)
-and paper outline are deliberately **not** copied here — they live only in that
-archive. [`AUDIT.md`](AUDIT.md) records the full split audit: every vendored
-file, every edit, and the AST verification result (reproduce it with
+is deliberately **not** copied here — it lives only in that archive; the
+manuscript source and its build live at this repository's root.
+[`AUDIT.md`](AUDIT.md) records the full split audit: every vendored file, every
+edit, and the AST verification result (reproduce it with
 [`K-audit` v1.0](https://github.com/abdh0saifelden2-debug/K-audit/tree/v1.0)).
+
+## Manuscript
+
+`paper0_two_clocks.tex`, `preamble.sty`, and `figures/` are the
+`K1-two-clocks-theory` manuscript. Build it with `xelatex` twice from the
+repository root; CI does the same and attaches the PDF to `paper0-v*` releases.
+The formal claims in `sec:formal` are audited against `K1-lean` commit
+`553d5c2` (`STATEMENT_MATCH.md`).
 
 ## TODO (future)
 - (8) Lean on surrogate skeleton (statements first, proofs second, finite-dimensional only)
