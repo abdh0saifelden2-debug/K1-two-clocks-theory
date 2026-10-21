@@ -3,3 +3,10 @@ __pycache__/
 .pytest_cache/
 .venv/
 venv/
+*.aux
+*.log
+*.out
+*.toc
+*.fls
+*.fdb_latexmk
+*.synctex.gz
