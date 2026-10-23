@@ -1,6 +1,6 @@
 [
  {
-  "data_dir": "/home/data_neon_jan2020",
+  "data_dir": "NEON.D16.WREF.DP4.00200.001.nsae.2020-01.basic.20260115T205811Z.h5",
   "site": "WREF",
   "month": "2020-01",
   "n_intervals": 1488,
@@ -8,31 +8,31 @@
   "n_valid_temperature": 1180,
   "temp_diurnal_period_h": 23.635408852213054,
   "temp_semidiurnal_period_h": 12.065266316579145,
-  "temp_semi_over_diurnal_power": 0.07273211392160778,
+  "temp_semi_over_diurnal_power": 0.07273211392160779,
   "pres_diurnal_period_h": 23.158289572393098,
   "pres_semidiurnal_period_h": 12.184546136534134,
-  "pres_semi_over_diurnal_power": 0.2074917530977123,
+  "pres_semi_over_diurnal_power": 0.20749175309771256,
   "pres_dominant_period_h": 120.96774193548387,
   "temp_dominant_period_h": 60.49287321830458,
   "pearson_r": 0.07144161975083015,
-  "r_squared": 0.005103905032622206,
-  "slope_kpa_per_k": 0.014160731612531612,
+  "r_squared": 0.005103905032622216,
+  "slope_kpa_per_k": 0.01416073161253163,
   "gaslaw_slope_kpa_per_k": 0.3526768737654465,
   "transport_ratio_by_class": {
    "strongly unstable": 0.8680033215295158,
    "unstable": 2.1682518588183077,
-   "near-neutral": 3.3388360975586355,
-   "stable": 1.1201894832658759,
+   "near-neutral": 3.276794248108472,
+   "stable": 1.1274810723022466,
    "strongly stable": 0.7675018659249842
   },
   "class_counts": {
    "strongly unstable": 95,
    "unstable": 73,
-   "near-neutral": 122,
-   "stable": 152,
+   "near-neutral": 121,
+   "stable": 153,
    "strongly stable": 160
   },
-  "transport_ratio_swing": 4.350264469435146
+  "transport_ratio_swing": 4.269428380033081
  },
  {
   "data_dir": "/home/data_neon_jul2020",
