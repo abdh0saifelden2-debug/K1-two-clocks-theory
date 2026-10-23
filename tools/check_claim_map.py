@@ -218,11 +218,16 @@ def check_o6() -> None:
     for name, station in stations.items():
         require(station["coh_S2"] > station["coh_S2_surr95"],
                 f"{name}: 12 h coherence is no longer above its surrogate threshold")
-    for name in ("CAR", "DSM", "SEA"):
+    listed = re.search(r"CAR, DSM, and SEA \(([^)]*)\)", text)
+    require(listed is not None, "paper lacks the CAR/DSM/SEA 24 h coherence list")
+    printed = [float(value) for value in re.findall(r"0\.\d+", listed.group(1))]
+    require(len(printed) == 3, "paper CAR/DSM/SEA list does not have three values")
+    for name, paper_value in zip(("CAR", "DSM", "SEA"), printed):
         value = stations[name]["coh_S1"]
         require(value < stations[name]["coh_S1_surr95"],
                 f"{name}: 24 h coherence is no longer below its surrogate threshold")
-        require(f"{value:.3f}" in text, f"{name}: 24 h coherence value is not in the paper")
+        require(close(value, paper_value, 6e-4),
+                f"{name}: paper 24 h coherence {paper_value} != artifact {value}")
     for name, station in stations.items():
         if name in {"CAR", "DSM", "SEA"}:
             continue
