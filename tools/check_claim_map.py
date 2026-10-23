@@ -234,6 +234,53 @@ def check_o6() -> None:
         require(station["coh_S1"] > station["coh_S1_surr95"],
                 f"{name}: 24 h coherence is now below its surrogate threshold")
 
+    off = [station["coh_offline"] for station in artifact["stations"]]
+    off_surr = [station["coh_offline_surr95"] for station in artifact["stations"]]
+    require(f"{min(off):.2f}--{max(off):.2f}" == "0.09--0.30",
+            "off-line coherence range changed")
+    below = sum(value <= level for value, level in zip(off, off_surr))
+    require(below == 4, f"off-line coherence is at or below the surrogate level at {below}/8 stations")
+    require(max(value - level for value, level in zip(off, off_surr)) <= 0.12,
+            "off-line coherence exceeds the surrogate level by more than 0.12")
+    require("0.09--0.30: at or below the phase-randomized-surrogate 95\\% level "
+            "at four of eight stations, and within 0.12 of it at the rest." in text,
+            "paper lacks the verified off-line coherence sentence")
+    require("above the phase-randomized-surrogate 95\\% level at all eight stations" not in text,
+            "paper still claims off-line coherence is above the surrogate level everywhere")
+
+
+def check_fc2() -> None:
+    text = paper_text()
+    artifact = load_json(ROOT / "figures" / "24b_spde_common_phase.json")
+    common = artifact["checks"]["common_phase_cross_spectrum_preserving"]
+    require(artifact["n"] == 128, "F-C2 control resolution changed")
+    require(f"{common['div_star_rms']:.2e}" == "2.75e-02",
+            "F-C2 uncorrected divergence changed")
+    require(f"{common['div_surrogate_rms']:.2e}" == "3.66e-02",
+            "F-C2 common-phase divergence changed")
+    require(f"{common['surrogate_div_ratio']:.2f}" == "1.33",
+            "F-C2 common-phase ratio changed")
+    require(f"{common['cross_spectrum_rel_err']:.0e}" == "2e-16",
+            "F-C2 cross-spectrum error changed")
+    require(f"{artifact['div_proj_rms']:.1e}" == "2.2e-15",
+            "F-C2 projection error changed")
+    for phrase in ("2.75\\times10^{-2}", "3.66\\times10^{-2}",
+                   "\\sim2\\times10^{-16}", "2.2\\times10^{-15}",
+                   "1.33\\times"):
+        require(phrase in text, f"paper lacks the F-C2 value {phrase}")
+
+
+def check_disclosures() -> None:
+    text = paper_text()
+    require("not a clean all-level comparison" in text,
+            "paper lacks the Fig. 14 same-level qualification")
+    require("consistent with time-averaging acting" in text,
+            "Fig. 14 caption overclaims the low-pass comparison")
+    require("not a bandwidth-matched calibration" in text,
+            "paper lacks the channel-filter cutoff-units disclosure")
+    require("All figures and numerical results are regenerated from the analysis modules" in text,
+            "paper reproducibility sentence does not identify the analysis modules")
+
 
 def check_r3() -> None:
     text = paper_text()
@@ -250,6 +297,8 @@ def main() -> int:
     checks = [
         ("F-C15 stability table", check_fc15),
         ("O6 coherence", check_o6),
+        ("F-C2 common-phase control", check_fc2),
+        ("manuscript disclosures", check_disclosures),
         ("R3 cross-check", check_r3),
     ]
     failures = 0
