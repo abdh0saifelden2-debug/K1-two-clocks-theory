@@ -18,7 +18,8 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r requirements.txt || true
-        pip install pytest numpy scipy matplotlib
+        pip install -r requirements.txt
+    - name: Lint claim map
+      run: python tools/check_claim_map.py
     - name: Run tests
       run: python -m pytest -q --tb=short

@@ -9,7 +9,7 @@
 \begin{abstract}
 Weather and climate models rely on stochastic parameterizations to represent subgrid processes. A standard assumption in these schemes is that matching the energy spectrum---the variance on each wavenumber---captures the essential effect of unresolved dynamics. Operational models preserve the deterministic elliptic solve; the logic underlying spectrum-matched stochastic closures---if extended to pressure---fails catastrophically, as we demonstrate. The fast (elliptic) pressure correction in incompressible flows is a global, boundary-aware constraint; a spectrum-matched, phase-randomized surrogate with the identical power spectrum leaves the divergence essentially no better than applying no correction at all (ensemble median $3.7\times10^{-2}$ versus $2.7\times10^{-2}$ for the uncorrected drift), while the true projection reaches machine precision ($\sim2\times10^{-15}$). The surrogate test thus demonstrates that spectral equivalence is not dynamical equivalence for elliptic constraints: matching the power spectrum of an elliptic correction does not reproduce its action as a constraint. The finite-dimensional spectral bookkeeping, the pointwise-negation extent of the matched family, and the discrete divergence ledger of the Leray symbol are machine-verified in Lean~4 (Section~\ref{sec:formal}).
 
-We demonstrate the operator split driving this failure across five independent settings. In field data, temperature tracks local diurnal heating while pressure carries a planetary-scale semidiurnal tide. In Rayleigh--B\'enard direct numerical simulation, pressure and buoyancy share the integral scale but differ by a factor of 2.6--4.5 in Taylor microscale, the gap widening as the Rayleigh number rises. A controlled linear-acoustics solver shows the hyperbolic-to-elliptic crossover completing in a time $t_{90}\approx2.3L/c$, and a nonlinear compressible solver shows the fast-clock energy fraction scaling as $M^{2}$. NCEP/NCAR reanalysis finds the divergent (fast) wind carrying $\leq4\%$ of the kinetic energy, with a minimum at the classical level of non-divergence. Together these measurements confirm that the operator split is a robust, measurable property of real flows. The surrogate test then proves that spectrum-matching alone cannot reconstruct the elliptic geometry---a hard constraint that stochastic closures must respect. Scope is explicit: the central surrogate demonstration is two-dimensional and periodic; three-dimensional periodic DNS and a wall-bounded channel operator test confirm the same verdict beyond the box, but no 3-D regularity claim and no forecast-skill claim is made; the reanalysis is a model-assimilated confirmation at $l \leq 35$.
+We demonstrate the operator split driving this failure across five independent settings. In field data, temperature tracks local diurnal heating while pressure carries a planetary-scale semidiurnal tide. In Rayleigh--B\'enard direct numerical simulation, pressure and buoyancy share the integral scale but differ by a factor of 2.6--4.5 in Taylor microscale, the gap widening as the Rayleigh number rises. A controlled linear-acoustics solver shows the hyperbolic-to-elliptic crossover completing in a time $t_{90}\approx2.3L/c$ under a fixed damping-per-crossing convention, and a nonlinear compressible solver shows the fast-clock energy fraction scaling as $M^{2}$. NCEP/NCAR reanalysis finds the divergent (fast) wind carrying $\leq4\%$ of the kinetic energy, with a minimum at the classical level of non-divergence. Together these measurements confirm that the operator split is a robust, measurable property of real flows. The surrogate test then proves that spectrum-matching alone cannot reconstruct the elliptic geometry---a hard constraint that stochastic closures must respect. Scope is explicit: the central surrogate demonstration is two-dimensional and periodic; three-dimensional periodic DNS and a wall-bounded channel operator test confirm the same verdict beyond the box, but no 3-D regularity claim and no forecast-skill claim is made; the reanalysis is a model-assimilated confirmation at $l \leq 35$.
 \end{abstract}
 
 \section{Introduction}
@@ -84,7 +84,7 @@ Table~\ref{tab:asos} summarizes the key measurements. The 24-hour temperature am
 
 The 12-hour pressure-tide amplitude, by contrast, decreases monotonically from 1.10~hPa at 24.6$^\circ$N to 0.34~hPa at 47.4$^\circ$N. This is the classical signature of the global solar semidiurnal tide---a planetary normal-mode response whose amplitude is largest where the forcing projects onto the low-latitude waveguide (Chapman \& Lindzen 1970). The trend correlation with the migrating-tide climatology $A_H = 1.16\cos^3\varphi$~hPa (Haurwitz 1956) is 0.98. Station totals fall in the range 0.9--1.4$\times A_H$, consistent with the expected contribution of non-migrating components (Dai \& Wang 1999).
 
-Spectral coherence between pressure and temperature at the solar harmonic lines (24 and 12 h) is high, ranging from 0.82 to 0.98 across stations. In off-line bands (9--11 h and 13--20 h), coherence drops to 0.09--0.30, above the phase-randomized-surrogate 95\% level at all eight stations. The daily bulk pressure--temperature correlation is weak and negative (range -0.56 to -0.05), reflecting the dominance of the semidiurnal tide over diurnal thermal forcing.
+Coherence at the 12 h solar line is 0.82--0.98 across stations and above the phase-randomized surrogate 95\% level. At 24 h the coherence is high at most sites but falls below the surrogate 95\% level at CAR, DSM, and SEA (0.397, 0.450, 0.465), so the shared-clock fingerprint is carried primarily by the semidiurnal line. In off-line bands (9--11 h and 13--20 h), coherence drops to 0.09--0.30, above the phase-randomized-surrogate 95\% level at all eight stations. The daily bulk pressure--temperature correlation is weak and negative (range -0.56 to -0.05), reflecting the dominance of the semidiurnal tide over diurnal thermal forcing.
 
 \begin{table}[t]
 \centering
@@ -110,7 +110,7 @@ SEA & 47.4 & 1.79 & 0.337 [0.262, 0.529] & -0.06 [-0.21, +0.09] & 0.94 \\
 
 The interpretation is direct: pressure at a fixed site carries the signature of a planetary-scale resonance, while temperature carries the signature of the local solar cycle. The two fields share a forcing (the sun) but respond through different operators with different spatial footprints. Station-level daily pressure--temperature correlations range from $-0.05$ to $-0.56$, with bootstrap 95\% confidence intervals excluding any tight positive lock: the bulk coupling is set by the synoptic regime, not by a gas-law link between the two fields.
 
-Band-resolved coherence sharpens this statement. The magnitude-squared coherence between hourly pressure and temperature is high (0.82--0.98) at the solar harmonic lines, where both fields are phase-locked to the same astronomical forcing, and above the phase-randomized surrogate 95\% level at all eight stations. In the off-line sub-diurnal band (9--11~h and 13--20~h), coherence collapses to the surrogate noise floor. Away from the shared solar clock, nothing locks the two fields together.
+Band-resolved coherence sharpens this statement. At the 12 h solar line the magnitude-squared coherence between hourly pressure and temperature is 0.82--0.98 and above the phase-randomized surrogate 95\% level at all eight stations; at 24 h it is high at most sites but falls below that level at CAR, DSM, and SEA (0.397, 0.450, 0.465). The shared-clock fingerprint is therefore carried primarily by the semidiurnal line. In the off-line sub-diurnal band (9--11~h and 13--20~h), coherence collapses to the surrogate noise floor. Away from the shared solar clock, nothing locks the two fields together.
 
 \begin{figure}[htbp]
 \centering
@@ -164,23 +164,25 @@ $10^8$ & 4.45 [3.27--5.88] & 1.75 [1.42--2.11] \\
 
 To isolate the operator contrast from turbulence statistics, we apply a single localized source to both the elliptic and parabolic operators in a developed cavity flow. The elliptic response spreads over the entire domain: 79\% of its magnitude lies beyond one source-width from the origin. The parabolic response at matched time remains a confined Gaussian blob. Boundary geometry edits the global pressure field instantly and only the local temperature field (Fig.~\ref{fig:green}).
 
-The closure-relevant consequence of this operator split is directly measurable in the field data. Using the same NEON tower, we bin the transport-efficiency correlations for momentum and heat by Monin--Obukhov stability classes. Table~\ref{tab:stability} shows the momentum-to-heat transport-efficiency ratio swings by a factor of 4.3 in winter (0.77 to 3.28) and 5.9 in summer (0.44 to 2.60), demonstrating that momentum transport (shaped by the global pressure field) and heat transport (shaped by local buoyant plumes) respond differently to changes in the shear-to-buoyancy ratio. A single fixed-$Pr_t$ diffusivity is structurally unable to reproduce this variation. Just as one eddy diffusivity cannot capture this stability-dependent transport split, one spectrum cannot capture the phase-dependent elliptic split: the surrogate test of Section~\ref{sec:surrogate} shows that matching power spectra is not enough to reproduce constraint-preserving action.
+The closure-relevant consequence of this operator split is directly measurable in the field data. Using the same NEON tower, we bin the transport-efficiency correlations for momentum and heat by Monin--Obukhov stability classes. Table~\ref{tab:stability} shows the momentum-to-heat transport-efficiency ratio swings by a factor of 4.3 in winter (0.77 to 3.28) and 5.9 in summer (0.44 to 2.60), demonstrating that momentum transport (shaped by the global pressure field) and heat transport (shaped by local buoyant plumes) respond differently to changes in the shear-to-buoyancy ratio. (At coarser $\pm1.0$ boundaries the winter swing is 5.6$\times$, with counts 51/117/121/228/85, so the conclusion is binning-robust.) A single fixed-$Pr_t$ diffusivity is structurally unable to reproduce this variation. Just as one eddy diffusivity cannot capture this stability-dependent transport split, one spectrum cannot capture the phase-dependent elliptic split: the surrogate test of Section~\ref{sec:surrogate} shows that matching power spectra is not enough to reproduce constraint-preserving action.
 
 \begin{table}[t]
 \centering
-\caption{Monin--Obukhov stability-bin transport-efficiency correlations from NEON WREF. Medians and 5--95\% ranges are shown over usable periods (winter: $n=602$; summer: $n=1030$). Momentum-to-heat transport-efficiency ratio varies by stability, demonstrating differential response to shear-to-buoyancy ratio.}
+\caption{Monin--Obukhov stability-bin transport-efficiency correlations from NEON WREF. Medians with measured 5--95\% ranges over usable periods (winter: $n=602$; summer: $n=1030$). Momentum-to-heat transport-efficiency ratio varies by stability, demonstrating differential response to shear-to-buoyancy ratio.}
 \label{tab:stability}
 \begin{tabular}{lccccc}
 \toprule
 Stability class & $\zeta$ range & $n$ (winter) & $r_{uw}$ & $|r_{wT}|$ & Ratio \\
 \midrule
-Strongly unstable & $<-1.0$ & 95 & 0.182 [0.12--0.26] & 0.209 [0.15--0.28] & 0.87 \\
-Unstable & $-1.0$--$-0.1$ & 73 & 0.324 [0.28--0.37] & 0.150 [0.11--0.19] & 2.17 \\
-Near-neutral & $-0.1$--$0.1$ & 121 & 0.312 [0.27--0.35] & 0.095 [0.07--0.12] & 3.28 \\
-Stable & $0.1$--$1.0$ & 153 & 0.225 [0.18--0.27] & 0.200 [0.17--0.23] & 1.13 \\
-Strongly stable & $>1.0$ & 160 & 0.156 [0.12--0.20] & 0.203 [0.18--0.23] & 0.77 \\
+Strongly unstable & $<-0.5$ & 95 & 0.182 [0.05--0.48] & 0.209 [0.05--0.64] & 0.87 \\
+Unstable & $-0.5$--$-0.1$ & 73 & 0.324 [0.10--0.75] & 0.150 [0.02--0.56] & 2.17 \\
+Near-neutral & $-0.1$--$0.1$ & 121 & 0.312 [0.15--0.90] & 0.095 [0.01--0.36] & 3.28 \\
+Stable & $0.1$--$0.5$ & 153 & 0.225 [0.12--0.56] & 0.200 [0.06--0.39] & 1.13 \\
+Strongly stable & $>0.5$ & 160 & 0.156 [0.04--0.48] & 0.203 [0.07--0.48] & 0.77 \\
 \bottomrule
 \end{tabular}
+\par\smallskip
+\raggedright\footnotesize Class counts are regime counts of usable 30-min periods under the $\pm0.5$ outer stability boundaries; they are not equal-width bins. The bin edges are $-0.5$, $-0.1$, $0.1$, and $0.5$.
 \end{table}
 
 \begin{figure}[htbp]
@@ -220,7 +222,7 @@ The relaxation time scales as
 t_{90} \approx 2.3\,\frac{L}{c},
 \label{eq:crossover}
 \end{equation}
-and the error histories for all sound speeds collapse onto a single curve when time is rescaled as $ct/L$ (Fig.~\ref{fig:crossover}). The sound speed sets the clock; the final state is independent of it. As $c \to \infty$, the adjustment becomes instantaneous and the hyperbolic equation degenerates into the elliptic constraint.
+and the error histories for all sound speeds collapse onto a single curve when time is rescaled as $ct/L$ (Fig.~\ref{fig:crossover}). This law holds under the fixed damping-per-crossing convention used here, $\gamma=1.5c/L$, for which the fitted slope is $2.278$ ($R^{2}=1.0$); a control with fixed $\gamma$ collapses this scaling ($t_{90}=0.27$--$0.30$ at $\gamma=12$ and $0.07$--$0.13$ at $\gamma=48$ across $c=4$--$32$). Sound speed therefore sets the clock within this protocol, while the final state remains independent of $c$. As $c \to \infty$, the adjustment becomes instantaneous and the hyperbolic equation degenerates into the elliptic constraint.
 
 This establishes that the fast clock is not stochastic noise: it is a deterministic relaxation to a unique global field determined by the elliptic operator. A stochastic parameterization that randomizes the fast correction discards this deterministic structure.
 
@@ -313,6 +315,8 @@ Three results follow.
 \emph{First}, the intermediate velocity $\mathbf{u}^*$ violates mass conservation at RMS $\nabla\cdot\mathbf{u}^* \approx 2.7\times 10^{-2}$. A single projection reduces this to $\approx 2\times 10^{-15}$---machine zero (Fig.~\ref{fig:projection}).
 
 \emph{Second}, replacing the projection correction by a phase-randomized field with the identical power spectrum (Parseval-exact)---the structural move of spectrum-matched stochastic closures (Hasselmann 1976; Berner et al.\ 2017)---yields a pointwise correlation with the true correction of median $|r| = 0.07$ (95th percentile 0.20, over an ensemble of $n = 100$ surrogates). The RMS divergence after the surrogate correction is $3.7\times 10^{-2}$ [$3.5$--$3.8\times 10^{-2}$, 95\% interval]---essentially no better than applying no correction at all ($2.7\times 10^{-2}$).
+
+A stronger control isolates whether this failure is an artifact of independent phase scrambling. The original surrogate randomizes the two correction components independently and therefore destroys their cross-spectrum; applying the same random phase to both components preserves the full component cross-spectrum exactly (relative error $\sim2\times10^{-16}$) while randomizing phase relative to the drift. It still leaves RMS divergence $3.66\times10^{-2}$ versus $2.75\times10^{-2}$ for the uncorrected drift ($1.33\times$), compared with $2.2\times10^{-15}$ for the exact projection. The tested surrogate represents per-mode variance matching (the operational standard); a control preserving the full component cross-spectrum also fails; the failure is therefore structural, not an artifact of how aggressively phases were scrambled.
 
 \emph{Third}, the physical interpretation is that the fast clock's action on the slow dynamics is a global elliptic correction with a definite geometric structure, not a stochastic variance to be re-injected with the correct energy. Matching a power spectrum does not reconstruct a boundary-aware, globally coupled elliptic operator.
 
@@ -440,9 +444,9 @@ Four features emerge.
 
 \emph{Second}, the vertical structure is physically meaningful: the divergent fraction is smallest near 500~hPa---the classical level of non-divergence (Holton 2004)---and larger in the boundary layer and near the jet outflow (Fig.~\ref{fig:levels}).
 
-\emph{Third}, the cross-check with Reanalysis 2 reproduces the same ordering and the same 500-hPa minimum, with relative differences of 15\% or less. The ratio is a property of the analyzed atmosphere, not of one assimilation system.
+\emph{Third}, the cross-check with Reanalysis 2 reproduces the same ordering and the same 500-hPa minimum, with relative differences of approximately 15\% (maximum 15.5\%). The ratio is a property of the analyzed atmosphere, not of one assimilation system.
 
-\emph{Fourth}, time-averaging acts as a low-pass filter on the fast clock: the divergent fraction is smaller in the daily mean than in the 6-hourly data at every level (at 500~hPa, 0.7\% versus 1.1\%). Averaging scrubs the fast divergent clock---exactly as acoustic averaging recovered the elliptic pressure in Section~\ref{sec:nonlinear}---consistent with the mechanism of Section~\ref{sec:mechanism}.
+\emph{Fourth}, consistent with a low-pass view of the fast clock, the daily mean at 500~hPa gives 0.7\% versus 1.1\% for the 6-hourly data. The daily branch spans 24 days and the 6-hourly branch spans 6 days, so this is a same-level check rather than a clean all-level low-pass comparison.
 
 \begin{figure}[htbp]
 \centering
@@ -514,7 +518,7 @@ Claim & Kill condition \\
 E1: Temporal split & Pressure and temperature show identical diurnal power ratios \\
 E2: Spatial split & Taylor microscale ratio approaches unity at high $Ra$ \\
 E3: Transport efficiency & Momentum-to-heat ratio is constant across stability classes \\
-E4: Crossover scaling & $t_{90}$ does not scale as $L/c$ in compressible solver \\
+E4: Crossover convergence & The steady state fails to converge to the Poisson field, or converges with a $c$-dependent final state \\
 E5: Spectrum matching & Phase-randomized surrogate achieves machine-zero divergence \\
 E6: Reanalysis split & Divergent kinetic energy exceeds 10\% at any level \\
 \bottomrule

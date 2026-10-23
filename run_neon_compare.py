@@ -37,8 +37,10 @@ import neon_pt.stability as S
 from neon_pt.loader import load_dataframe
 
 
-def month_diagnostics(data_dir: str, z_minus_d: float = 39.7) -> dict:
+def month_diagnostics(data_dir: str, z_minus_d: float | None = None) -> dict:
     df, meta = load_dataframe(data_dir)
+    if z_minus_d is None:
+        z_minus_d = meta.z_minus_d
     df = A.apply_qc(df)
     month = str(df.index[len(df) // 2])[:7]
 
