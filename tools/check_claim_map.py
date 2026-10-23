@@ -271,7 +271,7 @@ def check_fc2() -> None:
 
 
 def check_disclosures() -> None:
-    text = paper_text()
+    text = " ".join(paper_text().split())
     require("not a clean all-level comparison" in text,
             "paper lacks the Fig. 14 same-level qualification")
     require("consistent with time-averaging acting" in text,
