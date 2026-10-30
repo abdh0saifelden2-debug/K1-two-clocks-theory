@@ -532,7 +532,11 @@ All claims remain open to stronger tests with three-dimensional simulations, hig
 \subsection{Reproducibility}
 
 All figures and numerical results are regenerated from the analysis modules of the public repository at
-\url{https://github.com/abdh0saifelden2-debug/K1-two-clocks-theory}, which is now the paper's home and is split from the archived monorepo snapshot (SHA-256 \texttt{\footnotesize ef637ff5f912a5d1404f677429f9429eccc8102a8cab23cee79cf055bbf1220}). Each analysis is a single command with fixed seeds; all are CPU-runnable except the 3-D periodic check of Section~\ref{sec:beyond}, whose production-resolution run requires a CUDA GPU via \texttt{cupy}. The repository's test suite is CPU-only and runs 683 tests covering the analysis modules. The Lean development is a separate public repository at
+\url{https://github.com/abdh0saifelden2-debug/K1-two-clocks-theory}, which is now the paper's home and is split from the archived monorepo snapshot.
+\par\smallskip
+\noindent\texttt{\footnotesize SHA-256: ef637ff5f912a5d1404f677429f9429eccc8102a8cab23cee79cf055bbf1220}
+\par\smallskip
+Each analysis is a single command with fixed seeds; all are CPU-runnable except the 3-D periodic check of Section~\ref{sec:beyond}, whose production-resolution run requires a CUDA GPU via \texttt{cupy}. The repository's test suite is CPU-only and runs 683 tests covering the analysis modules. The Lean development is a separate public repository at
 \url{https://github.com/abdh0saifelden2-debug/K1-lean}, whose CI builds the formalization, runs the audit, and scans for unsupported declarations; the frozen statements and the statement-matching audit are pinned to commit \texttt{553d5c2}. Input datasets are public: NEON DP4.00200.001 (data.\allowbreak neonscience.org), ASOS one-minute data via the Iowa Environmental Mesonet (mesonet.\allowbreak agron.\allowbreak iastate.edu), The Well Rayleigh--B\'enard dataset (polymathic-ai), and NCEP/NCAR Reanalysis 1 via NOAA PSL OPeNDAP (psl.\allowbreak noaa.gov). See Appendix~\ref{app:reproducibility} for the full command table.
 
 \medskip\hrule\medskip

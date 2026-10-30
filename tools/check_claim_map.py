@@ -280,6 +280,11 @@ def check_disclosures() -> None:
             "paper lacks the channel-filter cutoff-units disclosure")
     require("All figures and numerical results are regenerated from the analysis modules" in text,
             "paper reproducibility sentence does not identify the analysis modules")
+    digest = "ef637ff5f912a5d1404f677429f9429eccc8102a8cab23cee79cf055bbf1220"
+    require(f"\\texttt{{\\footnotesize SHA-256: {digest}}}" in text,
+            "paper archive SHA-256 is not on the copyable single-font line")
+    require(f"{digest[:8]}\\allowbreak" not in text,
+            "paper archive SHA-256 is still broken with \\allowbreak")
 
 
 def check_r3() -> None:
