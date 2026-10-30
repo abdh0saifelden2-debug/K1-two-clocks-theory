@@ -17,13 +17,19 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends \
             texlive-xetex texlive-latex-extra texlive-fonts-recommended \
-            fonts-lmodern fonts-dejavu-core
+            fonts-lmodern fonts-dejavu-core poppler-utils
       - name: Build paper
         run: |
           xelatex -interaction=nonstopmode -halt-on-error -file-line-error paper0_two_clocks.tex
           xelatex -interaction=nonstopmode -halt-on-error -file-line-error paper0_two_clocks.tex
       - name: Check PDF
         run: test -s paper0_two_clocks.pdf
+      - name: Check PDF text
+        run: |
+          pdftotext -layout paper0_two_clocks.pdf paper0_two_clocks.txt
+          tr '\n' ' ' < paper0_two_clocks.txt | tr -s ' ' > paper0_two_clocks_flat.txt
+          grep -q "final state" paper0_two_clocks_flat.txt
+          grep -q "SHA-256: ef637ff5f912a5d1404f677429f9429eccc8102a8cab23cee79cf055bbf1220" paper0_two_clocks_flat.txt
       - uses: actions/upload-artifact@v4
         with:
           name: paper0-two-clocks-pdf
