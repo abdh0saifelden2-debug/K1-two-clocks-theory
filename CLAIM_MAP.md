@@ -8,8 +8,9 @@ winter claim data in `claims/fc15_winter.json`.
 |---|---|---|---|
 | F-C15 table | stability table, caption, footnote | `claims/fc15_winter.json`, `figures/01b_neon_seasonal.json`, `REPORT_STABILITY.md`, `neon_pt/stability.py` | class labels, bin edges, counts, medians, 5–95% brackets, ratios |
 | F-C15 swing | §3 stability paragraph | `figures/01b_neon_seasonal.json` | winter `4.3x`, `0.77–3.28`; summer `5.9x`, `0.44–2.60` |
-| F-C15 robustness | §3 parenthetical | `claims/fc15_winter.json` | coarse `±1.0` swing `5.6x`, counts `51/117/121/228/85` |
-| O6 | §2 coherence, two locations | `figures/09b_asos_ci.json` | 12 h range, CAR/DSM/SEA 24 h values, surrogate thresholds |
+| F-C15 robustness | §3 parenthetical | `claims/fc15_winter.json` | coarse `±1.0` swing `5.6x` (`3.276794/0.581958 = 5.6306`), counts `51/117/121/228/85` |
+| O6 | §2 coherence, three locations | `figures/09b_asos_ci.json` | 12 h range, CAR/DSM/SEA 24 h values, surrogate thresholds, off-line range and four-of-eight floor count |
+| F-C2 control | §4.2 common-phase paragraph | `figures/24b_spde_common_phase.json` | common-phase `3.66e-2`, uncorrected `2.75e-2`, ratio `1.33x`, cross-spectrum `2e-16`, projection `2.2e-15` |
 | R3 | §5 cross-check | `figures/27b_reanalysis_crosscheck.json` | maximum relative difference `15.5%` |
 
 The map is deliberately small: a claim is gated only if it appears above. When a
