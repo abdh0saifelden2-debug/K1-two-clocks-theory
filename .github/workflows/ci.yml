@@ -21,5 +21,7 @@ jobs:
         pip install -r requirements.txt
     - name: Lint claim map
       run: python tools/check_claim_map.py
+    - name: Check repository paths and links
+      run: python tools/check_repo_paths.py
     - name: Run tests
       run: python -m pytest -q --tb=short

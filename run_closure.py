@@ -5,7 +5,13 @@ it at kc, forms the *exact* subgrid force m_true, and scores three closures:
 
   (i)   Smagorinsky (K-theory): positive eddy viscosity, purely dissipative.
   (ii)  Spectrum-matched surrogate: identical E_m(k), random phases.
-  (iii) Projected-FDT: scale-dependent nu_t(k) (allows backscatter) + projected noise.
+  (iii) Projected-FDT (oracle): scale-dependent nu_t(k) (allows backscatter) + projected noise.
+
+The projected-FDT entry is an **oracle**, not a predictive closure: its nu_t(k) is
+measured from the true subgrid transfer, which needs the DNS field.  It shows that
+a solenoidal force with the exact E_m(k) and transfer exists; it does not show that
+the model can be run from resolved data.  See closure_aposteriori.py for the
+predictive comparison.
 
 Three diagnostics vs. truth:
   - Force spectrum E_m(k): does the model carry the right energy per wavenumber?
@@ -173,7 +179,9 @@ def write_report(path, figs, div_scores, transfer_corrs, n, kc):
 
 **Setup:** {n}\u00b2 2D incompressible DNS (vorticity-streamfunction, forced inverse cascade),
 sharp-spectral-filtered at k_c = {kc}.  The exact subgrid force m_true is compared against
-three models on three diagnostics.
+three models on three diagnostics.  The projected-FDT entry is an **oracle**: its
+eddy viscosity is measured from the true subgrid transfer, so it cannot be evaluated
+from resolved data and is not a predictive closure.
 
 ## 1. Force spectrum E_m(k) (figure 28)
 
@@ -183,8 +191,8 @@ three models on three diagnostics.
   well-known Smagorinsky cusp problem).
 - **Spectrum-matched surrogate** matches E_m(k) by construction \u2014 identical energy at
   every wavenumber.  This is the Part-6 result: spectrum alone is cheap.
-- **Projected-FDT** fills the correct E_m(k) via its deterministic transfer component
-  plus a projected noise remainder.
+- **Projected-FDT (oracle)** fills the correct E_m(k) via its deterministic transfer
+  component plus a projected noise remainder.
 
 ## 2. Structural solenoidality \u2014 RMS \u2207\u00b7m (figure 29)
 
@@ -195,12 +203,12 @@ three models on three diagnostics.
 | truth | {div_scores['truth']:.2e} |
 | Smagorinsky | {div_scores['Smagorinsky']:.2e} |
 | surrogate | {div_scores['surrogate']:.2e} |
-| projected-FDT | {div_scores['projected-FDT']:.2e} |
+| projected-FDT (oracle) | {div_scores['projected-FDT']:.2e} |
 
 - Truth and Smagorinsky are solenoidal (both Leray-projected).
 - The **surrogate fails**: phase randomization breaks div=0.
-- **Projected-FDT** is solenoidal by construction \u2014 the Leray projection wraps the
-  noise (eq 9 of REPORT_THEORY.md).
+- **Projected-FDT (oracle)** is solenoidal by construction \u2014 the Leray projection
+  wraps the noise (eq 9 of REPORT_THEORY.md).
 
 ## 3. Energy-transfer spectrum T(k) (figure 30)
 
@@ -213,21 +221,23 @@ three models on three diagnostics.
   The fundamental structural error of positive-definite eddy viscosity.
 - **Surrogate** has T(k) uncorrelated with truth: spectrum-matching randomizes the
   *direction* of energy transfer along with the phases.
-- **Projected-FDT** reproduces the forward/backscatter partition: its deterministic
+- **Projected-FDT (oracle)** reproduces the forward/backscatter partition: its deterministic
   part carries \u03bd_t(k) with the correct sign (including negative = backscatter) and
   its projected noise fills the remainder without breaking div=0.
 
 Transfer-spectrum correlation with truth:
 - Smagorinsky: {transfer_corrs['Smagorinsky']:.3f}
 - Surrogate: {transfer_corrs['surrogate']:.3f}
-- Projected-FDT: {transfer_corrs['projected-FDT']:.3f}
+- Projected-FDT (oracle): {transfer_corrs['projected-FDT']:.3f}
 
 ## Conclusion
 
 The three diagnostics confirm the prediction from REPORT_THEORY.md \u00a77:
 1. Smagorinsky (K-theory) is purely dissipative \u2014 no backscatter, cusp problem near k_c.
 2. The spectrum-matched surrogate has E_m(k) correct but fails divergence and transfer \u2014 "energy yes, structure no" (Fig 24 of Part 6, promoted to a closure test).
-3. The projected-FDT model passes all three: correct spectrum, solenoidal, and the right transfer including backscatter \u2014 "energy AND structure."
+3. The projected-FDT oracle passes all three: correct spectrum, solenoidal, and the right
+   transfer including backscatter \u2014 "energy AND structure."  Passing as an oracle is
+   the existence proof; it is not evidence that a predictive closure can reach it.
 
 This is the concrete demonstration that the MZ/FDT/projected closure repairs the exact
 deficiencies of single-K closure that Parts 1\u20137 isolated.
@@ -235,8 +245,10 @@ deficiencies of single-K closure that Parts 1\u20137 isolated.
 ## Scope
 
 A frozen-field a-priori test in 2D periodic box. It isolates *structural correctness*
-at one instant \u2014 no time-integration memory effects yet.  See REPORT_THEORY.md \u00a74 for
-the explicit caveat about time-locality.
+at one instant \u2014 no time-integration memory effects yet.  The projected-FDT result is
+an oracle because its eddy viscosity is measured from the truth; the predictive
+comparison is in closure_aposteriori.py (and closure_aposteriori3d.py in 3D).  See
+REPORT_THEORY.md \u00a74 for the explicit caveat about time-locality.
 
 """
     with open(path, "w") as fh:

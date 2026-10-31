@@ -1,4 +1,4 @@
-# New cross-relationship — NR48 (`general_two_clocks/new_relationships25.py`) — theory
+# New cross-relationship — NR48 (`new_relationships25.py`) — theory
 
 Continues the derived-and-verified program (NR1–NR47; see
 `papers/CROSS_RELATIONSHIPS_INDEX.md`).
@@ -11,8 +11,8 @@ Unit-proofs in [`tests/test_minphase_delay.py`](tests/test_minphase_delay.py)
 (13 tests).
 
 ```bash
-python general_two_clocks/new_relationships25.py   # -> figures/83_minphase_delay.json
-pytest general_two_clocks/tests/test_minphase_delay.py -v
+python new_relationships25.py   # -> figures/83_minphase_delay.json
+pytest tests/test_minphase_delay.py -v
 ```
 
 ---

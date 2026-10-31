@@ -1,4 +1,4 @@
-# New cross-relationship — NR58 (`general_two_clocks/new_relationships35.py`) — theory
+# New cross-relationship — NR58 (`new_relationships35.py`) — theory
 
 Continues the derived-and-verified program (NR1–NR57; see
 `papers/CROSS_RELATIONSHIPS_INDEX.md`).
@@ -15,8 +15,8 @@ Unit-proofs in
 (11 tests).
 
 ```bash
-python general_two_clocks/new_relationships35.py   # -> figures/93_ice_kernel_anatomy.json
-pytest general_two_clocks/tests/test_ice_kernel_anatomy.py -v
+python new_relationships35.py   # -> figures/93_ice_kernel_anatomy.json
+pytest tests/test_ice_kernel_anatomy.py -v
 ```
 
 ---

@@ -16,6 +16,10 @@
 > [`nonmarkov_argo.py`](nonmarkov_argo.py), [`run_nonmarkov_argo.py`](run_nonmarkov_argo.py),
 > [`tests/test_nonmarkov_argo.py`](tests/test_nonmarkov_argo.py),
 > figure `figures/75_nonmarkov_argo.png`.
+>
+> Raw files are not vendored: the driver reads `$ARGO_FLOATS_DIR` (or
+> `--float-dir`). The exact float-ID list is not archived in this repository;
+> see [`data/MANIFEST.md`](data/MANIFEST.md) for the source and the known gap.
 
 ## Pre-registered predictions (thresholds fixed before the real data)
 

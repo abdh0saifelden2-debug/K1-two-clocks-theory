@@ -1,4 +1,4 @@
-# New cross-relationship — NR47 (`general_two_clocks/new_relationships24.py`) — theory capstone
+# New cross-relationship — NR47 (`new_relationships24.py`) — theory capstone
 
 Continues the derived-and-verified program (NR1–NR46; see
 `papers/CROSS_RELATIONSHIPS_INDEX.md`).
@@ -10,8 +10,8 @@ Unit-proofs in [`tests/test_memory_phase.py`](tests/test_memory_phase.py)
 (14 tests).
 
 ```bash
-python general_two_clocks/new_relationships24.py   # -> figures/82_memory_phase.json
-pytest general_two_clocks/tests/test_memory_phase.py -v
+python new_relationships24.py   # -> figures/82_memory_phase.json
+pytest tests/test_memory_phase.py -v
 ```
 
 ---

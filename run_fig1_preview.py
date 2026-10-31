@@ -17,7 +17,7 @@ seeds; run_boussinesq.py), so the numbers printed on the panels reproduce that
 report exactly.  This script only re-lays the panels.
 
 Usage:
-    python general_two_clocks/run_fig1_preview.py \
+    python run_fig1_preview.py \
         [out_dir, default papers/tex/figures]
 
 Writes fig01_preview_surrogate.png.

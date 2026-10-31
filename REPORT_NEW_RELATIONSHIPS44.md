@@ -1,9 +1,9 @@
 # NR67 — the Lagrangian velocity has a polarization entropy, and its purity splits by time parity
 
-**Module** `general_two_clocks/new_relationships44.py` ·
+**Module** `new_relationships44.py` ·
 **data** the committed NR56 ANDRO Stokes cache (`data/nr56_stokes_cache.json`, 8280 floats) ·
-**figure** `general_two_clocks/figures/102_polarization_entropy.json` + `.png` ·
-**tests** `general_two_clocks/tests/test_polarization_entropy.py` (16)
+**figure** `figures/102_polarization_entropy.json` + `.png` ·
+**tests** `tests/test_polarization_entropy.py` (16)
 
 ## The relationship
 

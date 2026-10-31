@@ -1,4 +1,4 @@
-# New cross-relationship — NR54 (`general_two_clocks/new_relationships31.py`) — theory + real data
+# New cross-relationship — NR54 (`new_relationships31.py`) — theory + real data
 
 Continues the derived-and-verified program (NR1–NR53; see
 `papers/CROSS_RELATIONSHIPS_INDEX.md`).
@@ -9,8 +9,8 @@ regenerate with `build_cache()` from the ANDRO pickle). Unit-proofs in
 [`tests/test_spin_drift.py`](tests/test_spin_drift.py) (11 tests).
 
 ```bash
-python general_two_clocks/new_relationships31.py   # -> figures/89_spin_drift.json
-pytest general_two_clocks/tests/test_spin_drift.py -v
+python new_relationships31.py   # -> figures/89_spin_drift.json
+pytest tests/test_spin_drift.py -v
 ```
 
 ---

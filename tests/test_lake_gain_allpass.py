@@ -1,4 +1,4 @@
-"""Unit proofs for NR63 (`general_two_clocks/new_relationships40.py`):
+"""Unit proofs for NR63 (`new_relationships40.py`):
 active subglacial lake systems are gain-clock synchronized, not
 transport-clock cascades (the NR49 gain/all-pass split on the real
 ICESat-2 lake network).

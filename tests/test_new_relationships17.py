@@ -1,4 +1,4 @@
-"""Unit proofs for NR40 (`general_two_clocks/new_relationships17.py`):
+"""Unit proofs for NR40 (`new_relationships17.py`):
 Omori decay as a pore-pressure diffusion-kernel tail.  Ledger item E10.
 
 Covered (synthetic identifiability -- the falsifiable machinery):

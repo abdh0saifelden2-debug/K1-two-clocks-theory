@@ -11,7 +11,7 @@
 >
 > Tags below: **[RIGOROUS]** = proved here; **[CITED]** = established theorem used as
 > stated; **[NUMERICAL]** = measured, CPU, no data; **[OPEN]** = not proved.
-> Implemented + verified in `general_two_clocks/clay_regularity_program.py`,
+> Implemented + verified in `clay_regularity_program.py`,
 > `tests/test_clay_regularity.py` (4 tests).
 
 ## 1. The problem

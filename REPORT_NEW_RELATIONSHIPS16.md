@@ -1,4 +1,4 @@
-# New cross-relationship — NR39 (`general_two_clocks/new_relationships16.py`)
+# New cross-relationship — NR39 (`new_relationships16.py`)
 
 Continues the derived-and-verified program (NR1–NR38; see
 `papers/CROSS_RELATIONSHIPS_INDEX.md`).
@@ -7,8 +7,8 @@ CPU-only; unit-proofs in
 Run:
 
 ```bash
-python general_two_clocks/new_relationships16.py   # -> figures/nr39_imaginary_coherence.{json,png}
-pytest general_two_clocks/tests/test_new_relationships16.py -v
+python new_relationships16.py   # -> figures/nr39_imaginary_coherence.{json,png}
+pytest tests/test_new_relationships16.py -v
 ```
 
 ---

@@ -1,4 +1,4 @@
-# New cross-relationship — NR49 (`general_two_clocks/new_relationships26.py`) — theory
+# New cross-relationship — NR49 (`new_relationships26.py`) — theory
 
 Continues the derived-and-verified program (NR1–NR48; see
 `papers/CROSS_RELATIONSHIPS_INDEX.md`).
@@ -10,8 +10,8 @@ Unit-proofs in
 [`tests/test_dispersion_boost.py`](tests/test_dispersion_boost.py) (13 tests).
 
 ```bash
-python general_two_clocks/new_relationships26.py   # -> figures/84_dispersion_boost.json
-pytest general_two_clocks/tests/test_dispersion_boost.py -v
+python new_relationships26.py   # -> figures/84_dispersion_boost.json
+pytest tests/test_dispersion_boost.py -v
 ```
 
 ---

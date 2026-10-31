@@ -1,11 +1,11 @@
 # NR72 — the F2 peak audited by the two clocks: R(hmF2) classifies what built the layer
 
-**Module** `general_two_clocks/new_relationships49.py` ·
+**Module** `new_relationships49.py` ·
 **data** committed matched NRLMSIS 2.1 + IRI2016 cache
 (`data/nr72_f2peak_cache.json`, 5 conditions, 150–650 km; builder
 `build_nr72_f2peak_cache.py`) ·
-**figure** `general_two_clocks/figures/107_f2peak_two_clocks.json` + `.png` ·
-**tests** `general_two_clocks/tests/test_f2peak_two_clocks.py` (9)
+**figure** `figures/107_f2peak_two_clocks.json` + `.png` ·
+**tests** `tests/test_f2peak_two_clocks.py` (9)
 
 ## The relationship
 
@@ -65,10 +65,10 @@ an exact hmF2 prediction.
 
 ## Verification
 
-`python3 general_two_clocks/build_nr72_f2peak_cache.py` rebuilds the cache
+`python3 build_nr72_f2peak_cache.py` rebuilds the cache
 (needs pymsis + gfortran/iri2016; committed JSON replays offline).
-`python3 general_two_clocks/new_relationships49.py` regenerates figure/JSON.
-`pytest general_two_clocks/tests/test_f2peak_two_clocks.py` (9 passed): rate and
+`python3 new_relationships49.py` regenerates figure/JSON.
+`pytest tests/test_f2peak_two_clocks.py` (9 passed): rate and
 collision-frequency magnitudes/scalings, crossing + e-fold machinery on
 synthetics, R = τ_diff/τ_chem identity, balance-formed band (R 3–50, peak 15–70
 km below handoff), dynamics-formed band (R < 0.05, peak > 50 km above), gap > 2

@@ -1,5 +1,5 @@
 """Unit tests for the dyadic (shell) model of energy-conserving finite-time blowup
-(general_two_clocks/dyadic_blowup.py).
+(dyadic_blowup.py).
 
 These pin the regularity-thread claim that an energy-conserving NS-like nonlinearity
 can blow up in finite time -- so the energy budget does not carry regularity, the

@@ -1,4 +1,4 @@
-# New cross-relationship — NR51 (`general_two_clocks/new_relationships28.py`) — theory
+# New cross-relationship — NR51 (`new_relationships28.py`) — theory
 
 Continues the derived-and-verified program (NR1–NR50; see
 `papers/CROSS_RELATIONSHIPS_INDEX.md`).
@@ -9,8 +9,8 @@ Unit-proofs in [`tests/test_triad_parity.py`](tests/test_triad_parity.py)
 (15 tests).
 
 ```bash
-python general_two_clocks/new_relationships28.py   # -> figures/86_triad_parity.json
-pytest general_two_clocks/tests/test_triad_parity.py -v
+python new_relationships28.py   # -> figures/86_triad_parity.json
+pytest tests/test_triad_parity.py -v
 ```
 
 ---

@@ -1,4 +1,4 @@
-"""Unit proofs for NR61 (`general_two_clocks/new_relationships38.py`):
+"""Unit proofs for NR61 (`new_relationships38.py`):
 imaginary coherency is the pairwise entropy-production spectral density.
 
 Covered: the exact 2x2 closure tr[S^{-T}S-I] = 4(Im S12)^2/det S = 4

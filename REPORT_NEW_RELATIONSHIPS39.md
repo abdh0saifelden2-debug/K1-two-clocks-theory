@@ -72,4 +72,4 @@ with parity); Weiss 1975; Jiménez et al. 1999.
 
 **Artifacts:** `figures/97_parity_epr.json` (all 10 verdicts true); 13 unit
 proofs in `tests/test_parity_epr.py`; offline-safe (committed NR46 cache).
-Reproduce: `python general_two_clocks/new_relationships39.py`.
+Reproduce: `python new_relationships39.py`.

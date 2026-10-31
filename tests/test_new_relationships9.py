@@ -1,5 +1,5 @@
 """Unit tests for the new derived relationship NR32
-(general_two_clocks/new_relationships9.py). Deterministic, CPU-only, no data needed
+(new_relationships9.py). Deterministic, CPU-only, no data needed
 (the optional ICECAP specularity anchor is exercised only when the local download exists).
 
 NR32: the drainage-response window -- band-limited hydraulic transmission is peaked at the

@@ -6,7 +6,13 @@ subgrid force m_true, and scores three closures:
 
   (i)   Smagorinsky (K-theory): positive eddy viscosity, purely dissipative.
   (ii)  Spectrum-matched surrogate: identical E_m(k), random phases.
-  (iii) Projected-FDT: scale-dependent nu_t(k) (allows backscatter) + projected noise.
+  (iii) Projected-FDT (oracle): scale-dependent nu_t(k) (allows backscatter) + projected noise.
+
+The projected-FDT entry is an **oracle**, not a predictive closure: its nu_t(k) is
+measured from the true subgrid transfer, which needs the DNS field.  It shows that a
+solenoidal force with the exact E_m(k) and transfer exists; it does not show that the
+model can be run from resolved data.  See closure_aposteriori3d.py for the predictive
+comparison.
 
 Diagnostics shared with 2D (Part 9b): force spectrum E_m(k), RMS divergence, and
 transfer spectrum T(k).  Diagnostics that ONLY EXIST IN 3D (the whole point):
@@ -206,7 +212,9 @@ dimension-agnostic (REPORT_THEORY.md sec 6).
 **Setup:** {meta['n']}^3 forced 3D incompressible DNS (velocity form, pseudo-spectral,
 nu={meta['nu']}), sharp-spectral-filtered at k_c = {meta['kc']}.  Backend: **{backend}**.
 Developed-field diagnostics: KE = {meta['ke']:.3e}, normalized vortex-stretching
-production <wSw>* = {enst:.3f}.
+production <wSw>* = {enst:.3f}.  The projected-FDT entry is an **oracle**: its eddy
+viscosity is measured from the true subgrid transfer, so it cannot be evaluated from
+resolved data and is not a predictive closure.
 
 ## 1. Force spectrum E_m(k) (figure 61)
 
@@ -214,7 +222,7 @@ production <wSw>* = {enst:.3f}.
 
 The four force-spectrum curves repeat the Part-9b finding in 3D: Smagorinsky carries
 roughly the right magnitude but mis-sets the near-cutoff shape; the surrogate matches
-E_m(k) by construction; projected-FDT fills the correct E_m(k).
+E_m(k) by construction; projected-FDT (oracle) fills the correct E_m(k).
 
 ## 2. Structural solenoidality -- RMS div(m) (figure 62)
 
@@ -225,11 +233,11 @@ E_m(k) by construction; projected-FDT fills the correct E_m(k).
 | truth | {div_scores['truth']:.2e} |
 | Smagorinsky | {div_scores['Smagorinsky']:.2e} |
 | surrogate | {div_scores['surrogate']:.2e} |
-| projected-FDT | {div_scores['projected-FDT']:.2e} |
+| projected-FDT (oracle) | {div_scores['projected-FDT']:.2e} |
 
-Truth, Smagorinsky and projected-FDT are solenoidal to machine precision (all Leray
-projected -- the 3D projection `project3d`); the spectrum-matched **surrogate fails**
-(phase randomization breaks div=0), exactly as in 2D.
+Truth, Smagorinsky and projected-FDT (oracle) are solenoidal to machine precision (all
+Leray projected -- the 3D projection `project3d`); the spectrum-matched **surrogate
+fails** (phase randomization breaks div=0), exactly as in 2D.
 
 ## 3. Energy-transfer spectrum T(k) (figure 63)
 
@@ -241,7 +249,7 @@ inverse cascade.  Transfer-spectrum correlation with truth:
 
 - Smagorinsky: {transfer_corrs['Smagorinsky']:.3f}
 - surrogate: {transfer_corrs['surrogate']:.3f}
-- projected-FDT: {transfer_corrs['projected-FDT']:.3f}
+- projected-FDT (oracle): {transfer_corrs['projected-FDT']:.3f}
 
 ## 4. Vortex stretching + backscatter -- the 3D-only physics (figure 64)
 
@@ -269,8 +277,9 @@ necessary, not merely "2D with an extra index":
 
 The 2D Part-9b verdicts survive verbatim in 3D: Smagorinsky is purely dissipative
 (zero backscatter volume), the spectrum-matched surrogate has the right energy but
-breaks solenoidality, and the projected-FDT closure passes spectrum + divergence +
-transfer.  Crucially, the **3D-only** physics -- positive vortex-stretching production,
+breaks solenoidality, and the projected-FDT oracle passes spectrum + divergence +
+transfer (as an oracle, not as a predictive closure).  Crucially, the **3D-only**
+physics -- positive vortex-stretching production,
 the intermediate-eigenvector alignment, and the ~1/2 backscatter volume fraction --
 exposes a K-theory failure that the 2D test *structurally cannot see*: a positive-
 definite eddy viscosity cannot represent local backscatter, which in 3D is not a
@@ -279,7 +288,9 @@ boundary curiosity but half of space.
 ## Scope
 
 A frozen-field **a-priori** test in a 3D periodic box -- the structural-correctness
-analogue of Part 9b, now with vortex stretching active.  It is **not** a grid-converged
+analogue of Part 9b, now with vortex stretching active.  The projected-FDT result is
+an oracle because its eddy viscosity is measured from the truth; the predictive
+comparison is in closure_aposteriori3d.py.  It is **not** a grid-converged
 production DNS, **not** an a-posteriori (time-integrated) closed-loop LES, and **not**
 a claim of 3D Navier-Stokes regularity or of operational superiority.  It establishes
 that the two-clocks structural repair, and K-theory's specific structural failure,

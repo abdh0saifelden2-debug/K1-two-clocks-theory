@@ -1,4 +1,4 @@
-"""Unit proofs for NR56 (`general_two_clocks/new_relationships33.py`): the
+"""Unit proofs for NR56 (`new_relationships33.py`): the
 Lagrangian velocity has Stokes parameters -- waves are linearly polarized
 (stretch Q,U; zero spin), vortices circularly polarized (spin V; zero
 stretch) -- and the deep ocean crosses from wave-polarized at the equator

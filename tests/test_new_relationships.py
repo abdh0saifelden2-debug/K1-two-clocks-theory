@@ -1,5 +1,5 @@
 """Unit tests for the new derived relationships NR16-NR21
-(general_two_clocks/new_relationships.py). Deterministic, CPU-only.
+(new_relationships.py). Deterministic, CPU-only.
 """
 import os
 import sys

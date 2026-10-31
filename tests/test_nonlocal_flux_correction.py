@@ -1,5 +1,5 @@
 """Unit tests for the nonlocal eddy-diffusivity correction
-(general_two_clocks/nonlocal_flux_correction.py).
+(nonlocal_flux_correction.py).
 
 These pin the structural claim that the mainstream gradient-diffusion (K-theory)
 closure cannot represent counter-gradient transport, and that the scale-dependent

@@ -10,8 +10,8 @@
 > the nonlocal pressure structure as a necessary condition for regularity).
 >
 > Implemented + verified (CPU, no data) in
-> `general_two_clocks/restricted_euler_regularity.py`,
-> `general_two_clocks/tests/test_restricted_euler.py` (8 tests).
+> `restricted_euler_regularity.py`,
+> `tests/test_restricted_euler.py` (8 tests).
 
 ## 1. The velocity-gradient tensor and the pressure Hessian
 

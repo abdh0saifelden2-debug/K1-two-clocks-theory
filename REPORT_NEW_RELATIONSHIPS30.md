@@ -1,4 +1,4 @@
-# New cross-relationship — NR53 (`general_two_clocks/new_relationships30.py`) — theory + real data
+# New cross-relationship — NR53 (`new_relationships30.py`) — theory + real data
 
 Continues the derived-and-verified program (NR1–NR52; see
 `papers/CROSS_RELATIONSHIPS_INDEX.md`).
@@ -9,8 +9,8 @@ floats, 700–1300 dbar). Unit-proofs in
 [`tests/test_spin_two_clocks.py`](tests/test_spin_two_clocks.py) (13 tests).
 
 ```bash
-python general_two_clocks/new_relationships30.py   # -> figures/88_spin_two_clocks.json
-pytest general_two_clocks/tests/test_spin_two_clocks.py -v
+python new_relationships30.py   # -> figures/88_spin_two_clocks.json
+pytest tests/test_spin_two_clocks.py -v
 ```
 
 ---

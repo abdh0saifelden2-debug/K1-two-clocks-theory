@@ -1,4 +1,4 @@
-# New cross-relationship — NR29 (`general_two_clocks/new_relationships6.py`)
+# New cross-relationship — NR29 (`new_relationships6.py`)
 
 Continues the derived-and-verified program (NR1–NR28; see
 `papers/CROSS_RELATIONSHIPS_INDEX.md`).
@@ -6,8 +6,8 @@ CPU-only, deterministic; unit-proofs in
 [`tests/test_new_relationships6.py`](tests/test_new_relationships6.py). Run:
 
 ```bash
-python general_two_clocks/new_relationships6.py   # -> figures/nr29_backscatter_gaussian_law.{json,png}
-pytest general_two_clocks/tests/test_new_relationships6.py -v
+python new_relationships6.py   # -> figures/nr29_backscatter_gaussian_law.{json,png}
+pytest tests/test_new_relationships6.py -v
 ```
 
 ---

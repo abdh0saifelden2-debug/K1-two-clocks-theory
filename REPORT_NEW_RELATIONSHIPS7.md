@@ -1,4 +1,4 @@
-# New cross-relationship — NR30 (`general_two_clocks/new_relationships7.py`)
+# New cross-relationship — NR30 (`new_relationships7.py`)
 
 Continues the derived-and-verified program (NR1–NR29; see
 `papers/CROSS_RELATIONSHIPS_INDEX.md`).
@@ -6,8 +6,8 @@ CPU-only, deterministic; unit-proofs in
 [`tests/test_new_relationships7.py`](tests/test_new_relationships7.py). Run:
 
 ```bash
-python general_two_clocks/new_relationships7.py   # -> figures/nr30_phi_not_leray_pressure.{json,png}
-pytest general_two_clocks/tests/test_new_relationships7.py -v
+python new_relationships7.py   # -> figures/nr30_phi_not_leray_pressure.{json,png}
+pytest tests/test_new_relationships7.py -v
 ```
 
 ---

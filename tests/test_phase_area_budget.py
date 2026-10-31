@@ -1,4 +1,4 @@
-"""Unit proofs for NR50 (`general_two_clocks/new_relationships27.py`): the
+"""Unit proofs for NR50 (`new_relationships27.py`): the
 phase-area budget.  Bode's area theorem makes the integrated memory phase a
 conserved quantity fixed by the endpoint gains (waterbed), and the banded
 budget classifies gain structure into transport / causal memory / static

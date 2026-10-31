@@ -1,4 +1,4 @@
-# New cross-relationship — NR52 (`general_two_clocks/new_relationships29.py`) — theory + real data
+# New cross-relationship — NR52 (`new_relationships29.py`) — theory + real data
 
 Continues the derived-and-verified program (NR1–NR51; see
 `papers/CROSS_RELATIONSHIPS_INDEX.md`).
@@ -9,8 +9,8 @@ CPU-only, offline-safe — the real reads come from the committed cache
 [`tests/test_odd_spin.py`](tests/test_odd_spin.py) (15 tests).
 
 ```bash
-python general_two_clocks/new_relationships29.py   # -> figures/87_odd_spin.json
-pytest general_two_clocks/tests/test_odd_spin.py -v
+python new_relationships29.py   # -> figures/87_odd_spin.json
+pytest tests/test_odd_spin.py -v
 ```
 
 ---

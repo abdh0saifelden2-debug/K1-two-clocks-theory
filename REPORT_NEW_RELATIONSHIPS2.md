@@ -9,8 +9,8 @@
 Run:
 
 ```bash
-python general_two_clocks/new_relationships2.py
-pytest general_two_clocks/tests/test_new_relationships2.py -v
+python new_relationships2.py
+pytest tests/test_new_relationships2.py -v
 ```
 
 ## NR22 — Early-warning indicators are one rate: `Var·(1−AC1²) = σ_ε²`  [Paper 4 → NR3/NR8]

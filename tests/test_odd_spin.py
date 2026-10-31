@@ -1,4 +1,4 @@
-"""Unit proofs for NR52 (`general_two_clocks/new_relationships29.py`): the
+"""Unit proofs for NR52 (`new_relationships29.py`): the
 odd completion of the two-clocks response.  The antisymmetric (Lagrangian
 spin) correlation is the parity-odd face that every scalar contraction
 (MSD/GSER) projects out; for the damped rotator it is exactly

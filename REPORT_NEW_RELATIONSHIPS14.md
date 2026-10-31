@@ -1,4 +1,4 @@
-# New cross-relationship — NR37 (`general_two_clocks/new_relationships14.py`)
+# New cross-relationship — NR37 (`new_relationships14.py`)
 
 Continues the derived-and-verified program (NR1–NR36; see
 `papers/CROSS_RELATIONSHIPS_INDEX.md`).
@@ -7,8 +7,8 @@ CPU-only; unit-proofs in
 Run:
 
 ```bash
-python general_two_clocks/new_relationships14.py   # -> figures/nr37_pseudosound_crossover.{json,png}
-pytest general_two_clocks/tests/test_new_relationships14.py -v
+python new_relationships14.py   # -> figures/nr37_pseudosound_crossover.{json,png}
+pytest tests/test_new_relationships14.py -v
 ```
 
 ---

@@ -1,299 +1,77 @@
-# K1 — General Two Clocks: the observation, its implications, and the verified proofs
+# K1 — Two clocks: pressure–temperature decoupling across scales
 
-This repository is the **core of the program**. It contains **only** three things:
+Code, data artifacts, and manuscript for **paper0**, *Why spectrum-matched
+stochastic closures fail the elliptic test: operator-level pressure–temperature
+decoupling across scales*.
 
-1. **The observation** — pressure and temperature run on two different clocks
-   and two different spatial architectures, measured in real data.
-2. **Its implications** — why this structurally breaks any single-eddy-diffusivity
-   (K-theory) closure, and what the exact repair is.
-3. **The verified proofs** — every demonstration, derivation, benchmark and
-   measured coefficient that has earned a **[VERIFIED]** / **[DERIVED]** /
-   **[MEASURED]** tag. Nothing in this repository is a hypothesis; the open
-   hypotheses live in the four application repositories split from the same
-   monorepo — `K2-subglacial-cavity` (cavity DNS + real-bed/field validation),
-   `K3-scallop-migration` (scallop instability), `K4-swirl-vortex` (atmospheric
-   vortex), `K5-ocean-probes` (double diffusion) — and in the master claim
-   ledger `FUTURE_WORK.md`, which lives only in the archive (see
-   [Provenance](#provenance)).
+**Current release:** [`paper0-v1.0.3`](https://github.com/abdh0saifelden2-debug/K1-two-clocks-theory/releases/tag/paper0-v1.0.3)
+(2026-10-30, commit `a0b6a45`). The released PDF is attached to that release.
 
----
+**Thesis.** Temperature is a local, slow, parabolic field. Pressure, in the
+incompressible limit, is the Lagrange multiplier of the divergence-free
+constraint: a global, boundary-aware elliptic field. Matching the power
+spectrum of an elliptic correction does not reproduce its action as a
+constraint. Spectral equivalence is not dynamical equivalence.
 
-## 1. The observation
+## The paper in one table
 
-**Temperature is a local, slow, parabolic field. Pressure is a global, fast,
-elliptic field. They cannot be modelled as one coupled scalar.**
+| Setting | Result | Evidence |
+|---|---|---|
+| Field data: NEON WREF and ASOS | Daily P–T correlation is weak and regime-dependent (+0.07 in winter, −0.49 in summer). The 12 h pressure tide decays monotonically from 1.10 hPa at 24.6°N to 0.34 hPa at 47.4°N across eight stations. | Observational |
+| Rayleigh–Bénard DNS, `Ra = 10^6–10^8`, `Pr = 1` | Pressure and buoyancy share the integral scale, but pressure's Taylor microscale is 2.6–4.5× larger; the high-wavenumber gap widens by about 70× across the sweep. | Solver test |
+| Linear acoustics | The compressible pressure relaxes to the Poisson field with `t90 ≈ 2.3 L/c` under the fixed damping-per-crossing convention `γ = 1.5c/L`. The final state is independent of `c`. | Solver test |
+| Nonlinear compressible sweep | The dilatational energy fraction scales as `M²`; the acoustic-averaged pressure approaches the elliptic solution. | Solver test |
+| NCEP/NCAR Reanalysis 1 and 2 | The divergent wind carries 4.0–4.5% of the kinetic energy at 850 hPa, with a minimum at 500 hPa (R1 0.7%, R2 0.8%). | Observational |
+| Surrogate test: 2D Boussinesq, plus 3D and wall checks | A phase-randomized field with the identical power spectrum leaves RMS divergence `3.7 × 10⁻²` versus `2.7 × 10⁻²` for the uncorrected drift; the true projection reaches `2 × 10⁻¹⁵`. The common-phase control still leaves `3.66 × 10⁻²` (`1.33×`). | Solver test |
+| Lean 4 ledger | Finite-dimensional DFT/Parseval, antipodal-phase, and discrete-Leray statements are machine-checked; the spectral divergence ledger is exact. | Theorem |
 
-| Evidence | Data | Report | Figures |
-|---|---|---|---|
-| Temporal two clocks: temperature is a clean 24 h diurnal signal; pressure is multi-day synoptic + a 12 h global tide; bulk P–T daily coupling is r ≈ +0.07 (essentially decoupled) | NEON eddy-flux, WREF, 30-min | [`REPORT.md`](REPORT.md) | `figures/01–08` |
-| Latitude gradient: the 12 h pressure tide weakens monotonically equator→pole (1.08 → 0.63 hPa, MIA→DSM) while the diurnal temperature peak is the same everywhere — pressure knows the *whole atmosphere's* geometry, temperature only the sun overhead | ASOS 1-min, 3 stations 25–42°N | [`REPORT_ASOS.md`](REPORT_ASOS.md) | `figures/09–12` |
-| The same two clocks in real winds: divergent (fast/elliptic) vs rotational (slow/local) wind components separate cleanly in reanalysis | NCEP/NCAR Reanalysis 1 | [`REPORT_REANALYSIS.md`](REPORT_REANALYSIS.md) (`run_reanalysis.py`) | `figures/25–27` |
-| **Rossby-number two clocks**: the divergent (fast) wind fraction scales `KE_div/KE_rot ~ Ro² ∝ f⁻²` (extratropical slope −2.1) and is 26× larger in the tropics — the rotating analog of `KE_dil/KE_sol ~ M²` (Rossby↔Mach). Thinker/Builder | NCEP/NCAR Reanalysis 1 | [`REPORT_ROSSBY_CLOCKS.md`](REPORT_ROSSBY_CLOCKS.md) (`run_rossby_clocks.py`) | `figures/68` |
-| **Two clocks in TIME**: the divergent (fast) wind decorrelates in ~6 h vs ~18 h for the rotational (slow) wind (3× at 500 hPa) — the fast/slow clocks tick at different rates, measured in 6-hourly winds. Thinker/Builder | NCEP/NCAR Reanalysis 1 | [`REPORT_TEMPORAL_CLOCKS.md`](REPORT_TEMPORAL_CLOCKS.md) (`run_temporal_clocks.py`) | `figures/69` |
+**Scope.** The central surrogate demonstration is two-dimensional and periodic.
+A three-dimensional periodic DNS and a wall-bounded channel operator test extend
+the verdict beyond the box, but the paper makes no 3-D regularity claim and no
+forecast-skill claim. The reanalysis is model-assimilated and limited to
+spherical-harmonic degree `l ≤ 35`.
 
-## 2. The implications
+## Evidence levels
 
-- **Spatial decoupling [VERIFIED in DNS]** — in Rayleigh–Bénard DNS both fields
-  share the roll wavelength, but the *small scales* diverge: pressure's Taylor
-  microscale is **2.4×** the buoyancy's and its high-k spectral power is ~**10⁴×**
-  smaller. ∇²p = f is a global low-pass filter; temperature is torn into local
-  filaments. [`REPORT_RB.md`](REPORT_RB.md), `figures/13–15`.
-- **K-theory breakdown [VERIFIED on data]** — single-Prandtl K-theory fails on
-  NEON stability classes precisely where the two clocks decouple.
-  [`REPORT_STABILITY.md`](REPORT_STABILITY.md), `figures/06–08`.
-- **Geometry → global pressure [VERIFIED demo]** — a single localized bump in
-  the boundary reshapes the *whole-domain* elliptic pressure response but only
-  the *local* parabolic temperature response.
-  [`REPORT_ELLIPTIC_PRESSURE.md`](REPORT_ELLIPTIC_PRESSURE.md), `figures/39`
-  (`run_elliptic_demo.py`).
-- **Timescale separation = the singular-perturbation parameter [VERIFIED]** — one
-  number read two ways: the elliptic pressure constraint is instantaneous (Leray
-  projection drives ‖∇·u‖ to 1e-14 in a single step, τ_fast→0) while parabolic
-  transport relaxes at finite κk² (τ_slow=1/(κk²)), so ε=τ_fast/τ_slow=κk/c_s ∝ c_s⁻¹
-  → 0 — the Mach→0 singular limit (ω=c_s·k recovered to 1.000). Unifies the two-clocks
-  timescale separation with the singular-perturbation theory of transport decoupling.
-  [`REPORT_TIMESCALE_SEPARATION.md`](REPORT_TIMESCALE_SEPARATION.md)
-  (`timescale_separation.py`, 3 tests).
-- **The crossover is dynamical, not metaphysical [VERIFIED demo]** — with finite
-  sound speed pressure is hyperbolic; as c→∞ it becomes elliptic. The two clocks
-  emerge in the incompressible limit. [`REPORT_COMPRESSIBLE.md`](REPORT_COMPRESSIBLE.md),
-  [`REPORT_NS.md`](REPORT_NS.md), `figures/16–21`.
-- **The regularity face of the two clocks [VERIFIED demo]** — at the
-  velocity-gradient-tensor level, discarding the nonlocal (anisotropic) pressure
-  Hessian is exactly the restricted-Euler model → finite-time blowup (the
-  Vieillefosse tail); restoring it regularizes. The Mach→0 singular limit
-  *installs* that nonlocal Hessian (local EOS `c²Hess(ρ)` → nonlocal elliptic,
-  `~M²`), bridging the compressible DNS to the regularity picture.
-  [`REPORT_REGULARITY.md`](REPORT_REGULARITY.md),
-  [`REPORT_MACH_REGULARITY.md`](REPORT_MACH_REGULARITY.md), `figures/65–66`
-  (`restricted_euler_regularity.py`, `mach_regularity_bridge.py`).
-- **A conditional Clay-problem attack [CONDITIONAL — not a proof]** — a rigorous
-  conditional program: restricted-Euler blowup (rigorous) ⇄ Beale–Kato–Majda
-  vorticity-integral ⇄ Constantin–Fefferman geometric depletion (measured in a real
-  3D NS DNS: vorticity aligns with the intermediate strain eigenvector, depleting
-  self-stretching to `δ≈0.30`). Reduces 3D-NS regularity to a single depletion
-  inequality on the nonlocal pressure Hessian; the open core is stated explicitly.
-  [`REPORT_CLAY_REGULARITY.md`](REPORT_CLAY_REGULARITY.md), `figures/67`
-  (`clay_regularity_program.py`).
-- **The molecular foundation [DERIVED + measured]** — the bottom of the
-  Newton→Boltzmann→compressible-NS→incompressible-NS ladder. A 2-D hard-disk gas is
-  *regular by construction* (momentum/energy conserved to `~1e-14`, no finite-time
-  singularity), relaxes to Maxwell–Boltzmann (H-theorem; `v_x` kurtosis 1→3,
-  equipartition), and makes pressure by collisions (the EOS). But the rigorous
-  hydrodynamic limit (Golse–Saint-Raymond 2004; Deng–Hani–Ma 2025, Hilbert's 6th)
-  lands at **Leray weak** solutions — so the molecular origin **relocates** the Clay
-  problem to "does regularity survive the limit", it does not solve it (Tao-2014
-  averaged-NS blowup shows energy arguments alone cannot close it). The surviving
-  payoff: the nonlocal pressure Hessian is the continuum remnant of the molecular
-  incompressibility constraint. [`REPORT_MOLECULAR_REGULARITY.md`](REPORT_MOLECULAR_REGULARITY.md),
-  `figures/70` (`molecular_regularity.py`).
-- **Energy conservation ⇏ regularity [PROVEN model + measured]** — the runnable
-  version of the molecular note's central premise. The classical dyadic (shell) model
-  (Katz–Pavlović 2005) conserves energy *exactly* (telescoping inter-shell flux,
-  `max|dE/dt|=4.7e-10`) yet cascades to a **finite-time singularity**: `H¹` grows
-  `>10⁴×` with energy conserved to `2e-5`, and the cascade-front time `t_front(N)`
-  converges geometrically to `t*≈0.844` as `N→∞` (finite-time blowup, not a truncation
-  artifact). NS dissipation (`γ=1`) regularizes (`H¹` bounded ~3.2); supercritical
-  dissipation does not (Cheskidov 2008) — so *structure*, not the energy budget,
-  carries regularity. This is Tao-2016 "same energy identity, still blows up" in a
-  model you can run; a 1-D caricature, not a statement about 3-D NS.
-  [`REPORT_DYADIC_BLOWUP.md`](REPORT_DYADIC_BLOWUP.md), `figures/71`
-  (`dyadic_blowup.py`).
-- **Projection *is* the two clocks [VERIFIED demo]** — the projection method of
-  incompressible solvers is exactly the fast-clock elimination; the SPDE limit
-  follows. `run_boussinesq.py`, `figures/22–24`.
-- **New derived cross-relationships NR16–NR21 [verified]** — linking the four new
-  papers to each other + mainstream. NR16: power-law bursts (Paper 3) ⇒ 1/f^γ spectrum
-  with γ=3−α (Lowen–Teich). NR17: power-law spectrum ⇒ growing temporal memory
-  τ_int (Wiener–Khinchin), chaining Paper 3 → Paper 4. NR18: exact identity —
-  Paper 2's exchange fraction = √⟨kₓ²/k²⟩ (buoyancy spectral anisotropy, verified to
-  3e-16). NR19: Taylor/Green–Kubo — Paper 4's integrated memory time *is* an eddy
-  diffusivity (dispersion vs autocovariance-integral agree to 1.6%, both match exact
-  AR(1) theory). NR20: additive diffusivity D_total=D_fast+D_slow, with the slow clock
-  carrying ~21× the transport at equal energy. NR21: DFA/Hurst exponent = (γ+1)/2,
-  so the burst exponent predicts Paper 4's long-range-dependence H = (4−α_burst)/2.
-  [`REPORT_NEW_RELATIONSHIPS.md`](REPORT_NEW_RELATIONSHIPS.md)
-  (`new_relationships.py`).
-- **Non-Markovian multiscale ocean memory [real Argo, 3/4]** — ocean validation of
-  the Mori–Zwanzig memory thesis on 28 long-record N. Atlantic Argo floats
-  (temperature at 1000 dbar, ~7.5 yr each). The deseasonalized autocorrelation needs
-  **two separated timescales** (τ_fast≈19 d, τ_slow≈165 d, ΔAIC=52, sep 8.9×) and
-  decays slower than any AR(1); the Chapman–Kolmogorov excess C(3)−C(1)³>0 is robust
-  (p=0.002). Lag-2 excess positive but marginal (p=0.044, reported honestly). A local
-  Markov model is structurally insufficient — exactly what MZ predicts.
-  [`REPORT_NONMARKOV_ARGO.md`](REPORT_NONMARKOV_ARGO.md), `figures/75`
-  (`nonmarkov_argo.py`, `run_nonmarkov_argo.py`).
-- **Cascade lifetime & power-law energy transport [real NEON 1-min, honest split]** —
-  burst lifetimes of the fine-scale turbulent-activity envelope at WREF 2020.
-  Pressure bursts are a scale-free **power law** (α≈2.0 over ~2.2 decades, preferred
-  over exponential by ΔAIC≈1600, tail ≫ phase-randomized surrogate) with super-linear
-  energy transport (E∝τ^β, β≈1.6) — 4/4 pre-registered. Temperature is **not** a clean
-  power law (exponential-favored, ~2 hr characteristic convective scale) — an honest
-  falsification; super-linear energy transport (β>1) still holds for both. The
-  scale-free pressure clock vs the scaled temperature clock.
-  [`REPORT_CASCADE_LIFETIME.md`](REPORT_CASCADE_LIFETIME.md), `figures/74`
-  (`cascade_lifetime.py`, `run_cascade_lifetime.py`).
-- **Diagonal-band cascade structure [VERIFIED, real NEON 1-min]** — the surface
-  layer (a stratified turbulent fluid) builds a *local, intermittent* cross-scale
-  cascade, measured as a band-coupling matrix φ_ij = corr(log envelope of octave i,
-  octave j) on WREF 2020 1-min pressure + air temperature. φ is diagonal-band
-  (diagonal-dominant, half-coupling within ~4–5 octaves) and far above its
-  phase-randomized surrogate (φ(1) ≈ 0.29/0.38 vs ≈ 0) — the time-domain "energy yes,
-  structure no". The two clocks differ: temperature is a clean local cascade
-  (Spearman −0.99), pressure couples more broadly with a synoptic enhancement (the
-  global clock). [`REPORT_CASCADE_STRUCTURE.md`](REPORT_CASCADE_STRUCTURE.md),
-  `figures/73` (`cascade_band_structure.py`, `run_cascade_structure.py`).
-- **In-place pressure-mediated buoyancy exchange [VERIFIED, 4/4 pre-registered]** —
-  a falsification-driven probe of *how* incompressible stratified flow moves
-  buoyancy: the elliptic pressure splits the buoyancy force `F=(0,b')` into a removed
-  gradient part and a surviving baroclinic torque `∂_x b'`. Pure vertical
-  stratification is held statically in place (solenoidal fraction `2.3e-16`); the
-  pressure response is non-local (`r50` ratio `1.84`); developed convection has zero
-  net vertical mass flux but positive buoyancy flux (warm up / cold down); the
-  mediation is an instantaneous linear elliptic functional (superposition `2.5e-16`,
-  scaling slope `1.000`). [`REPORT_PRESSURE_BUOYANCY.md`](REPORT_PRESSURE_BUOYANCY.md),
-  `figures/72` (`pressure_buoyancy_exchange.py`).
+| Level | Meaning |
+|---|---|
+| **Theorem** | Proved analytically or machine-checked in Lean 4. |
+| **Numerical identity** | Exact discrete or algebraic identity checked to floating-point precision. |
+| **Solver test** | Deterministic numerical experiment: DNS, acoustics, or a closure benchmark. |
+| **Observational** | Field or reanalysis data, with sample size, site, period, and confidence intervals reported. |
+| **Exploratory** | Outside the manuscript's claim set; indexed in [`docs/FINDINGS.md`](docs/FINDINGS.md). |
 
-## 3. The verified proofs (the repair and its measured coefficients)
+## Repository map
 
-- **The theory [DERIVED]** — Mori–Zwanzig / projected-FDT closure generalizes
-  K-theory at the operator level; K-theory is the memoryless, down-gradient,
-  no-backscatter truncation. [`REPORT_THEORY.md`](REPORT_THEORY.md).
-- **The decisive benchmark [VERIFIED]** — 256² filtered DNS, exact SGS force vs
-  three closures. Smagorinsky: transfer correlation **0.071**, purely dissipative
-  (no backscatter), spectral cusp. Projected-FDT: correlation **1.000**, solenoidal
-  by construction, correct forward/backscatter partition — "energy AND structure".
-  [`REPORT_CLOSURE.md`](REPORT_CLOSURE.md), `figures/28–30` (`run_closure.py`).
-- **The same verdicts in 3D, with vortex stretching active [VERIFIED]** — Part 9c
-  re-runs the identical benchmark in a 128³ forced incompressible DNS (convergence-
-  checked at 128–192³): Smagorinsky stays purely dissipative, the spectrum-matched
-  surrogate keeps the right energy but breaks solenoidality, and projected-FDT
-  matches spectrum + divergence + transfer. The 3D-only diagnostics — positive
-  stretching production (`⟨ωSω⟩* = 0.168`, identically `0.000` in 2D),
-  intermediate-eigenvector alignment (`e₂ ≈ 0.65`), and a backscatter volume
-  fraction of **0.480** that Smagorinsky's positive eddy viscosity cannot
-  represent (**0.000**) — are the structural features through which the
-  recently-proved singularity mechanism operates; the benchmark measures the
-  diagnostics, not regularity. The `0.480` is the fraction of points with
-  `Π<0` (the Gaussian-law form `Φ(−μ/σ)`); the 4.9% figure is the separate ratio
-  `μ/σ`, not a fraction of injection. [`REPORT_CLOSURE3D.md`](REPORT_CLOSURE3D.md),
-  `figures/61–64` (`run_closure3d.py`).
-- **RESULT 12 [MEASURED]** — the memory coefficient is real: `τ_c ≈ 0.02–0.03`,
-  sign **+**, measured from the SGS eddy-diffusivity autocorrelation; bath weights
-  closed (slow:fast = Stefan number). [`REPORT_GLE_COEFFICIENTS.md`](REPORT_GLE_COEFFICIENTS.md),
-  `figures/53` (`gle_coefficients.py`).
-- **RESULT 13 [VERIFIED]** — `τ_c` is a property of the *turbulence*, not of the
-  scalar: identical across heat and salt despite a 100× molecular-diffusivity
-  contrast (Le sweep). [`REPORT_SCALAR_CLOCK.md`](REPORT_SCALAR_CLOCK.md),
-  `figures/55` (`scalar_clock_universality.py`).
-- **RESULT 15 [VERIFIED — synthetic solver]** — the clock-mismatch (CMN)
-  correction `−τ_c·∇·(∂_t K_u ∇θ)` reduces transient error and vanishes in steady
-  state, run inside an actual transient K-theory solver.
-  [`REPORT_CMN_SOLVER.md`](REPORT_CMN_SOLVER.md), `figures/60` (`cmn_solver_demo.py`).
-- **Down-gradient / backscatter repair [DERIVED → code]** — the spatial companion of
-  RESULT 15. [`nonlocal_flux_correction.py`](nonlocal_flux_correction.py) makes the
-  "down-gradient, no-backscatter truncation" failure concrete and drops in the fix.
-  **THEOREM (proved + tested):** any local closure with a non-negative eddy
-  diffusivity, `F = −κ(x)∇C` with `κ ≥ 0` (scalar or PSD tensor), has `F·∇C ≤ 0`
-  *pointwise*, so the alignment `C_G = ⟨F·∇C⟩/⟨|F||∇C|⟩` is pinned at `−1` — it
-  **cannot** represent the counter-gradient flux (`C_G > −1`) measured in RESULT 11
-  ([`REPORT_CG_BUOYANCY.md`](https://github.com/abdh0saifelden2-debug/K2-subglacial-cavity/blob/792cbed31b3677bad51f1cfe4473405e5e877978/REPORT_CG_BUOYANCY.md) in `K2-subglacial-cavity`). The
-  correction is a scale-dependent (nonlocal) eddy diffusivity `κ̂(k)` —
-  `F̂ = −κ̂(k)(ik)Ĉ` — that admits backscatter (`κ̂ < 0` in a band); it reproduces the
-  counter-gradient truth exactly while reducing to local Fick when `κ̂` is constant
-  (the safe default). `tests/test_nonlocal_flux_correction.py`.
+- `paper0_two_clocks.tex` — the manuscript. CI builds it with XeLaTeX and attaches the PDF to `paper0-v*` releases.
+- `CLAIM_MAP.md` — claim-to-code/test/artifact map; `tools/check_claim_map.py` is the CI gate.
+- [`docs/FINDINGS.md`](docs/FINDINGS.md) — the detailed findings moved out of this README.
+- `run_*.py` — reproduction runners; Table 9 of the paper lists the command for every result.
+- `closure/`, `boussinesq/`, `compressible/`, `neon_pt/`, `asos/`, `reanalysis/` — analysis libraries.
+- `figures/`, `data/`, `claims/`, `tests/` — artifacts, caches, gated claim data, and the test suite.
+- `REPORT_*.md` — 81 reports; the manuscript-supporting ones are linked from `docs/FINDINGS.md`.
 
-## Contents
-
-- Libraries: `neon_pt/`, `asos/`, `reanalysis/` (observations);
-  `compressible/`, `boussinesq/` (demo solvers); `closure/` (benchmark library).
-- Runners: `run_analysis.py`, `run_asos.py`, `run_stability.py`, `run_rb.py`,
-  `run_compressible.py`, `run_compressible_ns.py`, `run_boussinesq.py`,
-  `run_reanalysis.py`, `run_closure.py`, `run_elliptic_demo.py`.
-- Measured-coefficient harnesses: `gle_coefficients.py`,
-  `scalar_clock_universality.py`, `cmn_solver_demo.py`,
-  `direction_c_gpu_probe.py` (+ `direction_c_results.json`, the GPU cavity
-  solver `gle_coefficients.py` reuses).
-- `figures/` — Figs 01–30, 39, 53, 55, 60, 65–67, 70. `tests/` — the automated proofs.
-
-- Vendored leaf dependencies (see [`AUDIT.md`](AUDIT.md)):
-  `closure/`, `compressible/` (the benchmark's solver library), and
-  `subglacial/{flow,elliptic_demo,candidate2_doublediff}.py` plus
-  `ice_kernel_synthetic.py`, `thermal_tail_amplitude.py`,
-  `tidal_admittance_field.py` — everything this cluster imports is inside the
-  repository.
-
-## Quick start
+## Reproduce
 
 ```bash
 python3 -m venv .venv && . .venv/bin/activate
 pip install -r requirements.txt
+python -m pytest            # full CPU suite (683 tests at v1.0.3)
 python run_closure.py --out-dir figures
-python -m pytest            # 683 passed, 1 skipped
 ```
 
-## Lean formalization scope
+Raw inputs are listed in [`data/MANIFEST.md`](data/MANIFEST.md); no raw
+NEON, ASOS, NCEP, or Argo data are vendored. To rebuild the PDF, run `xelatex`
+twice on `paper0_two_clocks.tex`.
 
-The finite-dimensional **surrogate slice** is the part of this repository that a
-proof assistant can state exactly as the code computes it. Everything else
-continuum-side is out of scope, by design:
+## Status and provenance
 
-| # | In scope (stated exactly as computed) | Out of scope |
-|---|---|---|
-| 1 | The **periodic box**: fixed `N×N` mode set, discrete Fourier indices, discrete inner products | Continuum limits (`k → 0`, `N → ∞`), function spaces, Sobolev norms |
-| 2 | **Exact Parseval sums** — every energy, transfer, correlation and alignment is a finite sum over the mode set; identities hold to floating-point equality | Any statement needing `lim` of those sums |
-| 3 | The closure operators as **finite matrices** applied to a finite state vector (`Smagorinsky`, `Projected-FDT`, the spectrum-matched surrogate) | Operator-theoretic closure (Mori–Zwanzig) as an identity on function spaces |
-| 4 | Scalar/ODE coefficients measured by the harnesses (`τ_c`, bath weights, `C_G`) as **rational/real arithmetic on finite samples** | Statistical estimators as limits of infinite ensembles |
+- **Paper:** v1.0.3, released from `a0b6a45`; PDF SHA-256 `03e629b145dd6fbbf47b98488fbcd25fd1f3ca2f400691998149bbdc6865e9e4`.
+- **Lean:** the finite-dimensional surrogate slice is frozen at `249e357` (Parseval freeze) and audited against `553d5c2` in [`K1-lean`](https://github.com/abdh0saifelden2-debug/K1-lean).
+- **Audit:** the public code and claim audit is [`paper0-audit`](https://github.com/abdh0saifelden2-debug/paper0-audit).
+- **Provenance:** split from the K monorepo; the pristine archive SHA-256 is `ef637ff5f912a5d1404f677429f9429eccc8102a8cab23cee79cf055bbf1220`. Split details are in [`AUDIT.md`](AUDIT.md).
 
-**Entry points for the formalization:** `run_closure.py`, `run_closure3d.py`,
-and the benchmark library `closure/{dns2d,dns3d,sgs,sgs3d,spectral3d}.py` — the
-256² filtered-DNS verdict (Smagorinsky `0.071` vs projected-FDT `1.000`) in its
-finite-dimensional form. Numerical solver tolerances and iterative-convergence
-claims are excluded: a Lean statement fixes the discretization and reasons about
-*that*, not about how close an iterative solve got.
+## Citation
 
-The formalization is frozen at commit `249e357`; the citable summary is:
-
-> *The spectral bookkeeping of the pre-projection surrogate — DFT inversion,
-> Hermitian reality, per-mode amplitude and phase identity, finite Parseval, and
-> bin/multiplier invariance — is machine-verified in Lean 4 against mathlib
-> (finite-dimensional discrete setting, exact arithmetic; frozen statement and
-> line-by-line audit at
-> [`Parseval.lean`](https://github.com/abdh0saifelden2-debug/K1-lean/blob/249e357959a859e2995cc5bc86d6b193a649d72f/Src/K1Lean/Parseval.lean),
-> audit document at
-> [`STATEMENT_MATCH.md`](https://github.com/abdh0saifelden2-debug/K1-lean/blob/249e357959a859e2995cc5bc86d6b193a649d72f/STATEMENT_MATCH.md)).
-> The divergence/geometry failure of spectrum-matching (E5) is empirical and
-> outside the formalized scope.*
-
-## Provenance
-
-Split out of the **K** monorepo, partitioned by claim cluster:
-
-| repository | claim cluster |
-|---|---|
-| `K1-two-clocks-theory` *(this repo)* | observation, two-clocks theory, closure benchmarks |
-| `K2-subglacial-cavity` | cavity DNS, real-bed validation, field-analysis validation |
-| `K3-scallop-migration` | scallop instability family, channelisation |
-| `K4-swirl-vortex` | atmospheric vortex application |
-| `K5-ocean-probes` | ice–ocean double diffusion |
-
-The pristine monorepo was snapshotted **before** any edit:
-`K-monorepo-archive.tar.gz`, SHA-256
-`ef637ff55f912a5d1404f677429f9429eccc8102a8cab23cee79cf055bbf1220`
-(`K-monorepo-archive.sha256`). The cross-repo claim ledger (`FUTURE_WORK.md`)
-is deliberately **not** copied here — it lives only in that archive; the
-manuscript source and its build live at this repository's root.
-[`AUDIT.md`](AUDIT.md) records the full split audit: every vendored file, every
-edit, and the AST verification result (reproduce it with
-[`K-audit` v1.0](https://github.com/abdh0saifelden2-debug/K-audit/tree/v1.0)).
-
-## Manuscript
-
-`paper0_two_clocks.tex`, `preamble.sty`, and `figures/` are the
-`K1-two-clocks-theory` manuscript. Build it with `xelatex` twice from the
-repository root; CI does the same and attaches the PDF to `paper0-v*` releases.
-The formal claims in `sec:formal` are audited against `K1-lean` commit
-`553d5c2` (`STATEMENT_MATCH.md`).
-
-## TODO (future)
-- (8) Lean on surrogate skeleton (statements first, proofs second, finite-dimensional only)
+Cite the `paper0-v1.0.3` release and this repository. A Zenodo DOI has not been
+minted; use the release URL until one exists.

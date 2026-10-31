@@ -1,4 +1,4 @@
-# NR39 real-data gate — EXECUTED (`general_two_clocks/nr39_eeg_gate.py`) — the imaginary-coherence volume-conduction lemma on real EEG (ledger E7)
+# NR39 real-data gate — EXECUTED (`nr39_eeg_gate.py`) — the imaginary-coherence volume-conduction lemma on real EEG (ledger E7)
 
 Closes the real-EEG consistency gate registered by NR39
 ([`REPORT_NEW_RELATIONSHIPS16.md`](REPORT_NEW_RELATIONSHIPS16.md);
@@ -16,8 +16,8 @@ Unit-proofs in [`tests/test_nr39_eeg_gate.py`](tests/test_nr39_eeg_gate.py)
 (9 tests).
 
 ```bash
-python general_two_clocks/nr39_eeg_gate.py   # -> figures/nr39_eeg_gate.json
-pytest general_two_clocks/tests/test_nr39_eeg_gate.py -v
+python nr39_eeg_gate.py   # -> figures/nr39_eeg_gate.json
+pytest tests/test_nr39_eeg_gate.py -v
 ```
 
 ## Data

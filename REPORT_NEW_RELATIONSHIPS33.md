@@ -1,4 +1,4 @@
-# New cross-relationship — NR56 (`general_two_clocks/new_relationships33.py`) — theory + real data
+# New cross-relationship — NR56 (`new_relationships33.py`) — theory + real data
 
 Continues the derived-and-verified program (NR1–NR55; see
 `papers/CROSS_RELATIONSHIPS_INDEX.md`).
@@ -9,8 +9,8 @@ with `build_cache()`). Unit-proofs in
 [`tests/test_stokes_faces.py`](tests/test_stokes_faces.py) (11 tests).
 
 ```bash
-python general_two_clocks/new_relationships33.py   # -> figures/91_stokes_faces.json
-pytest general_two_clocks/tests/test_stokes_faces.py -v
+python new_relationships33.py   # -> figures/91_stokes_faces.json
+pytest tests/test_stokes_faces.py -v
 ```
 
 ---

@@ -1,5 +1,5 @@
 """Unit tests for the molecular foundation of the regularity program
-(general_two_clocks/molecular_regularity.py).
+(molecular_regularity.py).
 
 These pin the three claims of the bottom rung of the
 Newton -> Boltzmann -> compressible NS -> incompressible NS hierarchy:

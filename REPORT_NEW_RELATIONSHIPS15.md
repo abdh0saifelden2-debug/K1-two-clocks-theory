@@ -1,4 +1,4 @@
-# New cross-relationship — NR38 (`general_two_clocks/new_relationships15.py`)
+# New cross-relationship — NR38 (`new_relationships15.py`)
 
 Continues the derived-and-verified program (NR1–NR37; see
 `papers/CROSS_RELATIONSHIPS_INDEX.md`).
@@ -14,8 +14,8 @@ CPU-only; unit-proofs in
 Run:
 
 ```bash
-python general_two_clocks/new_relationships15.py   # -> figures/nr38_bed_randles_impedance.{json,png}
-pytest general_two_clocks/tests/test_new_relationships15.py -v
+python new_relationships15.py   # -> figures/nr38_bed_randles_impedance.{json,png}
+pytest tests/test_new_relationships15.py -v
 ```
 
 ---

@@ -1,4 +1,4 @@
-# New cross-relationship — NR36 (`general_two_clocks/new_relationships13.py`)
+# New cross-relationship — NR36 (`new_relationships13.py`)
 
 Continues the derived-and-verified program (NR1–NR35; see
 `papers/CROSS_RELATIONSHIPS_INDEX.md`).
@@ -7,8 +7,8 @@ CPU-only; unit-proofs in
 one exercising the local NWIS downloads). Run:
 
 ```bash
-python general_two_clocks/new_relationships13.py   # -> figures/nr36_well_barometric_kernel.{json,png}
-pytest general_two_clocks/tests/test_new_relationships13.py -v
+python new_relationships13.py   # -> figures/nr36_well_barometric_kernel.{json,png}
+pytest tests/test_new_relationships13.py -v
 ```
 
 ---

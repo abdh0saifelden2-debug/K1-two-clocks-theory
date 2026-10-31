@@ -1,4 +1,4 @@
-"""Unit proofs for NR41 (`general_two_clocks/new_relationships18.py`), the theory-
+"""Unit proofs for NR41 (`new_relationships18.py`), the theory-
 pass synthesis: the diffusive-visibility window across the two-clocks program.
 
 Covered: the tempered-Warburg phase corner (x=1 -> 22.5 deg) and asymptotes; the

@@ -1,4 +1,4 @@
-"""Unit proofs for NR39 (`general_two_clocks/new_relationships16.py`):
+"""Unit proofs for NR39 (`new_relationships16.py`):
 imaginary coherence = instantaneous-mixing projection invariance.  Ledger E7.
 
 Covered: the algebraic lemma (real mixing of real-spectrum sources has zero

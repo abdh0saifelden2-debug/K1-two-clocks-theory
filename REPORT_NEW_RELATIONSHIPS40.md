@@ -53,4 +53,4 @@ Livingstone et al. 2022 review (subglacial lake drainage connectivity).
 
 **Artifacts:** `figures/98_lake_gain_allpass.json` (all 6 verdicts true); 11
 unit proofs in `tests/test_lake_gain_allpass.py`; offline-safe (committed
-ATL15 cache). Reproduce: `python general_two_clocks/new_relationships40.py`.
+ATL15 cache). Reproduce: `python new_relationships40.py`.

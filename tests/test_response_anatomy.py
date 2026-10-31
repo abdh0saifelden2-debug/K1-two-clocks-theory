@@ -1,4 +1,4 @@
-"""Unit proofs for NR55 (`general_two_clocks/new_relationships32.py`): the
+"""Unit proofs for NR55 (`new_relationships32.py`): the
 response-anatomy capstone.  Four independent phases (memory, transport,
 shape parity, handedness), four guard theorems, and the corpus's real
 systems occupying distinct corners of the phase space -- every matrix

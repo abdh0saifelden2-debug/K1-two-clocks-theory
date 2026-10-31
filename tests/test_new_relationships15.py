@@ -1,4 +1,4 @@
-"""Unit proofs for NR38 (`general_two_clocks/new_relationships15.py`):
+"""Unit proofs for NR38 (`new_relationships15.py`):
 the subglacial bed as a Randles impedance.  Ledger item E3.
 
 Covered: the Warburg -45 deg limit; the nested reduction (Randles with

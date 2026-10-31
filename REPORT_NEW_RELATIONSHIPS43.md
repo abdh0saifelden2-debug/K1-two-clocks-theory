@@ -1,9 +1,9 @@
 # NR66 — the spin's entropy production is reactive (housekeeping), not dissipative
 
-**Module** `general_two_clocks/new_relationships43.py` ·
+**Module** `new_relationships43.py` ·
 **data** the committed NR56 ANDRO Stokes cache (`data/nr56_stokes_cache.json`, 8280 floats) ·
-**figure** `general_two_clocks/figures/101_reactive_epr.json` + `.png` ·
-**tests** `general_two_clocks/tests/test_reactive_epr.py` (12)
+**figure** `figures/101_reactive_epr.json` + `.png` ·
+**tests** `tests/test_reactive_epr.py` (12)
 
 ## The relationship
 

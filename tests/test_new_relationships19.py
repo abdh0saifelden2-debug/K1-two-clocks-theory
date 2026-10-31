@@ -1,4 +1,4 @@
-"""Unit proofs for NR42 (`general_two_clocks/new_relationships19.py`), the grid-frequency
+"""Unit proofs for NR42 (`new_relationships19.py`), the grid-frequency
 drainage window: NR32's band-limited two-clocks transmission and its interior-peak
 criterion, transferred verbatim to the power-grid System Frequency Response.
 

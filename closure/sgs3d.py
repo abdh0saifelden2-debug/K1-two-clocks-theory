@@ -160,7 +160,14 @@ def surrogate_force3d(sp: Spectral3D, mx, my, mz, kc: float, seed: int = 0):
 
 
 def projected_fdt_force3d(sp: Spectral3D, ub, vb, wb, mx, my, mz, kc: float, seed: int = 0):
-    """Projected-FDT model (3D).
+    """Projected-FDT closure (3D) -- an **oracle** construction, not predictive.
+
+    **Oracle, not predictive.**  Step 1 reads the true subgrid transfer
+    ``T_true(k)`` from the filtered DNS field, so the returned force cannot be
+    evaluated from resolved data alone and must not be scored as a predictive SGS
+    model.  It is an oracle: a solenoidal force with the exact ``E_m(k)`` and the
+    exact shell transfer exists, and spectrum matching alone does not find it.
+    For a genuinely predictive comparison see ``closure_aposteriori3d.py``.
 
     1. measured scale-dependent eddy viscosity nu_t(k) reproducing the true shell
        transfer:  nu_t(k) = -T_true(k) / sum_shell(|k'|^2 |uhat|^2).  Allowed to be

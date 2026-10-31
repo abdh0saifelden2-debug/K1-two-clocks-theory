@@ -1,10 +1,10 @@
 # NR68 — the atmosphere's vertical structure IS the two-clocks competition, and the turbopause is the clock handoff
 
-**Module** `general_two_clocks/new_relationships45.py` ·
+**Module** `new_relationships45.py` ·
 **data** committed NRLMSIS 2.1 cache (`data/nr68_msis_cache.json`, 4 geophysical
 conditions × 181 altitudes × 11 columns, driven by real Celestrak F10.7/Ap) ·
-**figure** `general_two_clocks/figures/103_atmosphere_two_clocks.json` + `.png` ·
-**tests** `general_two_clocks/tests/test_atmosphere_two_clocks.py` (8)
+**figure** `figures/103_atmosphere_two_clocks.json` + `.png` ·
+**tests** `tests/test_atmosphere_two_clocks.py` (8)
 
 ## The relationship
 
@@ -88,8 +88,8 @@ measurement, and no new closure is claimed.
 
 ## Verification
 
-`python3 general_two_clocks/new_relationships45.py` regenerates the figure/JSON from
-the committed cache. `pytest general_two_clocks/tests/test_atmosphere_two_clocks.py`
+`python3 new_relationships45.py` regenerates the figure/JSON from
+the committed cache. `pytest tests/test_atmosphere_two_clocks.py`
 (8 passed): exponential-profile scale-height recovery, kT/mg textbook value + exact
 1/m scaling, inverse-square gravity, λ linear-in-m/inverse-in-T, flux-factor
 monotonicity + >1e30 light/heavy contrast, v_esc²/v_p² identity, cache schema, and

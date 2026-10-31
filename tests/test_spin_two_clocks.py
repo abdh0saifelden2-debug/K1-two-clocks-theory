@@ -1,4 +1,4 @@
-"""Unit proofs for NR53 (`general_two_clocks/new_relationships30.py`): the
+"""Unit proofs for NR53 (`new_relationships30.py`): the
 two clocks of the spin.  The ocean's odd (Lagrangian-spin) correlation
 decomposes into an oscillatory EDDY clock (damped rotator: zero-crossing,
 finite memory) and a persistent CIRCULATION clock (linear growth, no
