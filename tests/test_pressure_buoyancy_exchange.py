@@ -1,5 +1,5 @@
 """Unit tests for Paper 2 — in-place pressure-mediated buoyancy exchange
-(general_two_clocks/pressure_buoyancy_exchange.py).
+(pressure_buoyancy_exchange.py).
 
 Pin the four pre-registered predictions plus the underlying Helmholtz/baroclinic
 identities. Deterministic (seeded), CPU-only.

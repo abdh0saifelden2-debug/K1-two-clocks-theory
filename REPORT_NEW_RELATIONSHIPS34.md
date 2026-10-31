@@ -1,4 +1,4 @@
-# New cross-relationship — NR57 (`general_two_clocks/new_relationships34.py`) — theory + real data
+# New cross-relationship — NR57 (`new_relationships34.py`) — theory + real data
 
 Continues the derived-and-verified program (NR1–NR56; see
 `papers/CROSS_RELATIONSHIPS_INDEX.md`).
@@ -9,8 +9,8 @@ Unit-proofs in
 (13 tests).
 
 ```bash
-python general_two_clocks/new_relationships34.py   # -> figures/92_spin_irreversibility.json
-pytest general_two_clocks/tests/test_spin_irreversibility.py -v
+python new_relationships34.py   # -> figures/92_spin_irreversibility.json
+pytest tests/test_spin_irreversibility.py -v
 ```
 
 ---

@@ -1,9 +1,9 @@
 # NR65 — the phase face of the tidal EIS: the bed's complex wavenumber and its 45° loss angle
 
-**Module** `general_two_clocks/new_relationships42.py` ·
+**Module** `new_relationships42.py` ·
 **data** the committed §I.5 harmonic cache, REBUILT with absolute-epoch phases (`glaciers/.../tidal_admittance_field_cache.json`) ·
-**figure** `general_two_clocks/figures/100_tidal_phase_dispersion.json` + `.png` ·
-**tests** `general_two_clocks/tests/test_tidal_phase_dispersion.py` (11)
+**figure** `figures/100_tidal_phase_dispersion.json` + `.png` ·
+**tests** `tests/test_tidal_phase_dispersion.py` (11)
 
 ## The relationship
 

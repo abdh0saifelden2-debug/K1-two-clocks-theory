@@ -1,4 +1,4 @@
-# NR42 real-data gate — EXECUTED (`general_two_clocks/nr42_gb_archive.py`) — GB 1-s frequency archives vs measured inertia (ledger E9)
+# NR42 real-data gate — EXECUTED (`nr42_gb_archive.py`) — GB 1-s frequency archives vs measured inertia (ledger E9)
 
 Executes the gate registered in
 [`figures/nr42_grid_frequency_window.json`](figures/nr42_grid_frequency_window.json)
@@ -15,8 +15,8 @@ Unit-proofs in [`tests/test_nr42_gb_archive.py`](tests/test_nr42_gb_archive.py)
 (12 tests).
 
 ```bash
-python general_two_clocks/nr42_gb_archive.py   # -> figures/nr42_gb_archive.json
-pytest general_two_clocks/tests/test_nr42_gb_archive.py -v
+python nr42_gb_archive.py   # -> figures/nr42_gb_archive.json
+pytest tests/test_nr42_gb_archive.py -v
 ```
 
 ## Data

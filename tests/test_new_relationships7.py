@@ -1,5 +1,5 @@
 """Unit tests for the new derived relationship NR30
-(general_two_clocks/new_relationships7.py). Deterministic, CPU-only.
+(new_relationships7.py). Deterministic, CPU-only.
 
 NR30: the subglacial hydraulic potential phi (parabolic, screened, lagged Darcy head with
 storage) is NOT the Leray pressure (elliptic, instantaneous, memoryless constraint multiplier);

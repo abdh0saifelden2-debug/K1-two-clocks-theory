@@ -1,5 +1,5 @@
 """Unit tests for Paper 3 — cascade lifetime distribution & power-law energy transport
-(general_two_clocks/cascade_lifetime.py).
+(cascade_lifetime.py).
 
 Validate the heavy-tail fitter and event machinery on deterministic synthetic data
 (no downloads): power-law in -> power-law preferred + correct exponent; exponential

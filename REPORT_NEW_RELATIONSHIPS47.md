@@ -1,9 +1,9 @@
 # NR70 — the escape ladder's clock algebra: series takes the slowest clock, parallel takes the fastest
 
-**Module** `general_two_clocks/new_relationships47.py` ·
+**Module** `new_relationships47.py` ·
 **data** the committed NR68 NRLMSIS 2.1 cache (via NR69's exobase locator) ·
-**figure** `general_two_clocks/figures/105_escape_flux_algebra.json` + `.png` ·
-**tests** `general_two_clocks/tests/test_escape_flux_algebra.py` (9)
+**figure** `figures/105_escape_flux_algebra.json` + `.png` ·
+**tests** `tests/test_escape_flux_algebra.py` (9)
 
 ## The relationship
 
@@ -62,8 +62,8 @@ kinetic ×2–2.5 corrections (Volkov 2017) move no decade-scale conclusion.
 
 ## Verification
 
-`python3 general_two_clocks/new_relationships47.py` regenerates figure/JSON from
-the committed cache. `pytest general_two_clocks/tests/test_escape_flux_algebra.py`
+`python3 new_relationships47.py` regenerates figure/JSON from
+the committed cache. `pytest tests/test_escape_flux_algebra.py`
 (9 passed): two-slab exact = harmonic series (<1e−12), slowest/fastest pinning,
 exact composition identities, Jeans-flux linearity in n and exponential collapse
 in λ, H valve band + under-pipe + observed-at-pipe, He ≥8-decade shortfall, O

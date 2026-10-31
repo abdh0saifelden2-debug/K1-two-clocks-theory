@@ -1,4 +1,4 @@
-"""Unit proofs for NR60 (`general_two_clocks/new_relationships37.py`):
+"""Unit proofs for NR60 (`new_relationships37.py`):
 Gonella's rotary coefficient is an entropy-production spectral density.
 
 Covered: the exact 2x2 closure tr[S^{-T}S - I] = 4(Im S_uv)^2/det S and

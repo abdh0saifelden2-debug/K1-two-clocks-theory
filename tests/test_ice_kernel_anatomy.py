@@ -1,4 +1,4 @@
-"""Unit proofs for NR58 (`general_two_clocks/new_relationships35.py`): the
+"""Unit proofs for NR58 (`new_relationships35.py`): the
 B.2 tempered-Warburg ice memory kernel (NR34) placed in the NR47-NR57
 response anatomy.  It is pure minimum-phase memory -- phase 0 -> 45 deg
 with the KK crossover EXACTLY at the tempering rate lam = 1/(4 tau_d) --

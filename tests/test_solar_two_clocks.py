@@ -1,4 +1,4 @@
-"""Unit proofs for NR46 (`general_two_clocks/new_relationships23.py`): the
+"""Unit proofs for NR46 (`new_relationships23.py`): the
 solar two clocks -- NR28's coherence-gated cross-spectral protocol on 26
 years of SOHO GOLF x VIRGO/SPM with BiSON control.  Offline-safe: all
 numbers come from the committed aggregate cache

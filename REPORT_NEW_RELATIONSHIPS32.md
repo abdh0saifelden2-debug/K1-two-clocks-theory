@@ -1,4 +1,4 @@
-# New cross-relationship — NR55 (`general_two_clocks/new_relationships32.py`) — theory capstone
+# New cross-relationship — NR55 (`new_relationships32.py`) — theory capstone
 
 Closes the NR47–NR54 arc (see
 `papers/CROSS_RELATIONSHIPS_INDEX.md`).
@@ -7,8 +7,8 @@ artifacts. Unit-proofs in
 [`tests/test_response_anatomy.py`](tests/test_response_anatomy.py) (8 tests).
 
 ```bash
-python general_two_clocks/new_relationships32.py   # -> figures/90_response_anatomy.json
-pytest general_two_clocks/tests/test_response_anatomy.py -v
+python new_relationships32.py   # -> figures/90_response_anatomy.json
+pytest tests/test_response_anatomy.py -v
 ```
 
 ---

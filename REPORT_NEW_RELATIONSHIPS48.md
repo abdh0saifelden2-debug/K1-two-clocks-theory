@@ -1,10 +1,10 @@
 # NR71 — the ambipolar field is the ionosphere's divergence-cleaning multiplier
 
-**Module** `general_two_clocks/new_relationships48.py` ·
+**Module** `new_relationships48.py` ·
 **data** committed IRI2016 cache (`data/nr71_iri_cache.json`, 4 conditions,
 150–650 km; builder `build_nr71_iri_cache.py`) ·
-**figure** `general_two_clocks/figures/106_ambipolar_multiplier.json` + `.png` ·
-**tests** `general_two_clocks/tests/test_ambipolar_multiplier.py` (10)
+**figure** `figures/106_ambipolar_multiplier.json` + `.png` ·
+**tests** `tests/test_ambipolar_multiplier.py` (10)
 
 ## The relationship
 
@@ -67,10 +67,10 @@ of the multiplier excess.
 
 ## Verification
 
-`python3 general_two_clocks/build_nr71_iri_cache.py` rebuilds the cache (needs
+`python3 build_nr71_iri_cache.py` rebuilds the cache (needs
 gfortran; the committed JSON replays offline). `python3
-general_two_clocks/new_relationships48.py` regenerates figure/JSON.
-`pytest general_two_clocks/tests/test_ambipolar_multiplier.py` (10 passed):
+new_relationships48.py` regenerates figure/JSON.
+`pytest tests/test_ambipolar_multiplier.py` (10 passed):
 read-out recovers static lift on exact synthetic DE columns (2e−3), pure
 thermo-electric term exact, ×2 doubling at T_e=T_i and 1+T_e/T_i generally,
 lift-fraction/effective-mass identities, naive-clock exclusion band, measured

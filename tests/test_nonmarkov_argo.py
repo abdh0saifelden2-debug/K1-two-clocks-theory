@@ -1,5 +1,5 @@
 """Unit tests for Paper 4 — non-Markovian multiscale memory
-(general_two_clocks/nonmarkov_argo.py).
+(nonmarkov_argo.py).
 
 Validate the autocorrelation, the Chapman-Kolmogorov excess, and the single/double
 exponential model selection on deterministic synthetic processes (no Argo download):
@@ -8,12 +8,15 @@ as non-Markovian (excess>0, double-exp, separated timescales). Seeded, CPU-only.
 """
 import os
 import sys
+from pathlib import Path
 
 import numpy as np
+import pytest
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import nonmarkov_argo as M  # noqa: E402
+import run_nonmarkov_argo as R  # noqa: E402
 
 
 def test_excess_zero_for_geometric_acf():
@@ -59,3 +62,31 @@ def test_fit_recovers_single_timescale():
     f = M.fit_models(C, step=1.0)
     expected = -1.0 / np.log(phi)
     assert abs(f["tau_single"] - expected) / expected < 0.4
+
+
+def test_float_dir_default_when_env_unset(monkeypatch):
+    monkeypatch.delenv(R.FLOAT_DIR_ENV, raising=False)
+    assert R.resolve_float_dir(None) == Path(R.DEFAULT_FLOAT_DIR)
+
+
+def test_float_dir_reads_environment(monkeypatch, tmp_path):
+    monkeypatch.setenv(R.FLOAT_DIR_ENV, str(tmp_path))
+    assert R.resolve_float_dir(None) == tmp_path
+
+
+def test_float_dir_cli_beats_environment(monkeypatch, tmp_path):
+    env_dir = tmp_path / "env"
+    cli_dir = tmp_path / "cli"
+    monkeypatch.setenv(R.FLOAT_DIR_ENV, str(env_dir))
+    assert R.resolve_float_dir(str(cli_dir)) == cli_dir
+
+
+def test_missing_profiles_names_the_env_var(tmp_path):
+    with pytest.raises(FileNotFoundError, match=R.FLOAT_DIR_ENV):
+        R.find_profiles(tmp_path)
+
+
+def test_find_profiles_selects_prof_netcdf(tmp_path):
+    (tmp_path / "6900001_prof.nc").write_bytes(b"")
+    (tmp_path / "notes.txt").write_text("not a profile")
+    assert R.find_profiles(tmp_path) == [str(tmp_path / "6900001_prof.nc")]

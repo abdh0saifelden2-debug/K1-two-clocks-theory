@@ -31,15 +31,10 @@ import os
 import time
  
 import numpy as np
- 
-import sys
-# repo reorg: make sibling domain folders importable
-_REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-for _d in ("general_two_clocks", "atmosphere", "glaciers", "ocean"):
-    _p = os.path.join(_REPO_ROOT, _d)
-    if _p not in sys.path:
-        sys.path.insert(0, _p)
-del _d, _p
+
+# Post-split, the repository root is the import root: run from the root (or via
+# pytest) and the local packages resolve directly. The old monorepo sibling-dir
+# loop is gone.
 
 from gle_coefficients import _autocorr_efold, _autocorr_integral
 from subglacial.candidate2_doublediff import DoubleDiffConfig, DoubleDiffFlow

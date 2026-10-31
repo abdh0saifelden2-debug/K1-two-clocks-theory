@@ -1,4 +1,4 @@
-# New cross-relationship — NR41 (`general_two_clocks/new_relationships18.py`) — the theory pass
+# New cross-relationship — NR41 (`new_relationships18.py`) — the theory pass
 
 Continues the derived-and-verified program (NR1–NR40; see
 `papers/CROSS_RELATIONSHIPS_INDEX.md`).
@@ -14,8 +14,8 @@ CPU-only; unit-proofs in
 Run:
 
 ```bash
-python general_two_clocks/new_relationships18.py   # -> figures/nr41_diffusive_visibility.{json,png}
-pytest general_two_clocks/tests/test_new_relationships18.py -v
+python new_relationships18.py   # -> figures/nr41_diffusive_visibility.{json,png}
+pytest tests/test_new_relationships18.py -v
 ```
 
 ---

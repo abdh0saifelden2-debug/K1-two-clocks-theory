@@ -1,4 +1,4 @@
-# New cross-relationship — NR50 (`general_two_clocks/new_relationships27.py`) — theory
+# New cross-relationship — NR50 (`new_relationships27.py`) — theory
 
 Continues the derived-and-verified program (NR1–NR49; see
 `papers/CROSS_RELATIONSHIPS_INDEX.md`).
@@ -10,8 +10,8 @@ instruments). Unit-proofs in
 (11 tests).
 
 ```bash
-python general_two_clocks/new_relationships27.py   # -> figures/85_phase_area_budget.json
-pytest general_two_clocks/tests/test_phase_area_budget.py -v
+python new_relationships27.py   # -> figures/85_phase_area_budget.json
+pytest tests/test_phase_area_budget.py -v
 ```
 
 ---

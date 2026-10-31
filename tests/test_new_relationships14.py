@@ -1,4 +1,4 @@
-"""Unit proofs for NR37 (`general_two_clocks/new_relationships14.py`):
+"""Unit proofs for NR37 (`new_relationships14.py`):
 pseudo-sound made explicit and the M^2 -> M^1 crossover of the NI density
 fluctuation.  Ledger item E4.
 

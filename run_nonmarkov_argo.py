@@ -1,18 +1,29 @@
 """Paper 4 driver — non-Markovian multiscale memory in per-float Argo temperature.
 
-Loads downloaded core-Argo *_prof.nc files from /home/argo/floats (public Argo GDAC,
-no auth; outside the repo), extracts temperature at ~1000 dbar per cycle, builds a
-deseasonalized 10-day-grid anomaly per float, and runs the pre-registered
-non-Markovian analysis from nonmarkov_argo.py.
+Loads downloaded core-Argo *_prof.nc files from a local Argo GDAC download (public
+GDAC, no auth; the data are not vendored in this repository), extracts temperature
+at ~1000 dbar per cycle, builds a deseasonalized 10-day-grid anomaly per float, and
+runs the pre-registered non-Markovian analysis from nonmarkov_argo.py.
+
+The input directory is resolved in this order:
+
+1. ``--float-dir``
+2. ``$ARGO_FLOATS_DIR``
+3. ``data/argo_floats``
 
 Usage:
-    python run_nonmarkov_argo.py --float-dir /home/argo/floats \
-        --out-dir figures --report REPORT_NONMARKOV_ARGO.md
+    export ARGO_FLOATS_DIR=/path/to/argo_prof_files
+    python run_nonmarkov_argo.py --out-dir figures --report REPORT_NONMARKOV_ARGO.md
+
+See ``data/MANIFEST.md`` for the data source and the known gap: the exact
+float-ID list is not archived in this repository.
+
 """
 from __future__ import annotations
 
 import argparse
 import glob
+import os
 from pathlib import Path
 
 import numpy as np
@@ -25,6 +36,30 @@ import nonmarkov_argo as M  # noqa: E402
 TARGET_P = 1000.0
 MAXLAG = 30
 STEP = 10.0
+
+DEFAULT_FLOAT_DIR = "data/argo_floats"
+FLOAT_DIR_ENV = "ARGO_FLOATS_DIR"
+
+
+def resolve_float_dir(cli_value: str | None = None) -> Path:
+    """Directory holding the core-Argo ``*_prof.nc`` files.
+
+    Precedence: ``--float-dir`` > ``$ARGO_FLOATS_DIR`` > ``data/argo_floats``.
+    """
+    raw = cli_value or os.environ.get(FLOAT_DIR_ENV) or DEFAULT_FLOAT_DIR
+    return Path(raw).expanduser()
+
+
+def find_profiles(float_dir: Path) -> list[str]:
+    """Sorted ``*_prof.nc`` files, or a clear error when the directory is empty."""
+    paths = sorted(glob.glob(str(float_dir / "*_prof.nc")))
+    if not paths:
+        raise FileNotFoundError(
+            f"No core-Argo *_prof.nc files in {float_dir}. Set {FLOAT_DIR_ENV} "
+            "(or pass --float-dir) to a local Argo GDAC download; the raw data "
+            "are not vendored in this repository. See data/MANIFEST.md."
+        )
+    return paths
 
 
 def make_figure(path, r):
@@ -67,12 +102,18 @@ def make_figure(path, r):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--float-dir", default="/home/argo/floats")
+    ap.add_argument("--float-dir", default=None,
+                    help="directory of core-Argo *_prof.nc files "
+                         f"(default: ${FLOAT_DIR_ENV}, else {DEFAULT_FLOAT_DIR})")
     ap.add_argument("--out-dir", default="figures")
     ap.add_argument("--report", default="REPORT_NONMARKOV_ARGO.md")
     args = ap.parse_args()
 
-    paths = sorted(glob.glob(f"{args.float_dir}/*_prof.nc"))
+    float_dir = resolve_float_dir(args.float_dir)
+    try:
+        paths = find_profiles(float_dir)
+    except FileNotFoundError as exc:
+        ap.error(str(exc))
     r = M.analyze_floats(paths, target_p=TARGET_P, var="TEMP", maxlag=MAXLAG, step=STEP)
     f = r["fits"]
     print(f"{r['n_floats']} floats (median {r['median_nvalid']:.0f} 10-day bins each)")
@@ -113,6 +154,10 @@ def write_report(path, r):
 > [`nonmarkov_argo.py`](nonmarkov_argo.py), [`run_nonmarkov_argo.py`](run_nonmarkov_argo.py),
 > [`tests/test_nonmarkov_argo.py`](tests/test_nonmarkov_argo.py),
 > figure `figures/75_nonmarkov_argo.png`.
+>
+> Raw files are not vendored: the driver reads `$ARGO_FLOATS_DIR` (or
+> `--float-dir`). The exact float-ID list is not archived in this repository;
+> see [`data/MANIFEST.md`](data/MANIFEST.md) for the source and the known gap.
 
 ## Pre-registered predictions (thresholds fixed before the real data)
 

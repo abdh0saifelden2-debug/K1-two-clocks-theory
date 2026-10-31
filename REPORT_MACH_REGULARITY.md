@@ -12,8 +12,8 @@
 > regularity-bearing structure.
 >
 > Implemented + verified (CPU, no data) in
-> `general_two_clocks/mach_regularity_bridge.py`,
-> `general_two_clocks/tests/test_mach_regularity.py` (3 tests).
+> `mach_regularity_bridge.py`,
+> `tests/test_mach_regularity.py` (3 tests).
 
 ## 1. Why the pressure Hessian is the right object
 

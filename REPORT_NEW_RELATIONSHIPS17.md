@@ -1,4 +1,4 @@
-# New cross-relationship — NR40 (`general_two_clocks/new_relationships17.py`)
+# New cross-relationship — NR40 (`new_relationships17.py`)
 
 Continues the derived-and-verified program (NR1–NR39; see
 `papers/CROSS_RELATIONSHIPS_INDEX.md`).
@@ -7,8 +7,8 @@ CPU-only; unit-proofs in
 Run:
 
 ```bash
-python general_two_clocks/new_relationships17.py   # -> figures/nr40_omori_kernel_tail.{json,png}
-pytest general_two_clocks/tests/test_new_relationships17.py -v
+python new_relationships17.py   # -> figures/nr40_omori_kernel_tail.{json,png}
+pytest tests/test_new_relationships17.py -v
 ```
 
 ---

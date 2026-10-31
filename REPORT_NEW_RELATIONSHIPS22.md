@@ -1,4 +1,4 @@
-# New cross-relationship — NR45 (`general_two_clocks/new_relationships22.py`) — real-data (ledger E11)
+# New cross-relationship — NR45 (`new_relationships22.py`) — real-data (ledger E11)
 
 Continues the derived-and-verified program (NR1–NR44; see
 `papers/CROSS_RELATIONSHIPS_INDEX.md`).
@@ -9,8 +9,8 @@ accumulator cache [`data/nr45_andro_gser_cache.json`](data/nr45_andro_gser_cache
 Unit-proofs in [`tests/test_andro_gser.py`](tests/test_andro_gser.py) (13 tests).
 
 ```bash
-python general_two_clocks/new_relationships22.py   # -> figures/80_andro_gser.json
-pytest general_two_clocks/tests/test_andro_gser.py -v
+python new_relationships22.py   # -> figures/80_andro_gser.json
+pytest tests/test_andro_gser.py -v
 ```
 
 ---

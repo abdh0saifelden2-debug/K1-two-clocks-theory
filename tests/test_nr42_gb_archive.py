@@ -1,5 +1,5 @@
 """Unit proofs for the NR42 real-data gate execution
-(`general_two_clocks/nr42_gb_archive.py`): GB 1-s frequency archives vs
+(`nr42_gb_archive.py`): GB 1-s frequency archives vs
 measured Outturn Inertia.  Offline-safe -- all numbers come from the committed
 aggregate cache ``data/nr42_gb_archive_cache.json`` (derived from NESO Data
 Portal frequency/inertia/demand datasets; regeneration via ``build_cache()``

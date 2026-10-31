@@ -1,7 +1,7 @@
 r"""The Rossby-number two clocks in real reanalysis winds.
 
 The rotating-flow analog of the Mach->0 elliptic-pressure limit
-(`general_two_clocks/REPORT_MACH_REGULARITY.md`, `REPORT_NS.md`).
+(`REPORT_MACH_REGULARITY.md`, `REPORT_NS.md`).
 
 Two-clocks dictionary (compressible  <->  rotating geophysical):
 

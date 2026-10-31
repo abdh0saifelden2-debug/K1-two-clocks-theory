@@ -1,9 +1,9 @@
 # NR69 — the atmosphere is a ladder of clock crossovers, and the exobase is where closure dies
 
-**Module** `general_two_clocks/new_relationships46.py` ·
+**Module** `new_relationships46.py` ·
 **data** the committed NR68 NRLMSIS 2.1 cache (4 real-driver conditions, 80–600 km) ·
-**figure** `general_two_clocks/figures/104_clock_ladder.json` + `.png` ·
-**tests** `general_two_clocks/tests/test_clock_ladder.py` (10)
+**figure** `figures/104_clock_ladder.json` + `.png` ·
+**tests** `tests/test_clock_ladder.py` (10)
 
 ## The relationship
 
@@ -76,8 +76,8 @@ instrument record. λ_c bracket 2.8–3.3 immaterial (Earth clears it by ≥2.7�
 
 ## Verification
 
-`python3 general_two_clocks/new_relationships46.py` regenerates figure/JSON from the
-committed cache. `pytest general_two_clocks/tests/test_clock_ladder.py` (10 passed):
+`python3 new_relationships46.py` regenerates figure/JSON from the
+committed cache. `pytest tests/test_clock_ladder.py` (10 passed):
 mfp 1/(nσ) scalings, v̄ textbook value + √T/√m scalings, the exact
 Kn = τ_coll/τ_transit = 3D/(v̄H) identity on synthetic and real profiles (<1e−9),
 log-interp crossing finder, rung-1 band vs mainstream + NR68, rung-2 band + rung

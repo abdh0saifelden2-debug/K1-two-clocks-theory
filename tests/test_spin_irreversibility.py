@@ -1,4 +1,4 @@
-"""Unit proofs for NR57 (`general_two_clocks/new_relationships34.py`): the
+"""Unit proofs for NR57 (`new_relationships34.py`): the
 spin is the irreversibility clock.  The Lagrangian areal velocity (odd
 correlation slope, NR52) is the phase-space probability current, its
 square lower-bounds the entropy production rate, and detailed balance

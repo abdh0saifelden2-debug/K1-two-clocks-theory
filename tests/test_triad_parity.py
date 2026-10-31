@@ -1,4 +1,4 @@
-"""Unit proofs for NR51 (`general_two_clocks/new_relationships28.py`):
+"""Unit proofs for NR51 (`new_relationships28.py`):
 closed spectral polygons are shape, open ones are motion.  Triad
 correlators are exactly boost-blind, Im(bispectrum) is the parity-odd
 shape coordinate (Elgar-Guza asymmetry), bulk skewness/asymmetry are exact

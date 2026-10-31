@@ -8,6 +8,11 @@ the observation, the two-clocks theory, and the closure benchmarks.
 
 Source: `general_two_clocks/**` (theory + closure + observations + its 81-test suite, minus 3 relocated to K2) plus six files vendored from `glaciers/**` that the theory cluster imports.
 
+> **Historical paths.** The `general_two_clocks/` prefix in this file is the
+> pre-split monorepo path. After the split those files live at the repository
+> root (`general_two_clocks/tests/x` → `tests/x`). Keep it here: this audit
+> records where the files came from, not where they are now. Do not "fix" it.
+
 ## Composition
 
 | | files |

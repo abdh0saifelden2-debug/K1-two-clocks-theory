@@ -77,4 +77,4 @@ Nolte et al. 2004; Qian 2001; Weiss 1975; Lebowitz–Spohn.
 
 **Artifacts:** `figures/96_pairwise_epr.json` (all 12 verdicts true);
 13 unit proofs in `tests/test_pairwise_epr.py`; offline-safe (committed NR39
-cache). Reproduce: `python general_two_clocks/new_relationships38.py`.
+cache). Reproduce: `python new_relationships38.py`.

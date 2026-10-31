@@ -93,4 +93,4 @@ Lebowitz–Spohn EPR; Elipot & Lumpkin 2008 (drifter rotary spectra).
 
 **Artifacts:** `figures/95_spectral_epr.json` (all 12 verdicts true);
 17 unit proofs in `tests/test_spectral_epr.py`; offline-safe (committed
-NR53 cache). Reproduce: `python general_two_clocks/new_relationships37.py`.
+NR53 cache). Reproduce: `python new_relationships37.py`.

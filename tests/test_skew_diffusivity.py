@@ -1,4 +1,4 @@
-"""Unit proofs for NR59 (`general_two_clocks/new_relationships36.py`): the
+"""Unit proofs for NR59 (`new_relationships36.py`): the
 spin is a skew (divergence-free) diffusivity.  The Green-Kubo integral of
 the odd correlation is the antisymmetric eddy-transport tensor K_A; its
 ratio to the Taylor diffusivity K_S is exactly the clock ratio f tau_L =

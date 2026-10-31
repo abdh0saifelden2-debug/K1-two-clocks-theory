@@ -1,4 +1,4 @@
-"""Unit proofs for NR45 (`general_two_clocks/new_relationships22.py`): ocean
+"""Unit proofs for NR45 (`new_relationships22.py`): ocean
 microrheology -- the generalized Stokes-Einstein relation (GSER) on ANDRO deep
 displacements (ledger E11).  Offline-safe: all numbers come from the committed
 cache ``data/nr45_andro_gser_cache.json`` (derived from the ANDRO deposit,

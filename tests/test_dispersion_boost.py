@@ -1,4 +1,4 @@
-"""Unit proofs for NR49 (`general_two_clocks/new_relationships26.py`): the
+"""Unit proofs for NR49 (`new_relationships26.py`): the
 two-snapshot transfer of an evolving interface factorizes into gain (growth
 clock, Galilean-invariant) x all-pass (transport clock), and a Galilean
 boost is exactly the spatial all-pass factor -- NR48's delay in the

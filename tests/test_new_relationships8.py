@@ -1,5 +1,5 @@
 """Unit tests for the new derived relationship NR31
-(general_two_clocks/new_relationships8.py). Deterministic, CPU-only.
+(new_relationships8.py). Deterministic, CPU-only.
 
 NR31: Paper 1's 2-D a-posteriori null (no eddy-viscosity closure beats no-model) is the inverse
 energy cascade -- the net resolved->subgrid forward energy flux is ~0 in 2-D (nu_opt~0) but >0 in

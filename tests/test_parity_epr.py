@@ -1,4 +1,4 @@
-"""Unit proofs for NR62 (`general_two_clocks/new_relationships39.py`): the
+"""Unit proofs for NR62 (`new_relationships39.py`): the
 reversible reference phase is set by time-parity (0 deg equal / +-90 deg
 opposite), and entropy production is the departure from it.
 

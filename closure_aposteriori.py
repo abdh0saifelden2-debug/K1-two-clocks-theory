@@ -1,11 +1,12 @@
 """P1 a-posteriori closure test (paper1 sec 8.1, the named next step).
 
 The committed benchmark (run_closure.py) is *a-priori*: it scores closures on a
-single frozen filtered-DNS snapshot.  The implemented projected_fdt_force MEASURES
-its eddy viscosity from the true transfer, so it cannot run a-posteriori.  This
-harness instead runs a genuinely *predictive*, self-contained coarse LES forward in
-time under each closure and compares the long-time statistics to the
-spectrally-filtered DNS truth -- the test paper1 defers to sec 8.1.
+single frozen filtered-DNS snapshot.  Its ``projected_fdt_force`` is an **oracle**:
+it MEASURES its eddy viscosity from the true subgrid transfer, so it cannot run
+a-posteriori and is not a predictive closure.  This harness instead runs a
+genuinely *predictive*, self-contained coarse LES forward in time under each
+closure and compares the long-time statistics to the spectrally-filtered DNS
+truth -- the test paper1 defers to sec 8.1.
 
 Closures (all predictive: use only resolved data, never the DNS truth):
   none   : molecular viscosity + drag only (under-resolved control)

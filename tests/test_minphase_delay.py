@@ -1,4 +1,4 @@
-"""Unit proofs for NR48 (`general_two_clocks/new_relationships25.py`): the
+"""Unit proofs for NR48 (`new_relationships25.py`): the
 two-clocks response is minimum-phase (gain and phase are a Bode/Hilbert
 pair), and a genuine transport delay is the unique all-pass factor read
 model-free off the excess phase.  Offline-safe -- the real-data reads come

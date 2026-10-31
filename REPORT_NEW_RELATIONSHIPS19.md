@@ -1,4 +1,4 @@
-# New cross-relationship — NR42 (`general_two_clocks/new_relationships19.py`) — ledger E9
+# New cross-relationship — NR42 (`new_relationships19.py`) — ledger E9
 
 Continues the derived-and-verified program (NR1–NR41; see
 `papers/CROSS_RELATIONSHIPS_INDEX.md`).
@@ -7,8 +7,8 @@ CPU-only; unit-proofs in
 Run:
 
 ```bash
-python general_two_clocks/new_relationships19.py   # -> figures/nr42_grid_frequency_window.{json,png}
-pytest general_two_clocks/tests/test_new_relationships19.py -v
+python new_relationships19.py   # -> figures/nr42_grid_frequency_window.{json,png}
+pytest tests/test_new_relationships19.py -v
 ```
 
 ---

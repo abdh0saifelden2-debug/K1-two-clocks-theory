@@ -1,4 +1,4 @@
-"""Unit proofs for NR54 (`general_two_clocks/new_relationships31.py`): the
+"""Unit proofs for NR54 (`new_relationships31.py`): the
 spin sets the drift compass.  Beta-drift read from single-float
 statistics: strong spinners drift westward; among strong spinners,
 cyclonic spin drifts poleward and anticyclonic equatorward -- the

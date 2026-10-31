@@ -37,7 +37,7 @@ the derived JSON/PNG artifacts are committed).  Unit tests are offline
 (synthetic fields); the network fetch happens only under ``--fetch``/main.
 
 Run:
-    python general_two_clocks/nr29_jhu_benchmark.py --n 64 --kc 8 12 16
+    python nr29_jhu_benchmark.py --n 64 --kc 8 12 16
       -> figures/nr29_jhu_benchmark.{json,png}
 """
 from __future__ import annotations

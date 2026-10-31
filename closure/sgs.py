@@ -168,8 +168,17 @@ def surrogate_force(sp: Spectral2D, mx: np.ndarray, my: np.ndarray, kc: float,
  
 def projected_fdt_force(sp: Spectral2D, ub: np.ndarray, vb: np.ndarray,
                         mx: np.ndarray, my: np.ndarray, kc: float, seed: int = 0):
-    """Projected-FDT model.
- 
+    """Projected-FDT closure -- an **oracle** construction, not a predictive model.
+
+    **Oracle, not predictive.**  Step 1 reads the true subgrid transfer
+    ``T_true(k)``, which is computed from the filtered DNS field.  The returned
+    force therefore cannot be evaluated from resolved data alone and must not be
+    scored as a predictive SGS model.  It is an oracle: it demonstrates that a
+    solenoidal force with the exact ``E_m(k)`` and the exact shell transfer
+    exists, and that matching ``E_m(k)`` alone does not find it.  For a genuinely
+    predictive comparison see ``closure_aposteriori.py`` (specEV and
+    specEV+backscatter use resolved data only).
+
     1. measured scale-dependent eddy viscosity nu_t(k) reproducing the true shell
        transfer:  nu_t(k) = -T_true(k) / sum_shell(|k'|^2 |uhat|^2).  Allowed to be
        negative (backscatter).  Deterministic force m_par = -nu_t(k)|k|^2 uhat is

@@ -1,5 +1,5 @@
 """Unit tests for Paper 1 — diagonal-band cascade structure
-(general_two_clocks/cascade_band_structure.py).
+(cascade_band_structure.py).
 
 Validate the band-coupling method on deterministic synthetic data (no downloads):
 a multiplicative cascade must read out as diagonal-band; white noise must not; a

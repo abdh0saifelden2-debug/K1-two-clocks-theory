@@ -1,4 +1,4 @@
-"""Unit proofs for NR36 (`general_two_clocks/new_relationships13.py`):
+"""Unit proofs for NR36 (`new_relationships13.py`):
 the well-barometric response as a two-clocks kernel -- element identities,
 the cross-spectral CONVENTION GUARD, synthetic end-to-end recovery, tide-line
 exclusion, and (data-gated) the real-well identification regression.

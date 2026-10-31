@@ -1,4 +1,4 @@
-# New cross-relationship — NR32 (`general_two_clocks/new_relationships9.py`)
+# New cross-relationship — NR32 (`new_relationships9.py`)
 
 Continues the derived-and-verified program (NR1–NR31; see
 `papers/CROSS_RELATIONSHIPS_INDEX.md`).
@@ -6,8 +6,8 @@ CPU-only, deterministic; unit-proofs in
 [`tests/test_new_relationships9.py`](tests/test_new_relationships9.py) (9 tests). Run:
 
 ```bash
-python general_two_clocks/new_relationships9.py   # -> figures/nr32_drainage_response_window.{json,png}
-pytest general_two_clocks/tests/test_new_relationships9.py -v
+python new_relationships9.py   # -> figures/nr32_drainage_response_window.{json,png}
+pytest tests/test_new_relationships9.py -v
 ```
 
 ---

@@ -1,4 +1,4 @@
-# New cross-relationship — NR59 (`general_two_clocks/new_relationships36.py`) — theory + real data
+# New cross-relationship — NR59 (`new_relationships36.py`) — theory + real data
 
 Continues the derived-and-verified program (NR1–NR58; see
 `papers/CROSS_RELATIONSHIPS_INDEX.md`).
@@ -10,8 +10,8 @@ Unit-proofs in
 (11 tests).
 
 ```bash
-python general_two_clocks/new_relationships36.py   # -> figures/94_skew_diffusivity.json
-pytest general_two_clocks/tests/test_skew_diffusivity.py -v
+python new_relationships36.py   # -> figures/94_skew_diffusivity.json
+pytest tests/test_skew_diffusivity.py -v
 ```
 
 ---

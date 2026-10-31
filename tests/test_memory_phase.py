@@ -1,4 +1,4 @@
-"""Unit proofs for NR47 (`general_two_clocks/new_relationships24.py`): the
+"""Unit proofs for NR47 (`new_relationships24.py`): the
 memory phase ``delta = arg chi`` as the universal two-clocks coordinate.
 Offline-safe -- the real-data reads come from the committed cache
 ``data/nr47_memory_phase_cache.json`` (assembled from the committed

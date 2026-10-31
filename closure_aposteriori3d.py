@@ -6,7 +6,7 @@ scores closures on a single filtered DNS snapshot.  The 2-D a-posteriori test
 closure beats no-model on the resolved spectrum, because in 2-D the net
 resolved->subgrid energy flux is ~0 (energy goes UP-scale).
 
-NR31 (general_two_clocks/new_relationships4.py) derives *why* and predicts the
+NR31 (new_relationships4.py) derives *why* and predicts the
 **opposite ordering in 3-D**: the variational optimum is
 
     nu_opt = <Pi> / (2 <|S|^2>),     Pi = -tau^d_ij S_ij  (resolved->subgrid flux),

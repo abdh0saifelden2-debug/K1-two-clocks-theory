@@ -1,4 +1,4 @@
-# New cross-relationship — NR26 (`general_two_clocks/new_relationships3.py`)
+# New cross-relationship — NR26 (`new_relationships3.py`)
 
 Continues the derived-and-verified program (NR1–NR25; see
 `papers/CROSS_RELATIONSHIPS_INDEX.md`).
@@ -6,8 +6,8 @@ CPU-only, deterministic; unit-proofs in
 [`tests/test_new_relationships3.py`](tests/test_new_relationships3.py). Run:
 
 ```bash
-python general_two_clocks/new_relationships3.py        # -> figures/nr26_memory_ews_bias.{json,png}
-pytest general_two_clocks/tests/test_new_relationships3.py -v
+python new_relationships3.py        # -> figures/nr26_memory_ews_bias.{json,png}
+pytest tests/test_new_relationships3.py -v
 ```
 
 ---

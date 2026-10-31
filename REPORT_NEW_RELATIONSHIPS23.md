@@ -1,4 +1,4 @@
-# New cross-relationship — NR46 (`general_two_clocks/new_relationships23.py`) — real-data (ledger E12)
+# New cross-relationship — NR46 (`new_relationships23.py`) — real-data (ledger E12)
 
 Continues the derived-and-verified program (NR1–NR45; see
 `papers/CROSS_RELATIONSHIPS_INDEX.md`).
@@ -10,8 +10,8 @@ Unit-proofs in [`tests/test_solar_two_clocks.py`](tests/test_solar_two_clocks.py
 (13 tests).
 
 ```bash
-python general_two_clocks/new_relationships23.py   # -> figures/81_solar_two_clocks.json
-pytest general_two_clocks/tests/test_solar_two_clocks.py -v
+python new_relationships23.py   # -> figures/81_solar_two_clocks.json
+pytest tests/test_solar_two_clocks.py -v
 ```
 
 ---

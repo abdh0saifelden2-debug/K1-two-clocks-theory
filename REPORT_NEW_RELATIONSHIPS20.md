@@ -1,4 +1,4 @@
-# New cross-relationship — NR43 (`general_two_clocks/new_relationships20.py`) — real-data (ICESat-2)
+# New cross-relationship — NR43 (`new_relationships20.py`) — real-data (ICESat-2)
 
 Continues the derived-and-verified program (NR1–NR42; see
 `papers/CROSS_RELATIONSHIPS_INDEX.md`).
@@ -9,8 +9,8 @@ Offline-safe: the analysis + tests read the committed derived cache
 fetch/extract path is documented below.
 
 ```bash
-python general_two_clocks/new_relationships20.py   # -> figures/nr43_active_lake_two_clocks.{json,png}
-pytest general_two_clocks/tests/test_new_relationships20.py -v
+python new_relationships20.py   # -> figures/nr43_active_lake_two_clocks.{json,png}
+pytest tests/test_new_relationships20.py -v
 ```
 
 ---

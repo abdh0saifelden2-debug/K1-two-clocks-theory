@@ -1,5 +1,5 @@
 """Unit proofs for the NR39 real-data gate execution
-(`general_two_clocks/nr39_eeg_gate.py`): the imaginary-coherence
+(`nr39_eeg_gate.py`): the imaginary-coherence
 volume-conduction lemma on real resting EEG (OpenNeuro ds003775).
 Offline-safe -- all numbers come from the committed derived cache
 ``data/nr39_eeg_gate_cache.json`` (regeneration via ``build_cache()`` with

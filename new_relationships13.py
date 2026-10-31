@@ -70,8 +70,8 @@ biases |W| down and phase toward 0 there -- stated, and down-weighted
 automatically by coherence.
 
 Artifacts -> figures/nr36_well_barometric_kernel.{json,png}
-Run:  python general_two_clocks/new_relationships13.py
-Test: pytest general_two_clocks/tests/test_new_relationships13.py -v
+Run:  python new_relationships13.py
+Test: pytest tests/test_new_relationships13.py -v
 """
 from __future__ import annotations
 

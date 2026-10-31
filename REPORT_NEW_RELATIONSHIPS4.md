@@ -1,4 +1,4 @@
-# New cross-relationship — NR27 (`general_two_clocks/new_relationships4.py`)
+# New cross-relationship — NR27 (`new_relationships4.py`)
 
 Continues the derived-and-verified program (NR1–NR26; see
 `papers/CROSS_RELATIONSHIPS_INDEX.md`).
@@ -6,8 +6,8 @@ CPU-only, deterministic; unit-proofs in
 [`tests/test_new_relationships4.py`](tests/test_new_relationships4.py). Run:
 
 ```bash
-python general_two_clocks/new_relationships4.py     # -> figures/nr27_fluctuation_response_fdt.{json,png}
-pytest general_two_clocks/tests/test_new_relationships4.py -v
+python new_relationships4.py     # -> figures/nr27_fluctuation_response_fdt.{json,png}
+pytest tests/test_new_relationships4.py -v
 ```
 
 ---

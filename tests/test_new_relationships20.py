@@ -1,4 +1,4 @@
-"""Unit proofs for NR43 (`general_two_clocks/new_relationships20.py`): the active-lake two
+"""Unit proofs for NR43 (`new_relationships20.py`): the active-lake two
 clocks in ICESat-2 ATL15.  Offline-safe -- all numbers come from the committed cache
 ``data/atl15_lake_dh_cache.json`` (derived from ATL15 v005 + Siegfried & Fricker 2018
 outlines; regeneration path documented in the report).

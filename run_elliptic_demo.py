@@ -18,14 +18,9 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
-import sys
-# repo reorg: make sibling domain folders importable
-_REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-for _d in ("general_two_clocks", "atmosphere", "glaciers", "ocean"):
-    _p = os.path.join(_REPO_ROOT, _d)
-    if _p not in sys.path:
-        sys.path.insert(0, _p)
-del _d, _p
+# Post-split, the repository root is the import root: run from the root (or via
+# pytest) and the local packages resolve directly. The old monorepo sibling-dir
+# loop is gone.
 
 from subglacial.flow import SubglacialFlow, SubglacialConfig
 from subglacial.elliptic_demo import (

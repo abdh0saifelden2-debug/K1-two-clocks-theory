@@ -1,9 +1,9 @@
 # NR64 — the tidal constituent ladder is an in-situ EIS sweep of the subglacial bed
 
-**Module** `general_two_clocks/new_relationships41.py` ·
+**Module** `new_relationships41.py` ·
 **data** the committed §I.5 harmonic cache (`glaciers/.../tidal_admittance_field_cache.json` — offline replay) ·
-**figure** `general_two_clocks/figures/99_tidal_eis_ladder.json` + `.png` ·
-**tests** `general_two_clocks/tests/test_tidal_eis_ladder.py` (11)
+**figure** `figures/99_tidal_eis_ladder.json` + `.png` ·
+**tests** `tests/test_tidal_eis_ladder.py` (11)
 
 ## The relationship
 
