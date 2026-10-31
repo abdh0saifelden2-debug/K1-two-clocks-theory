@@ -22,7 +22,7 @@ import pytest
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)),
                                 ".."))
 from new_relationships35 import (  # noqa: E402
-    FIG, analyze, bode_phase_from_logamp, full_transfer, memory_phase,
+    analyze, bode_phase_from_logamp, full_transfer, memory_phase,
     run, warburg_chi,
 )
 
@@ -109,15 +109,17 @@ def test_amplitude_slope_matches_phase_face():
 
 
 # --------------------------------------------------------------------------- #
-def test_all_verdicts_and_figure(result):
+def test_all_verdicts_and_figure(result, tmp_fig):
     for key in ("tempering_rate_is_kk_crossover",
                 "ice_kernel_is_minimum_phase",
                 "ice_kernel_has_no_transport",
                 "warburg_half_order_limit"):
         assert result["verdicts"][key] is True
+    import new_relationships35 as NR
+    out = tmp_fig(NR, "93_ice_kernel_anatomy.json")
     res = run(write=True)
-    assert os.path.exists(FIG)
-    with open(FIG) as fh:
+    assert out.exists()
+    with open(out) as fh:
         disk = json.load(fh)
     assert disk["verdicts"]["tempering_rate_is_kk_crossover"] is True
     assert disk["delta_at_lam_deg"] == pytest.approx(

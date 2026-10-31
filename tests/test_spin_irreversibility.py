@@ -23,7 +23,7 @@ import pytest
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)),
                                 ".."))
 from new_relationships34 import (  # noqa: E402
-    FIG, analyze, band_spin_t, current_rotation, entropy_production,
+    analyze, band_spin_t, current_rotation, entropy_production,
     load_spin, ou_solve, run, spin_bound, synthetic_checks,
 )
 
@@ -124,16 +124,18 @@ def test_equatorial_reversible_line(result):
     assert result["verdicts"]["equatorial_reversible_line"]
 
 
-def test_all_verdicts_and_figure(result):
+def test_all_verdicts_and_figure(result, tmp_fig):
     for key in ("current_identity_and_isotropic_law_exact",
                 "spin_squared_lower_bounds_entropy",
                 "detailed_balance_iff_zero_spin",
                 "ocean_is_time_irreversible_handed",
                 "equatorial_reversible_line"):
         assert result["verdicts"][key] is True
+    import new_relationships34 as NR
+    out = tmp_fig(NR, "92_spin_irreversibility.json")
     res = run(write=True)
-    assert os.path.exists(FIG)
-    with open(FIG) as fh:
+    assert out.exists()
+    with open(out) as fh:
         disk = json.load(fh)
     assert disk["verdicts"]["ocean_is_time_irreversible_handed"] is True
     assert disk["real"]["nh"]["t"] == pytest.approx(

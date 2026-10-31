@@ -22,7 +22,7 @@ import pytest
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)),
                                 ".."))
 from new_relationships31 import (  # noqa: E402
-    CACHE, FIG, KM_PER_DAY, analyze, hemisphere_compass, load_cache,
+    CACHE, KM_PER_DAY, analyze, hemisphere_compass, load_cache,
     quintile_bins, run, synthetic_checks, two_sample_t,
 )
 
@@ -128,15 +128,17 @@ def test_magnitude_window(result):
     assert result["verdicts"]["magnitude_order_consistent"]
 
 
-def test_all_verdicts_and_figure(result):
+def test_all_verdicts_and_figure(result, tmp_fig):
     for key in ("compass_estimator_validated",
                 "westward_drift_increases_with_spin",
                 "cyclones_poleward_anticyclones_equatorward",
                 "magnitude_order_consistent"):
         assert result["verdicts"][key] is True
+    import new_relationships31 as NR
+    out = tmp_fig(NR, "89_spin_drift.json")
     res = run(write=True)
-    assert os.path.exists(FIG)
-    with open(FIG) as fh:
+    assert out.exists()
+    with open(out) as fh:
         disk = json.load(fh)
     assert disk["pooled_poleward_t"] == pytest.approx(
         res["pooled_poleward_t"], rel=1e-12)
