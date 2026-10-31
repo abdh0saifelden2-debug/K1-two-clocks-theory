@@ -1,7 +1,7 @@
 r"""Paper 1 — Diagonal-band cascade structure in a stratified fluid (atmospheric
 surface layer), from real NEON 1-min observations.
 
-PRE-REGISTERED, falsification-driven. Mainstream grounding: a turbulent cascade is
+PRE-SPECIFIED, falsification-driven. Mainstream grounding: a turbulent cascade is
 *local in scale* (Kolmogorov 1941; Kraichnan) and *intermittent/multiplicative*
 (Kolmogorov 1962; Frisch 1995), so cross-scale energy transfer couples neighbouring
 scales and decays with scale separation. We test this as a **band-coupling matrix**
@@ -16,7 +16,7 @@ fluid (the surface layer at WREF) builds cross-scale amplitude correlations that
 spectrum-matched Gaussian surrogate cannot — "energy yes, structure no" in the time
 domain ([`run_boussinesq.py`](run_boussinesq.py)).
 
-PRE-REGISTERED PREDICTIONS (thresholds set before seeing the real data)
+PRE-SPECIFIED PREDICTIONS (thresholds set before seeing the real data)
 ----------------------------------------------------------------------
   CB1  Diagonal dominance: each row's diagonal is the maximum; nearest-neighbour
        coupling φ(d=1) < 1 and exceeds far coupling.

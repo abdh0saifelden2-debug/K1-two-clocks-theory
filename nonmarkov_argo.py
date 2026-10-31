@@ -1,6 +1,6 @@
 r"""Paper 4 — Non-Markovian, multiscale timescale memory in per-float Argo records.
 
-PRE-REGISTERED, falsification-driven. This is the **ocean validation** of the
+PRE-SPECIFIED, falsification-driven. This is the **ocean validation** of the
 terrestrial two-clocks/Mori–Zwanzig result: a *local Markov* (memoryless) model is
 structurally insufficient; the real field carries memory across multiple timescales
 (the MZ memory kernel, REPORT_THEORY.md / REPORT_GLE_COEFFICIENTS.md). For a
@@ -13,7 +13,7 @@ parking depth), one value per ~10-day cycle. Per float we deseasonalize (remove 
 + annual harmonic), bin to a uniform 10-day grid, and estimate the autocorrelation
 C(τ); we aggregate across many long-record floats. Public Argo GDAC (Ifremer), no auth.
 
-PRE-REGISTERED PREDICTIONS (thresholds fixed before the real data)
+PRE-SPECIFIED PREDICTIONS (thresholds fixed before the real data)
 -----------------------------------------------------------------
   NM1  Chapman-Kolmogorov violation (the exact, parameter-free non-Markov test):
        the excess Δ₂ = C(2) − C(1)² is positive and robust across floats (median > 0,

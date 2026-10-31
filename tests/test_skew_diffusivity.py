@@ -22,7 +22,7 @@ import pytest
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)),
                                 ".."))
 from new_relationships36 import (  # noqa: E402
-    FIG, analyze, band_diffusivity, closed_form, load_cache,
+    analyze, band_diffusivity, closed_form, load_cache,
     rotator_diffusivity, run, synthetic_checks,
 )
 
@@ -112,15 +112,17 @@ def test_taylor_diffusivity_scale(result):
     assert result["verdicts"]["taylor_diffusivity_scale_reasonable"]
 
 
-def test_all_verdicts_and_figure(result):
+def test_all_verdicts_and_figure(result, tmp_fig):
     for key in ("skew_ratio_is_clock_ratio",
                 "skew_flux_divergence_free",
                 "ocean_skew_transport_flips_at_equator",
                 "taylor_diffusivity_scale_reasonable"):
         assert result["verdicts"][key] is True
+    import new_relationships36 as NR
+    out = tmp_fig(NR, "94_skew_diffusivity.json")
     res = run(write=True)
-    assert os.path.exists(FIG)
-    with open(FIG) as fh:
+    assert out.exists()
+    with open(out) as fh:
         disk = json.load(fh)
     assert disk["verdicts"]["ocean_skew_transport_flips_at_equator"] is True
     assert disk["bands"]["sh_all"]["K_A"] == pytest.approx(

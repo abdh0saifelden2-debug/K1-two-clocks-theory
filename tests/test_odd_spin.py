@@ -23,7 +23,7 @@ import pytest
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)),
                                 ".."))
 from new_relationships29 import (  # noqa: E402
-    CACHE, EPS, FIG, analyze, load_cache, odd_even_accumulate, odd_part,
+    CACHE, EPS, analyze, load_cache, odd_even_accumulate, odd_part,
     rotator_correlation, run, spin_stats, synthetic_checks,
 )
 
@@ -142,14 +142,16 @@ def test_odd_memory_decay_scale(result):
         assert 10.0 <= hl <= 60.0
 
 
-def test_all_verdicts_and_figure(result):
+def test_all_verdicts_and_figure(result, tmp_fig):
     for key in ("odd_completion_exact", "msd_is_chirality_blind",
                 "ocean_chirality_flips_at_equator",
                 "anticyclonic_dominance_both_hemispheres"):
         assert result["verdicts"][key] is True
+    import new_relationships29 as NR
+    out = tmp_fig(NR, "87_odd_spin.json")
     res = run(write=True)
-    assert os.path.exists(FIG)
-    with open(FIG) as fh:
+    assert out.exists()
+    with open(out) as fh:
         disk = json.load(fh)
     assert disk["verdicts"]["ocean_chirality_flips_at_equator"] is True
     assert disk["stats"]["nh_all"]["t_stat"] == pytest.approx(

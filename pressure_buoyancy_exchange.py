@@ -1,6 +1,6 @@
 r"""Paper 2 — In-place, pressure-mediated buoyancy exchange in 2D Boussinesq flow.
 
-PRE-REGISTERED probe of *how* an incompressible stratified fluid moves buoyancy.
+PRE-SPECIFIED probe of *how* an incompressible stratified fluid moves buoyancy.
 The thesis (the regularity/two-clocks program, observational face): vertical
 buoyancy transport is **pressure-mediated in-place exchange**, not a direct response
 to the buoyancy force. The buoyancy force `F = (0, b')` cannot accelerate fluid
@@ -16,7 +16,7 @@ buoyancy that survives. Pure vertical stratification (`b'=b'(y)`) has `∂_x b'=
 buoyancy structure. Net vertical **mass** flux is zero (incompressible, periodic) yet
 the **buoyancy** flux is positive: warm up / cold down, an in-place exchange.
 
-FOUR PRE-REGISTERED, FALSIFIABLE PREDICTIONS (thresholds fixed by physics, not tuned)
+FOUR PRE-SPECIFIED, FALSIFIABLE PREDICTIONS (thresholds fixed by physics, not tuned)
 ------------------------------------------------------------------------------------
   PR1  Non-locality (elliptic): the pressure-mediated velocity correction `∇φ_F` from
        a *localized* buoyancy blob is spatially **broader** than the blob —
@@ -266,7 +266,7 @@ def make_figure(path, r=None):
     ax[3].grid(alpha=0.3, which="both")
 
     fig.suptitle(f"In-place pressure-mediated buoyancy exchange — {r['n_pass']}/4 "
-                 "pre-registered predictions pass", fontsize=13, y=1.03)
+                 "pre-specified predictions pass", fontsize=13, y=1.03)
     fig.tight_layout()
     fig.savefig(path, dpi=130, bbox_inches="tight")
     plt.close(fig)
@@ -275,7 +275,7 @@ def make_figure(path, r=None):
 
 def main():
     r = compare()
-    print("=== In-place pressure-mediated buoyancy exchange (4 pre-registered) ===")
+    print("=== In-place pressure-mediated buoyancy exchange (4 pre-specified) ===")
     p = r["pr1"]; print(f"  PR1 non-locality:  r50 ratio={p['ratio']:.2f} (>1.5)  "
                         f"far={100*p['far_fraction']:.0f}%  -> {p['passed']}")
     p = r["pr2"]; print(f"  PR2 held/exchange: frac(b'(y))={p['frac_vertical']:.1e} (<1e-6)  "

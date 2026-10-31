@@ -1,7 +1,7 @@
 """Unit tests for Paper 2 — in-place pressure-mediated buoyancy exchange
 (pressure_buoyancy_exchange.py).
 
-Pin the four pre-registered predictions plus the underlying Helmholtz/baroclinic
+Pin the four pre-specified predictions plus the underlying Helmholtz/baroclinic
 identities. Deterministic (seeded), CPU-only.
 """
 import os

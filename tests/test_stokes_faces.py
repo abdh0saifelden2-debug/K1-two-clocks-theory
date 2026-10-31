@@ -23,7 +23,7 @@ import pytest
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)),
                                 ".."))
 from new_relationships33 import (  # noqa: E402
-    BANDS, CACHE, FIG, analyze, band_stats, load_cache,
+    BANDS, CACHE, analyze, band_stats, load_cache,
     polarization_angle_deg, run, stokes_zero_lag, synthetic_checks,
 )
 
@@ -116,15 +116,17 @@ def test_crossover_and_polar_flip(result):
     assert result["verdicts"]["polar_meridional_flip"]
 
 
-def test_all_verdicts_and_figure(result):
+def test_all_verdicts_and_figure(result, tmp_fig):
     for key in ("polarization_theorems_exact",
                 "equator_is_wave_polarized",
                 "vortex_polarization_grows_poleward",
                 "wave_vortex_crossover_20_35", "polar_meridional_flip"):
         assert result["verdicts"][key] is True
+    import new_relationships33 as NR
+    out = tmp_fig(NR, "91_stokes_faces.json")
     res = run(write=True)
-    assert os.path.exists(FIG)
-    with open(FIG) as fh:
+    assert out.exists()
+    with open(out) as fh:
         disk = json.load(fh)
     assert disk["verdicts"]["equator_is_wave_polarized"] is True
     assert disk["bands"]["0-5"]["stretch"]["mean"] == pytest.approx(

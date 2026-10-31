@@ -1,7 +1,7 @@
 r"""Paper 3 — Cascade lifetime distribution and power-law energy transport
 (real WREF 1-min bursts).
 
-PRE-REGISTERED, falsification-driven. Mainstream grounding: turbulence is
+PRE-SPECIFIED, falsification-driven. Mainstream grounding: turbulence is
 *intermittent* — activity comes in bursts with no characteristic duration
 (Kolmogorov 1962; Frisch 1995; on-off intermittency, Platt 1993; SOC avalanche
 statistics, Bak 1987). So the **burst lifetime distribution** P(τ) should be
@@ -16,7 +16,7 @@ excursion's duration τ and integrated excess energy E. Fit P(τ) with a continu
 power law (Clauset–Shalizi–Newman MLE + KS-selected x_min) vs an exponential, choose
 by AIC, and compare against a phase-randomized surrogate.
 
-PRE-REGISTERED PREDICTIONS (thresholds fixed before the real data)
+PRE-SPECIFIED PREDICTIONS (thresholds fixed before the real data)
 -----------------------------------------------------------------
   CL1  P(τ) is heavy-tailed: a power law is preferred over an exponential by AIC,
        with exponent α in [1.5, 4].

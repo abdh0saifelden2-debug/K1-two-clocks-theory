@@ -1,6 +1,6 @@
 # In-place, pressure-mediated buoyancy exchange in 2D Boussinesq flow
 
-> **Paper 2 of the "research these" set.** A *pre-registered*, falsification-driven
+> **Paper 2 of the "research these" set.** A *pre-specified*, falsification-driven
 > probe of **how** an incompressible stratified fluid actually moves buoyancy. The
 > claim is the observational/dynamical face of the two-clocks thesis
 > ([`REPORT.md`](REPORT.md), [`run_boussinesq.py`](run_boussinesq.py)): vertical
@@ -38,12 +38,12 @@ fluid. Two consequences define the title:
   survives, and the pressure that mediates the resulting motion is the solution of a
   global Poisson problem — it is felt across the whole domain instantly.
 
-## Four pre-registered predictions — 4/4 pass
+## Four pre-specified predictions — 4/4 pass
 
 Thresholds were fixed by the physics above *before* running; every number is produced
 by [`pressure_buoyancy_exchange.py`](pressure_buoyancy_exchange.py).
 
-| # | Prediction (pre-registered threshold) | Result | Pass |
+| # | Prediction (pre-specified threshold) | Result | Pass |
 |---|---|---|---|
 | **PR1** | **Non-locality:** the pressure correction `∇φ_F` from a localized buoyancy blob is broader than the blob — `r50(\|∇φ_F\|)/r50(b') > 1.5` | ratio **1.84**; 28% of the correction energy lies beyond 3 source-radii | [PASS] |
 | **PR2** | **Held in place vs exchange:** pure `b'(y)` has solenoidal (motion-driving) fraction `< 1e-6`; horizontal modulation raises it `> 1e-2`, monotonically | `b'(y)`: **2.3e-16**; full horizontal: **0.48**; monotone in ε | [PASS] |
@@ -74,7 +74,7 @@ by [`pressure_buoyancy_exchange.py`](pressure_buoyancy_exchange.py).
 
 A 2-D pedagogical demonstration on a doubly-periodic box. It establishes the
 *structural* mechanism — pressure as the instantaneous, global mediator of buoyancy
-exchange — and quantifies it with pre-registered tests. It is **not** a turbulence
+exchange — and quantifies it with pre-specified tests. It is **not** a turbulence
 closure, a 3-D result, or a regularity proof; the "in-place exchange" statement is
 about the volume/buoyancy-flux decomposition in this incompressible model, not a claim
 about real atmospheric or oceanic boundary layers.

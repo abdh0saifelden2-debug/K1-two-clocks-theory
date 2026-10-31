@@ -219,22 +219,27 @@ from resolved data and is not a predictive closure.
   the 2D inverse-cascade signature.
 - **Smagorinsky** has T(k) \u2264 0 everywhere: purely dissipative, **no backscatter**.
   The fundamental structural error of positive-definite eddy viscosity.
-- **Surrogate** has T(k) uncorrelated with truth: spectrum-matching randomizes the
-  *direction* of energy transfer along with the phases.
+- **Surrogate** has T(k) correlated in shape with truth (r = {transfer_corrs['surrogate']:.3f}), but fails
+  solenoidality: matching E_m(k) reproduces much of the transfer profile, so the
+  decisive failure is structural, not the transfer shape.
 - **Projected-FDT (oracle)** reproduces the forward/backscatter partition: its deterministic
   part carries \u03bd_t(k) with the correct sign (including negative = backscatter) and
   its projected noise fills the remainder without breaking div=0.
 
-Transfer-spectrum correlation with truth:
+Transfer-spectrum correlation with truth (across wavenumbers):
 - Smagorinsky: {transfer_corrs['Smagorinsky']:.3f}
 - Surrogate: {transfer_corrs['surrogate']:.3f}
 - Projected-FDT (oracle): {transfer_corrs['projected-FDT']:.3f}
 
 ## Conclusion
 
-The three diagnostics confirm the prediction from REPORT_THEORY.md \u00a77:
+The three diagnostics test the prediction from REPORT_THEORY.md \u00a77. The divergence
+prediction holds; the T(k)-uncorrelated sub-prediction does not.
 1. Smagorinsky (K-theory) is purely dissipative \u2014 no backscatter, cusp problem near k_c.
-2. The spectrum-matched surrogate has E_m(k) correct but fails divergence and transfer \u2014 "energy yes, structure no" (Fig 24 of Part 6, promoted to a closure test).
+2. The spectrum-matched surrogate has E_m(k) correct and a transfer profile correlated
+   in shape with truth (r = {transfer_corrs['surrogate']:.3f}), but it fails structural solenoidality.
+   The surviving statement is "energy and transfer shape yes, constraint
+   no" (Fig 24 of Part 6, promoted to a closure test).
 3. The projected-FDT oracle passes all three: correct spectrum, solenoidal, and the right
    transfer including backscatter \u2014 "energy AND structure."  Passing as an oracle is
    the existence proof; it is not evidence that a predictive closure can reach it.
