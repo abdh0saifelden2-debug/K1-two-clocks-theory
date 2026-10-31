@@ -12,6 +12,7 @@ winter claim data in `claims/fc15_winter.json`.
 | O6 | §2 coherence, three locations | `figures/09b_asos_ci.json` | 12 h range, CAR/DSM/SEA 24 h values, surrogate thresholds, off-line range and four-of-eight floor count |
 | F-C2 control | §4.2 common-phase paragraph | `figures/24b_spde_common_phase.json` | common-phase `3.66e-2`, uncorrected `2.75e-2`, ratio `1.33x`, cross-spectrum `2e-16`, projection `2.2e-15` |
 | R3 | §5 cross-check | `figures/27b_reanalysis_crosscheck.json` | maximum relative difference `15.5%` |
+| R3 abstract | abstract, 850 hPa sentence | `paper0_two_clocks.tex` Table 5 + abstract | ratio wording, `4.0%` R1, `4.5%` R2, no `≤4%` |
 
 The map is deliberately small: a claim is gated only if it appears above. When a
 new claim is added, add its artifact and check to this table and to

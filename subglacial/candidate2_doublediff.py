@@ -3,7 +3,7 @@ r"""Candidate 2 -- double-diffusive layering (salt + temperature).
 Heat diffuses ~100x faster than salt in water.  In an ice-shelf cavity the
 meltwater is cold *and* fresh while the ocean is warm *and* salty, so the two
 buoyancy-active scalars have opposing gradients with very different
-diffusivities -- the classic *salt-finger* configuration.  The pre-registered
+diffusivities -- the classic *salt-finger* configuration.  The pre-specified
 prediction is that the thermal transport is enhanced in a hump:
 
 * ``Nu_T`` (thermal Nusselt) peaks near the density ratio ``R_rho ~ 2`` (the

@@ -1,6 +1,6 @@
 # Cascade lifetime distribution & power-law energy transport (WREF 1-min, 2020)
 
-> **Paper 3 of the "research these" set — real data.** A pre-registered test that
+> **Paper 3 of the "research these" set — real data.** A pre-specified test that
 > turbulent activity in a stratified fluid comes in **scale-free bursts**: the burst
 > lifetime distribution P(τ) should be a power law (no characteristic duration;
 > Kolmogorov 1962 intermittency, on-off intermittency Platt 1993, SOC avalanches Bak

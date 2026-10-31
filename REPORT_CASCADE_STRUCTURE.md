@@ -1,6 +1,6 @@
 # Diagonal-band cascade structure in a stratified fluid (WREF 1-min, 2020)
 
-> **Paper 1 of the "research these" set — real data.** A pre-registered test that the
+> **Paper 1 of the "research these" set — real data.** A pre-specified test that the
 > atmospheric surface layer (a stratified turbulent fluid) builds a *local,
 > intermittent* cross-scale cascade, measured as a **band-coupling matrix**
 > φ_ij = corr(log envelope of octave band i, octave band j). Mainstream grounding:

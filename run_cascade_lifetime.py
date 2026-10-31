@@ -18,7 +18,7 @@ import matplotlib.pyplot as plt  # noqa: E402
 import cascade_lifetime as L  # noqa: E402
 from run_cascade_structure import load_series  # noqa: E402
 
-Q = 0.5     # pre-registered: events = excursions of turbulent activity above the median
+Q = 0.5     # pre-specified: events = excursions of turbulent activity above the median
 
 
 def _ccdf(d):
@@ -110,7 +110,7 @@ def write_report(path, rp, rt, p_valid, t_valid, n):
 
     txt = f"""# Cascade lifetime distribution & power-law energy transport (WREF 1-min, 2020)
 
-> **Paper 3 of the "research these" set — real data.** A pre-registered test that
+> **Paper 3 of the "research these" set — real data.** A pre-specified test that
 > turbulent activity in a stratified fluid comes in **scale-free bursts**: the burst
 > lifetime distribution P(τ) should be a power law (no characteristic duration;
 > Kolmogorov 1962 intermittency, on-off intermittency Platt 1993, SOC avalanches Bak

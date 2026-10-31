@@ -218,7 +218,7 @@ def write_report(path: Path, stations: list[StationData], fig_paths: list[Path])
         "\n3. **The S₂ pressure tide amplitude decreases with latitude** (strongest near",
         " the equator), confirming its global/planetary origin — it is not driven by",
         " local temperature.\n",
-        "\n4. **Bulk P–T correlation is weak** (r close to zero), exactly as expected if",
+        "\n4. **Bulk P–T correlation is weak and regime-dependent** (r = -0.05 at MIA, -0.48 at DFW, -0.56 at DSM), exactly as expected if",
         " they run on different 'clocks' / spatial mechanisms.\n",
         "\n## Figures\n",
     ]

@@ -3,7 +3,7 @@
 Loads downloaded core-Argo *_prof.nc files from a local Argo GDAC download (public
 GDAC, no auth; the data are not vendored in this repository), extracts temperature
 at ~1000 dbar per cycle, builds a deseasonalized 10-day-grid anomaly per float, and
-runs the pre-registered non-Markovian analysis from nonmarkov_argo.py.
+runs the pre-specified non-Markovian analysis from nonmarkov_argo.py.
 
 The input directory is resolved in this order:
 
@@ -186,7 +186,7 @@ def write_report(path, r):
 - **Chapman–Kolmogorov violation (NM2 strong, NM1 marginal):** the lag-3 excess
   C(3)−C(1)³ is robustly positive (p = {r['p_sign3']:.2g}); the lag-2 excess is positive in
   {100*r['frac_pos']:.0f}% of floats and significant at 5% (p = {r['p_sign']:.2g}) but **not** at the
-  pre-registered 1% — reported honestly as marginal rather than tuned to pass.
+  pre-specified 1% — reported honestly as marginal rather than tuned to pass.
 - **Ocean validation of the terrestrial mechanism:** as in the WREF surface-layer
   analysis, the real field is non-Markovian with multiscale memory — exactly what the
   Mori–Zwanzig closure (not a local Markov model) is built to represent.

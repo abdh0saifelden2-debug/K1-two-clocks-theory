@@ -287,6 +287,18 @@ def check_disclosures() -> None:
             "paper archive SHA-256 is still broken with \\allowbreak")
 
 
+def check_reanalysis_ratio() -> None:
+    text = " ".join(paper_text().split())
+    require("divergent-to-rotational kinetic-energy ratio of" in text,
+            "abstract lacks the 850 hPa ratio wording")
+    require("at 850~hPa" in text and "in the R2 cross-check" in text,
+            "abstract lacks the 850 hPa ratio values")
+    require("leq4" not in text,
+            "abstract still states a share as leq4")
+    require("850 hPa & 4.0" in text and "& 4.5" in text,
+            "Table 5 850 hPa row changed")
+
+
 def check_r3() -> None:
     text = paper_text()
     artifact = load_json(ROOT / "figures" / "27b_reanalysis_crosscheck.json")
@@ -304,6 +316,7 @@ def main() -> int:
         ("O6 coherence", check_o6),
         ("F-C2 common-phase control", check_fc2),
         ("manuscript disclosures", check_disclosures),
+        ("R3 abstract ratio", check_reanalysis_ratio),
         ("R3 cross-check", check_r3),
     ]
     failures = 0

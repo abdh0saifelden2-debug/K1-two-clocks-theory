@@ -3,7 +3,7 @@
 Loads 2020 WREF 1-min barometric pressure (DP1.00004) and triple-aspirated air
 temperature (DP1.00003) from /home/data_neon (downloaded, outside the repo; public
 NEON API, no auth), QC-filters on the NEON finalQF, builds gap-filled 1-min series,
-and runs the pre-registered band-coupling analysis from cascade_band_structure.py.
+and runs the pre-specified band-coupling analysis from cascade_band_structure.py.
 
 Usage:
     python run_cascade_structure.py --data-dir /home/data_neon \
@@ -124,7 +124,7 @@ def write_report(path, rp, rt, sweep, p_valid, t_valid, n):
 
     txt = f"""# Diagonal-band cascade structure in a stratified fluid (WREF 1-min, 2020)
 
-> **Paper 1 of the "research these" set — real data.** A pre-registered test that the
+> **Paper 1 of the "research these" set — real data.** A pre-specified test that the
 > atmospheric surface layer (a stratified turbulent fluid) builds a *local,
 > intermittent* cross-scale cascade, measured as a **band-coupling matrix**
 > φ_ij = corr(log envelope of octave band i, octave band j). Mainstream grounding:
