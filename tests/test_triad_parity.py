@@ -22,7 +22,7 @@ import pytest
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)),
                                 ".."))
 from new_relationships28 import (  # noqa: E402
-    DERIVED, FIG, MAT, analyze, biphase_per_frame_deg, bispectrum,
+    DERIVED, MAT, analyze, biphase_per_frame_deg, bispectrum,
     circular_stats_deg, clean_bins, detrend, dft_hilbert, load_frames,
     rfft_frames, run, synthetic_checks, triad_moment_sums,
 )
@@ -156,14 +156,16 @@ def test_data_boost_and_mirror_exact(result):
     assert result["mirror_flip_err_deg"] < 1e-6
 
 
-def test_all_verdicts_and_figure(result):
+def test_all_verdicts_and_figure(result, tmp_fig):
     for key in ("closed_polygons_boost_blind_and_parity_odd",
                 "asymmetry_detector_separates_parities",
                 "scallops_break_parity_in_flux_not_shape"):
         assert result["verdicts"][key] is True
+    import new_relationships28 as NR
+    out = tmp_fig(NR, "86_triad_parity.json")
     res = run(write=True)
-    assert os.path.exists(FIG)
-    with open(FIG) as fh:
+    assert out.exists()
+    with open(out) as fh:
         disk = json.load(fh)
     assert disk["verdicts"][
         "scallops_break_parity_in_flux_not_shape"] is True

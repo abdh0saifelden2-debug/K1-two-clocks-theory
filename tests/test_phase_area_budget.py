@@ -22,7 +22,7 @@ import pytest
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)),
                                 ".."))
 from new_relationships27 import (  # noqa: E402
-    FIG, analyze, endpoint_area, load_cache, ocean_budget, phase_area,
+    analyze, endpoint_area, load_cache, ocean_budget, phase_area,
     robust_endpoints, run, solar_budget, synthetic_checks, transport_area,
 )
 
@@ -117,15 +117,17 @@ def test_solar_tau_matches_nr48(cache):
     assert so["tau_d_s"] == pytest.approx(-10.3, abs=0.5)
 
 
-def test_all_verdicts_and_figure(result):
+def test_all_verdicts_and_figure(result, tmp_fig):
     v = result["verdicts"]
     for key in ("area_theorem_and_waterbed_exact",
                 "ocean_gain_is_causal_memory",
                 "solar_gain_is_static_weighting"):
         assert v[key] is True
+    import new_relationships27 as NR
+    out = tmp_fig(NR, "85_phase_area_budget.json")
     res = run(write=True)
-    assert os.path.exists(FIG)
-    with open(FIG) as fh:
+    assert out.exists()
+    with open(out) as fh:
         disk = json.load(fh)
     assert disk["verdicts"]["solar_gain_is_static_weighting"] is True
     assert disk["ocean"]["rel_closure"] == pytest.approx(

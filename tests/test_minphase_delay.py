@@ -25,7 +25,7 @@ import pytest
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)),
                                 ".."))
 from new_relationships25 import (  # noqa: E402
-    CACHE, FIG, analyze, bode_phase_banded, bode_phase_from_logamp,
+    CACHE, analyze, bode_phase_banded, bode_phase_from_logamp,
     delay_from_phase, excess_phase, load_cache, run, synthetic_checks,
 )
 
@@ -166,15 +166,17 @@ def test_delay_sign_means_golf_leads_bison(result):
     assert 5.0 < abs(result["delay_tau_d_s"]) < 15.0
 
 
-def test_all_verdicts_pass_and_figure_written(result):
+def test_all_verdicts_pass_and_figure_written(result, tmp_fig):
     v = result["verdicts"]
     for key in ("two_clocks_response_is_minimum_phase",
                 "gser_is_minimum_phase_on_real_ocean",
                 "delay_is_allpass_excess", "real_delay_clock_measured"):
         assert v[key] is True
+    import new_relationships25 as NR
+    out = tmp_fig(NR, "83_minphase_delay.json")
     res = run(write=True)
-    assert os.path.exists(FIG)
-    with open(FIG) as fh:
+    assert out.exists()
+    with open(out) as fh:
         on_disk = json.load(fh)
     assert on_disk["verdicts"]["real_delay_clock_measured"] is True
     assert on_disk["delay_tau_d_s"] == pytest.approx(
