@@ -1,7 +1,7 @@
 """Unit tests for Paper 2 — in-place pressure-mediated buoyancy exchange
 (pressure_buoyancy_exchange.py).
 
-Pin the four pre-registered predictions plus the underlying Helmholtz/baroclinic
+Pin the four criteria-based predictions plus the underlying Helmholtz/baroclinic
 identities. Deterministic (seeded), CPU-only.
 """
 import os
@@ -18,7 +18,7 @@ from compressible.ns import Spectral2D  # noqa: E402
 RES = P.compare()  # computed once (~2s; includes the developed-flow sim)
 
 
-def test_all_four_preregistered_pass():
+def test_all_four_criteria_pass():
     assert RES["n_pass"] == 4
     assert RES["ok"] is True
 

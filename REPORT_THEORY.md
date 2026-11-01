@@ -244,9 +244,14 @@ spectral box used in Parts 5–6.
 **Predicted outcome** (the falsifiable claim): (i) Smagorinsky reproduces gross
 dissipation but has T(k) ≤ 0 everywhere — **no backscatter** — and mis-sets the
 near-cutoff cusp; (ii) the spectrum-matched surrogate matches E_m(k) but has T(k)
-**uncorrelated** with truth and RMS ∇·u = O(1); (iii) the projected-FDT model
+**uncorrelated** with truth and relative RMS(∇·m) = O(1); (iii) the projected-FDT model
 matches E_m(k), holds ∇·u ≈ 0, and reproduces the forward/backscatter partition of
 T(k). That is Fig 24 promoted to a closure benchmark.
+
+**Measured closure check.** The divergence prediction holds (relative RMS(∇·m) ≈ 12).
+The transfer correlation at the single fixed seed is 0.907; it is not a seed average,
+so the T(k)-uncorrelated sub-prediction is neither confirmed nor refuted here. See
+[`REPORT_CLOSURE.md`](REPORT_CLOSURE.md).
  
 The a-priori test isolates *structure* at a frozen instant (no memory yet matters),
 so the projected-FDT model should win cleanly there. Any gap that appears only in

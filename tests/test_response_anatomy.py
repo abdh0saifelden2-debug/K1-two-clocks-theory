@@ -22,7 +22,7 @@ import pytest
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)),
                                 ".."))
 from new_relationships32 import (  # noqa: E402
-    FIG, FIGDIR, SOURCES, analyze, assemble_matrix, load_sources, run,
+    FIGDIR, SOURCES, analyze, assemble_matrix, load_sources, run,
 )
 
 
@@ -97,14 +97,16 @@ def test_cross_face_consistency(src):
             * src["nr53"]["bands"]["sh_trop"]["fit"]["f_e_rad_day"]) < 0
 
 
-def test_all_verdicts_and_figure(result):
+def test_all_verdicts_and_figure(result, tmp_fig):
     for key in ("eeg_at_elliptic_pole", "ocean_parabolic_plus_odd",
                 "solar_pure_transport", "scallops_transport_weak_shape",
                 "four_corners_distinct"):
         assert result["verdicts"][key] is True
+    import new_relationships32 as NR
+    out = tmp_fig(NR, "90_response_anatomy.json")
     res = run(write=True)
-    assert os.path.exists(FIG)
-    with open(FIG) as fh:
+    assert out.exists()
+    with open(out) as fh:
         disk = json.load(fh)
     assert disk["verdicts"]["four_corners_distinct"] is True
     assert disk["matrix"]["solar"]["tau_d_s"] == pytest.approx(

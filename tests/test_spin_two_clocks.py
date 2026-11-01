@@ -24,7 +24,7 @@ import pytest
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)),
                                 ".."))
 from new_relationships30 import (  # noqa: E402
-    CACHE, DT_DAYS, FIG, analyze, band_rho, fit_spin, load_cache, run,
+    CACHE, DT_DAYS, analyze, band_rho, fit_spin, load_cache, run,
     spin_model, synthetic_checks, tail_fraction, zero_crossing_lag,
 )
 
@@ -147,14 +147,16 @@ def test_equatorial_null(result):
     assert result["verdicts"]["equatorial_null"]
 
 
-def test_all_verdicts_and_figure(result):
+def test_all_verdicts_and_figure(result, tmp_fig):
     for key in ("two_spin_clocks_separable",
                 "deep_eddy_rotation_measured_and_mirrored",
                 "polar_reversal_is_circulation_clock", "equatorial_null"):
         assert result["verdicts"][key] is True
+    import new_relationships30 as NR
+    out = tmp_fig(NR, "88_spin_two_clocks.json")
     res = run(write=True)
-    assert os.path.exists(FIG)
-    with open(FIG) as fh:
+    assert out.exists()
+    with open(out) as fh:
         disk = json.load(fh)
     assert disk["verdicts"]["polar_reversal_is_circulation_clock"] is True
     assert disk["bands"]["nh_trop"]["fit"]["period_days"] == pytest.approx(

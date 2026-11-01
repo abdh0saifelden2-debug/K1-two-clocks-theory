@@ -24,7 +24,7 @@ import pytest
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)),
                                 ".."))
 from new_relationships26 import (  # noqa: E402
-    DERIVED, FIG, MAT, analyze, band_indices, committed_trackers,
+    DERIVED, MAT, analyze, band_indices, committed_trackers,
     frame_spectra, load_bushuk, pair_dispersion, run, snr_gate,
     synthetic_checks, weighted_median,
 )
@@ -139,14 +139,16 @@ def test_marginal_pattern_damped_roughness(result):
     assert result["verdicts"]["marginal_pattern_damped_roughness"]
 
 
-def test_all_verdicts_and_figure(result):
+def test_all_verdicts_and_figure(result, tmp_fig):
     for key in ("boost_identity_exact", "migration_is_one_allpass_factor",
                 "gain_is_boost_invariant",
                 "marginal_pattern_damped_roughness"):
         assert result["verdicts"][key] is True
+    import new_relationships26 as NR
+    out = tmp_fig(NR, "84_dispersion_boost.json")
     res = run(write=True)
-    assert os.path.exists(FIG)
-    with open(FIG) as fh:
+    assert out.exists()
+    with open(out) as fh:
         disk = json.load(fh)
     assert disk["verdicts"]["migration_is_one_allpass_factor"] is True
     assert disk["adv_residual_fraction"] == pytest.approx(

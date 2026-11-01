@@ -1,6 +1,6 @@
 # Cascade lifetime distribution & power-law energy transport (WREF 1-min, 2020)
 
-> **Paper 3 of the "research these" set — real data.** A pre-registered test that
+> **Paper 3 of the "research these" set — real data.** A criteria-based test that
 > turbulent activity in a stratified fluid comes in **scale-free bursts**: the burst
 > lifetime distribution P(τ) should be a power law (no characteristic duration;
 > Kolmogorov 1962 intermittency, on-off intermittency Platt 1993, SOC avalanches Bak
@@ -18,7 +18,11 @@
 > [`tests/test_cascade_lifetime.py`](tests/test_cascade_lifetime.py),
 > figure `figures/74_cascade_lifetime.png`.
 
-## Pre-registered predictions
+## Predictions and pass criteria
+
+The thresholds are hard-coded in `cascade_lifetime.analyze_signal`; they were not
+lodged in an external registry. This is a criteria-based test, not an externally
+pre-registered protocol.
 
 - **CL1** P(τ) heavy-tailed — power law preferred over exponential by AIC, α∈[1.5,4].
 - **CL2** scaling range ≥ 1.5 decades.

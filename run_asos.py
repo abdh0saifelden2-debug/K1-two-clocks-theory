@@ -190,6 +190,9 @@ def fig_coupling(stations: list[StationData], out_dir: Path) -> Path:
 
 def write_report(path: Path, stations: list[StationData], fig_paths: list[Path]):
     """Generate REPORT_ASOS.md."""
+    rs = [st.df["temp_c"].corr(st.df["pres_hpa"]) for st in stations]
+    r_min, r_max = min(rs), max(rs)
+    r_med = float(np.median(rs))
     lines = [
         "# Mesoscale 'two clocks' — ASOS 1-minute, multi-station confirmation\n",
         "\nUsing IEM ASOS 1-minute observations (Jan–Mar 2020) for stations spanning",
@@ -218,8 +221,11 @@ def write_report(path: Path, stations: list[StationData], fig_paths: list[Path])
         "\n3. **The S₂ pressure tide amplitude decreases with latitude** (strongest near",
         " the equator), confirming its global/planetary origin — it is not driven by",
         " local temperature.\n",
-        "\n4. **Bulk P–T correlation is weak** (r close to zero), exactly as expected if",
-        " they run on different 'clocks' / spatial mechanisms.\n",
+        "\n4. **Bulk P–T correlation is not uniformly zero** "
+        f"(r ranges from {r_min:.2f} to {r_max:.2f} across the {len(stations)} core "
+        f"stations; median {r_med:.2f}), consistent with pressure and temperature "
+        "running on different 'clocks' / spatial mechanisms rather than a single "
+        "local coupling.\n",
         "\n## Figures\n",
     ]
     for fp in fig_paths:

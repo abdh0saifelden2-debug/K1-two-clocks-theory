@@ -9,6 +9,11 @@ Evidence labels follow the README legend: **theorem**, **numerical identity**,
 **solver test**, **observational**, **exploratory**. Compound labels such as
 `[theorem + solver test]` mean both apply.
 
+**Note on criteria.** Pass thresholds in the exploratory tests below are hard-coded
+in the analysis scripts (`nonmarkov_argo.analyze_floats`,
+`cascade_lifetime.analyze_signal`, and related runners); they were not lodged in an
+external registry, so "pre-registered" is not used as an evidence label here.
+
 ---
 
 ## 1. The observation
@@ -107,7 +112,7 @@ elliptic field. They cannot be modelled as one coupled scalar.**
   so the burst exponent predicts Paper 4's long-range-dependence H = (4−α_burst)/2.
   [`REPORT_NEW_RELATIONSHIPS.md`](../REPORT_NEW_RELATIONSHIPS.md)
   (`new_relationships.py`).
-- **Non-Markovian multiscale ocean memory [observational, 3/4 pre-registered]** — ocean validation of
+- **Non-Markovian multiscale ocean memory [observational, 3/4 criteria met]** — ocean validation of
   the Mori–Zwanzig memory thesis on 28 long-record N. Atlantic Argo floats
   (temperature at 1000 dbar, ~7.5 yr each). The deseasonalized autocorrelation needs
   **two separated timescales** (τ_fast≈19 d, τ_slow≈165 d, ΔAIC=52, sep 8.9×) and
@@ -116,11 +121,11 @@ elliptic field. They cannot be modelled as one coupled scalar.**
   Markov model is structurally insufficient — exactly what MZ predicts.
   [`REPORT_NONMARKOV_ARGO.md`](../REPORT_NONMARKOV_ARGO.md), `figures/75`
   (`nonmarkov_argo.py`, `run_nonmarkov_argo.py`).
-- **Cascade lifetime & power-law energy transport [observational, 4/4 pre-registered]** —
+- **Cascade lifetime & power-law energy transport [observational, 4/4 criteria met]** —
   burst lifetimes of the fine-scale turbulent-activity envelope at WREF 2020.
   Pressure bursts are a scale-free **power law** (α≈2.0 over ~2.2 decades, preferred
   over exponential by ΔAIC≈1600, tail ≫ phase-randomized surrogate) with super-linear
-  energy transport (E∝τ^β, β≈1.6) — 4/4 pre-registered. Temperature is **not** a clean
+  energy transport (E∝τ^β, β≈1.6) — 4/4 on the hard-coded criteria. Temperature is **not** a clean
   power law (exponential-favored, ~2 hr characteristic convective scale) — an honest
   falsification; super-linear energy transport (β>1) still holds for both. The
   scale-free pressure clock vs the scaled temperature clock.
@@ -165,16 +170,18 @@ elliptic field. They cannot be modelled as one coupled scalar.**
   checked at 128–192³): Smagorinsky stays purely dissipative, the spectrum-matched
   surrogate keeps the right energy but breaks solenoidality, and the projected-FDT
   oracle matches spectrum + divergence + transfer (as an oracle, not as a predictive
-  closure). The 3D-only diagnostics — positive
-  stretching production (`⟨ωSω⟩* = 0.168`, identically `0.000` in 2D),
-  intermediate-eigenvector alignment (`e₂ ≈ 0.65`), and a backscatter volume
-  fraction of **0.480** that Smagorinsky's positive eddy viscosity cannot
-  represent (**0.000**) — are the structural features through which the
-  recently-proved singularity mechanism operates; the benchmark measures the
-  diagnostics, not regularity. The `0.480` is the fraction of points with
-  `Π<0` (the Gaussian-law form `Φ(−μ/σ)`); the 4.9% figure is the separate ratio
-  `μ/σ`, not a fraction of injection. [`REPORT_CLOSURE3D.md`](../REPORT_CLOSURE3D.md),
-  `figures/61–64` (`run_closure3d.py`).
+  closure). The 3D-only diagnostics are positive stretching production
+  (`⟨ωSω⟩* = 0.168`, identically `0.000` in 2D), intermediate-eigenvector
+  alignment (`e₂ ≈ 0.65`), and a backscatter volume fraction of **0.480** that
+  Smagorinsky's positive eddy viscosity cannot represent (**0.000**). The first
+  two are the diagnostics of the Constantin–Fefferman geometric-depletion
+  mechanism (alignment with the intermediate strain eigenvector depletes
+  stretching; [`REPORT_CLAY_REGULARITY.md`](../REPORT_CLAY_REGULARITY.md)); the
+  benchmark measures the stretching geometry, not regularity. The `0.480` is the
+  fraction of points with `Π<0` (the Gaussian-law form `Φ(−μ/σ)`); the 4.9% figure
+  is the separate ratio `μ/σ`, not a fraction of injection.
+  [`REPORT_CLOSURE3D.md`](../REPORT_CLOSURE3D.md), `figures/61–64`
+  (`run_closure3d.py`).
 - **RESULT 12 [solver test]** — the memory coefficient is real: `τ_c ≈ 0.02–0.03`,
   sign **+**, measured from the SGS eddy-diffusivity autocorrelation; bath weights
   closed (slow:fast = Stefan number). [`REPORT_GLE_COEFFICIENTS.md`](../REPORT_GLE_COEFFICIENTS.md),

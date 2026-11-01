@@ -21,7 +21,11 @@
 > `--float-dir`). The exact float-ID list is not archived in this repository;
 > see [`data/MANIFEST.md`](data/MANIFEST.md) for the source and the known gap.
 
-## Pre-registered predictions (thresholds fixed before the real data)
+## Predictions and pass criteria
+
+The NM1–NM4 thresholds are hard-coded in `nonmarkov_argo.analyze_floats`; they
+were not lodged in an external registry. This is a criteria-based test, not an
+externally pre-registered protocol.
 
 - **NM1** Chapman–Kolmogorov violation: Δ₂ = C(2)−C(1)² > 0, robust across floats
   (sign-test p < 0.01). AR(1) predicts exactly 0.
@@ -48,7 +52,7 @@
 - **Chapman–Kolmogorov violation (NM2 strong, NM1 marginal):** the lag-3 excess
   C(3)−C(1)³ is robustly positive (p = 0.0019); the lag-2 excess is positive in
   68% of floats and significant at 5% (p = 0.044) but **not** at the
-  pre-registered 1% — reported honestly as marginal rather than tuned to pass.
+  1% criterion set in the script — reported honestly as marginal rather than tuned to pass.
 - **Ocean validation of the terrestrial mechanism:** as in the WREF surface-layer
   analysis, the real field is non-Markovian with multiscale memory — exactly what the
   Mori–Zwanzig closure (not a local Markov model) is built to represent.
