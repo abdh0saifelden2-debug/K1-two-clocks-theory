@@ -1,6 +1,6 @@
 # Diagonal-band cascade structure in a stratified fluid (WREF 1-min, 2020)
 
-> **Paper 1 of the "research these" set — real data.** A pre-registered test that the
+> **Paper 1 of the "research these" set — real data.** A criteria-based test that the
 > atmospheric surface layer (a stratified turbulent fluid) builds a *local,
 > intermittent* cross-scale cascade, measured as a **band-coupling matrix**
 > φ_ij = corr(log envelope of octave band i, octave band j). Mainstream grounding:
@@ -20,7 +20,7 @@
 > [`tests/test_cascade_band_structure.py`](tests/test_cascade_band_structure.py),
 > figure `figures/73_cascade_band_structure.png`.
 
-## Pre-registered predictions (thresholds fixed before the real data)
+## Predictions and pass criteria (thresholds hard-coded in `cascade_band_structure.analyze`; no external registry)
 
 - **CB1 diagonal dominance** — each band most coupled to itself; φ(1) < 1, > far coupling.
 - **CB2 monotone decay** — Spearman trend of φ(d) vs separation ≤ −0.8 (noise-robust;

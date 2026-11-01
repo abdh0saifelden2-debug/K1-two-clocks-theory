@@ -1,7 +1,7 @@
 r"""Paper 1 — Diagonal-band cascade structure in a stratified fluid (atmospheric
 surface layer), from real NEON 1-min observations.
 
-PRE-REGISTERED, falsification-driven. Mainstream grounding: a turbulent cascade is
+CRITERIA-BASED, falsification-driven. Mainstream grounding: a turbulent cascade is
 *local in scale* (Kolmogorov 1941; Kraichnan) and *intermittent/multiplicative*
 (Kolmogorov 1962; Frisch 1995), so cross-scale energy transfer couples neighbouring
 scales and decays with scale separation. We test this as a **band-coupling matrix**
@@ -16,7 +16,7 @@ fluid (the surface layer at WREF) builds cross-scale amplitude correlations that
 spectrum-matched Gaussian surrogate cannot — "energy yes, structure no" in the time
 domain ([`run_boussinesq.py`](run_boussinesq.py)).
 
-PRE-REGISTERED PREDICTIONS (thresholds set before seeing the real data)
+PREDICTIONS AND PASS CRITERIA (thresholds hard-coded in analyze; no external registry)
 ----------------------------------------------------------------------
   CB1  Diagonal dominance: each row's diagonal is the maximum; nearest-neighbour
        coupling φ(d=1) < 1 and exceeds far coupling.
@@ -147,7 +147,7 @@ def analyze(x: np.ndarray, n_bands: int = 10, seed: int = 0) -> dict:
     mean_off_real = float(np.mean(vals))
     mean_off_surr = float(np.mean(vals_s))
 
-    # Pre-registered, ROBUST operationalizations (a single-exponential L is brittle
+    # Hard-coded, ROBUST operationalizations (a single-exponential L is brittle
     # under forcing peaks, so monotonicity uses the Spearman trend and the decay
     # scale uses the half-coupling separation d_half).
     cb1 = bool(diag_dominant and 0.0 < nn_real < 1.0 and nn_real > vals[-1])

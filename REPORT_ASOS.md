@@ -14,7 +14,7 @@ Using IEM ASOS 1-minute observations (Jan–Mar 2020) for stations spanning 25�
 2. **Pressure carries a semidiurnal tide (S₂, 12 h)** visible as twin daily peaks in the diurnal composite. This tide is a global-scale atmospheric resonance (the solar thermal tide), not local heating.
 3. **The S₂ pressure tide amplitude decreases with latitude** (strongest near the equator), confirming its global/planetary origin — it is not driven by local temperature.
 
-4. **Bulk P–T correlation is weak** (r close to zero), exactly as expected if they run on different 'clocks' / spatial mechanisms.
+4. **Bulk P–T correlation is not uniformly zero** (r ranges from -0.56 to -0.05 across the 3 core stations; median -0.48), consistent with pressure and temperature running on different 'clocks' / spatial mechanisms rather than a single local coupling.
 
 ## Figures
 
