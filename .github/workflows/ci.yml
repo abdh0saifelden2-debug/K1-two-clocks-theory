@@ -23,5 +23,7 @@ jobs:
       run: python tools/check_claim_map.py
     - name: Check repository paths and links
       run: python tools/check_repo_paths.py
+    - name: Lint report wording and index
+      run: python tools/check_report_wording.py
     - name: Run tests
       run: python -m pytest -q --tb=short

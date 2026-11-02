@@ -48,6 +48,7 @@ spherical-harmonic degree `l ≤ 35`.
 - [`docs/FINDINGS.md`](docs/FINDINGS.md) — the detailed findings moved out of this README.
 - [`docs/REPORTS.md`](docs/REPORTS.md) — index of all 81 report files.
 - [`docs/REPO_MAP.md`](docs/REPO_MAP.md) — what belongs to the paper surface, the evidence reports, and the exploratory tail.
+- [`CHANGELOG.md`](CHANGELOG.md) — release history, newest first.
 - `run_*.py` — reproduction runners; Table 9 of the paper lists the command for every result.
 - `closure/`, `boussinesq/`, `compressible/`, `neon_pt/`, `asos/`, `reanalysis/` — analysis libraries.
 - `figures/`, `data/`, `claims/`, `tests/` — artifacts, caches, gated claim data, and the test suite.

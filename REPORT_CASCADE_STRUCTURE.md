@@ -39,7 +39,7 @@
 
 ![diagonal-band cascade](figures/73_cascade_band_structure.png)
 
-**The decisive result is CB4.** Real cross-scale coupling (φ(1) ≈ 0.29–0.38,
+**The load-bearing result is CB4.** Real cross-scale coupling (φ(1) ≈ 0.29–0.38,
 mean off-diagonal ≈ 0.14–0.18) sits **far above** the
 phase-randomized surrogate (≈ 0, i.e. no cross-scale coupling). A spectrum-matched Gaussian has independent bands;
 the real stratified fluid builds genuine cross-scale amplitude correlation — the

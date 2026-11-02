@@ -22,7 +22,7 @@ The intermediate velocity `u*` from the slow drift alone does **not** conserve m
 
 ## 3. The SPDE limit -- energy yes, structure no (figure 24)
 
-Modern stochastic-climate / SPDE closures replace the unresolved fast clock with random forcing tuned to the right *spectrum*. We mimic this by replacing the deterministic correction (the gradient field `P` removes) with a phase-randomized surrogate of **identical power spectrum**. The result is decisive:
+Modern stochastic-climate / SPDE closures replace the unresolved fast clock with random forcing tuned to the right *spectrum*. We mimic this by replacing the deterministic correction (the gradient field `P` removes) with a phase-randomized surrogate of **identical power spectrum**. The result is unambiguous:
 
 - **Spectrum:** identical by construction (Parseval) -- the surrogate carries exactly the right energy at every wavenumber.
 - **Structure:** pointwise correlation with the true correction is 0.012 ~ 0 -- the field is geometrically unrelated.

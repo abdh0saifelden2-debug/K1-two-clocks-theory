@@ -273,7 +273,7 @@ the benchmark is built to separate the two.
  
 This repo does not claim these results. It claims the *two-clocks reading* of them —
 K-theory as the Markovian-delta collapse of the MZ kernel, and the FDT+projection
-pair as the missing "structure" — and provides the decisive 2-D benchmark.
+pair as the missing "structure" — and provides the load-bearing 2-D benchmark.
  
 ## Scope
  

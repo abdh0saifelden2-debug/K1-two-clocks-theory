@@ -40,7 +40,7 @@ autocorrelation memory time.
 - **Value:** `τ_c ≈ 0.02–0.03` (solver time units) for the *local* `K_u`. This
   is consistent with the committed RESULT-8 SGS-force memory time
   (`τ_mem^set = 0.05`, `τ_mem^eff ≈ 9.5×10⁻³`): the local (un-averaged) time sits
-  between the set and the CLT-shortened mean-field values, exactly as expected —
+  between the set and the CLT-shortened mean-field values, as expected —
   the spatial-mean force decorrelates *faster* than the local field because it
   averages N³ quasi-independent cells. The local `τ_c` is the N-independent
   quantity that the *local* §G.5 PDE term and the §D.4 fast bath actually see.

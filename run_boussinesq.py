@@ -268,7 +268,7 @@ def write_report(report_path, fig_paths, stats, ens=None):
         "clock with random forcing tuned to the right *spectrum*. We mimic this by "
         "replacing the deterministic correction (the gradient field `P` removes) "
         "with a phase-randomized surrogate of **identical power spectrum**. The "
-        "result is decisive:\n",
+        "result is unambiguous:\n",
         "\n- **Spectrum:** identical by construction (Parseval) -- the surrogate "
         "carries exactly the right energy at every wavenumber.\n",
         f"- **Structure:** pointwise correlation with the true correction is "

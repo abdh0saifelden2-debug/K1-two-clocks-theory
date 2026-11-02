@@ -12,7 +12,7 @@ Evidence labels follow the README legend: **theorem**, **numerical identity**,
 **Note on criteria.** Pass thresholds in the exploratory tests below are hard-coded
 in the analysis scripts (`nonmarkov_argo.analyze_floats`,
 `cascade_lifetime.analyze_signal`, and related runners); they were not lodged in an
-external registry, so "pre-registered" is not used as an evidence label here.
+external registry, so these are criteria-based tests rather than registered protocols.
 
 ---
 

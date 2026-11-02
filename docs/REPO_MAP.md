@@ -19,10 +19,14 @@ descriptive, not a refactor plan: **no file moves or renames are part of v1.x.**
 - [`AUDIT.md`](../AUDIT.md) keeps the pre-split paths as history;
   [`tools/check_repo_paths.py`](../tools/check_repo_paths.py) exempts it
   and fails on any other stale reference.
+- The paper-facing wording is guarded by
+  [`tools/check_report_wording.py`](../tools/check_report_wording.py): retired
+  phrases fail CI, and every `REPORT*.md` must appear once in
+  [`REPORTS.md`](REPORTS.md).
 
 ## Counts at this commit
 
-- 471 tracked files; 184 root-level tracked files.
+- 474 tracked files; 186 root-level tracked files.
 - 81 report files: 80 `REPORT_*.md` plus `REPORT.md`.
 - 155 files under [`figures/`](../figures).
 - 49 NR scripts: 46 `new_relationships*.py` plus 3 `nr*.py`.
@@ -42,7 +46,7 @@ descriptive, not a refactor plan: **no file moves or renames are part of v1.x.**
 | Exploratory | 49 NR scripts and their reports; `glaciers/`, `data/nr*` caches | Outside the paper's claim set; indexed as exploratory. |
 | Analysis libraries | `closure/`, `boussinesq/`, `compressible/`, `neon_pt/`, `asos/`, `reanalysis/`, `subglacial/` | Imported by runners and tests; `AUDIT.md` records provenance. |
 | Data and artifacts | [`figures/`](../figures), [`data/MANIFEST.md`](../data/MANIFEST.md) and 14 caches, [`claims/fc15_winter.json`](../claims/fc15_winter.json) | Raw data are not vendored; caches are derived. |
-| Infrastructure | [`tests/`](../tests), [`tools/`](../tools), `.github/workflows/`, `pyproject.toml`, `requirements.txt` | CI runs the claim map, path guard, full pytest, and the PDF build. |
+| Infrastructure | [`tests/`](../tests), [`tools/`](../tools), [`Makefile`](../Makefile), [`CHANGELOG.md`](../CHANGELOG.md), `.github/workflows/`, `pyproject.toml`, `requirements.txt` | CI runs the claim map, path guard, wording lint, full pytest, and the PDF build; `make check` mirrors the lints. |
 
 ## Where the front-door claims live
 
