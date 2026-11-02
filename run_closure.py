@@ -161,6 +161,11 @@ def fig_transfer(sp, ub, vb, mx_true, my_true, mx_smag, my_smag,
 _HAND_WRITTEN_MARKER = "<!-- BEGIN HAND-WRITTEN CONTENT (preserved across regeneration) -->"
 
 
+def _signed(value):
+    """Unicode minus and explicit plus for report ranges."""
+    return f"\u2212{abs(value):.2f}" if value < 0 else f"+{value:.2f}"
+
+
 def write_report(path, figs, div_scores, transfer_corrs, ensemble, n, kc):
     f28, f29, f30 = figs
 
@@ -226,7 +231,7 @@ from resolved data and is not a predictive closure.
   The correlation below is one fixed realization (`surrogate_force(..., seed=7)`),
   not a seed average. A {ensemble['n']}-seed ensemble
   (`figures/28b_closure_seed_ensemble.json`) gives median {ensemble['median']:.2f},
-  sd {ensemble['sd']:.2f}, range {ensemble['min']:.2f} to {ensemble['max']:.2f};
+  sd {ensemble['sd']:.2f}, range {_signed(ensemble['min'])} to {_signed(ensemble['max'])};
   the 3D convergence runs span \u22120.276 to +0.268 (`REPORT_CLOSURE3D_CONVERGENCE.md`),
   so the sign is not stable across realizations.
 - **Projected-FDT (oracle)** reproduces the forward/backscatter partition: its deterministic
@@ -282,6 +287,8 @@ def main():
     ap.add_argument("--steps", type=int, default=STEPS)
     ap.add_argument("--ensemble-seeds", type=int, default=40)
     args = ap.parse_args()
+    if args.ensemble_seeds < 1:
+        ap.error("--ensemble-seeds must be at least 1")
 
     os.makedirs(args.out_dir, exist_ok=True)
     kc = args.kc
