@@ -24,8 +24,8 @@
 ## Predictions and pass criteria
 
 The NM1–NM4 thresholds are hard-coded in `nonmarkov_argo.analyze_floats`; they
-were not lodged in an external registry. This is a criteria-based test, not an
-externally pre-registered protocol.
+were not lodged in an external registry, so this is a criteria-based test rather
+than a registered protocol.
 
 - **NM1** Chapman–Kolmogorov violation: Δ₂ = C(2)−C(1)² > 0, robust across floats
   (sign-test p < 0.01). AR(1) predicts exactly 0.
@@ -47,7 +47,7 @@ externally pre-registered protocol.
 - **Two well-separated timescales (NM3, NM4):** ocean temperature memory at 1000 dbar
   splits into a **fast ≈ 19-day** scale (mesoscale-eddy / synoptic) and a
   **slow ≈ 165-day** scale (months — seasonal thermocline / advective memory),
-  separated by 8.9×. A single exponential is decisively rejected (ΔAIC = 52);
+  separated by 8.9×. A single exponential is rejected (ΔAIC = 52);
   the autocorrelation decays **slower than the matched AR(1)** curve (figure a).
 - **Chapman–Kolmogorov violation (NM2 strong, NM1 marginal):** the lag-3 excess
   C(3)−C(1)³ is robustly positive (p = 0.0019); the lag-2 excess is positive in

@@ -25,7 +25,7 @@
 | 4 | NS dissipation (`γ=1`) **regularizes** (bounded `H¹`); **supercritical** dissipation (`γ` small) does not | **[NUMERICAL]** §4, consistent with Cheskidov (2008) |
 | 5 | Therefore: energy conservation ⇏ regularity; this is Tao (2016) "same energy identity, still blows up" in a model you can run | **[FRAMING]** §5 |
 
-**This is a 1-D shell caricature, not 3-D Navier–Stokes.** It proves nothing about the
+**This is a 1-D shell caricature, not 3-D Navier–Stokes.** It says nothing about the
 Clay problem. Its job is narrow and honest: to isolate, in the simplest faithful
 system, the single mechanism the regularity program rests on — that an *energy-exact*
 nonlinearity can still cascade to a finite-time singularity, so regularity must come

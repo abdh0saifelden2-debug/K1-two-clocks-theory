@@ -131,8 +131,8 @@ def write_report(path, rp, rt, p_valid, t_valid, n):
 ## Predictions and pass criteria
 
 The thresholds are hard-coded in `cascade_lifetime.analyze_signal`; they were not
-lodged in an external registry. This is a criteria-based test, not an externally
-pre-registered protocol.
+lodged in an external registry, so this is a criteria-based test rather than a
+registered protocol.
 
 - **CL1** P(τ) heavy-tailed — power law preferred over exponential by AIC, α∈[1.5,4].
 - **CL2** scaling range ≥ 1.5 decades.

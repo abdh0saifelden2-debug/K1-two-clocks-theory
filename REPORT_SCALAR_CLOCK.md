@@ -84,7 +84,7 @@ backscatter); the mechanism (one velocity field stirs all scalars) is regime-gen
 
 The fixed-`Le=100` run above can be read two ways: τ_c really is scalar-independent,
 or `F_T ≈ F_S` *trivially* because heat and salt start from the same ramp. The
-decisive test is to **sweep the contrast `Le` itself** and watch two quantities that
+cleanest test is to **sweep the contrast `Le` itself** and watch two quantities that
 must behave *oppositely* if the clock/amplitude split is real:
 
 - the **clock** `τ_c(salt)/τ_c(heat)` must stay pinned at ~1 (it is the shared

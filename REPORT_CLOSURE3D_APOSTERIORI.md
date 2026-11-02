@@ -58,7 +58,7 @@ flipped sign with the cascade — exactly the variational result
 
 ## Honest scope
 
-- **It is the *direction* that is decisive, not the size.** The forcing here is
+- **What matters is the *direction*, not the size.** The forcing here is
   low-k (k_f=2.5) and k_c=24 captures most of the energy, so the subgrid load is
   mild and the margins are correspondingly small (~6% for Smagorinsky, ~1% for the
   structured eddy viscosity). A forcing band nearer the cutoff (the 2-D test used
