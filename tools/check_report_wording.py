@@ -3,10 +3,12 @@
 
 Two checks, both fatal in CI:
 
-1. **Retired claim wording.** The manuscript, the README, the docs pages, and
-   every report linked from ``docs/FINDINGS.md`` may not reintroduce the
-   phrases removed in the v1.0.4 cleanup: unqualified "pre-registered",
-   "decisive", "exactly as expected", and "recently-proved".
+1. **Retired claim wording.** The manuscript, the README, the docs pages,
+   every report linked from ``docs/FINDINGS.md``, and the ``run_*.py`` files
+   that write those reports may not reintroduce the phrases removed in the
+   v1.0.4 cleanup: unqualified "pre-registered", "decisive", "exactly as
+   expected", and "recently-proved".  Scanning the runners keeps the generated
+   report text in sync with its generator.
 2. **Report index completeness.** Every ``REPORT*.md`` in the checkout must
    appear exactly once in ``docs/REPORTS.md``, and the stated counts must
    match the files on disk.
@@ -38,6 +40,7 @@ FORBIDDEN = {
 
 REPORT_LINK = re.compile(r"\]\(\.\./(REPORT[^)/]*\.md)\)")
 COUNT_LINE = re.compile(r"`(\d+)` files: `(\d+)` `REPORT_\*\.md` plus `REPORT\.md`")
+RUNNER_DEFAULT = re.compile(r'--report",\s*default="(REPORT[^"]*\.md)"')
 
 
 def read(path: Path) -> str:
@@ -70,17 +73,31 @@ def paper_facing() -> list[Path]:
     return paths
 
 
-def check_wording() -> int:
+def runner_sources() -> list[Path]:
+    """Runners that write a report; scanning them keeps generator text in sync."""
+    out = []
+    for path in sorted(REPO.glob("run_*.py")):
+        if RUNNER_DEFAULT.search(read(path)):
+            out.append(path)
+    return out
+
+
+def scan(path: Path) -> int:
     failures = 0
+    for lineno, line in enumerate(read(path).splitlines(), 1):
+        for label, pattern in FORBIDDEN.items():
+            if pattern.search(line):
+                print(f"FAIL wording {path.relative_to(REPO)}:{lineno}: {label}")
+                failures += 1
+    return failures
+
+
+def check_wording() -> int:
     paths = paper_facing()
-    for path in paths:
-        for lineno, line in enumerate(read(path).splitlines(), 1):
-            for label, pattern in FORBIDDEN.items():
-                if pattern.search(line):
-                    print(f"FAIL wording {path.relative_to(REPO)}:{lineno}: {label}")
-                    failures += 1
+    runners = runner_sources()
+    failures = sum(scan(path) for path in paths + runners)
     if not failures:
-        print(f"ok   wording ({len(paths)} paper-facing files)")
+        print(f"ok   wording ({len(paths)} paper-facing files, {len(runners)} runners)")
     return failures
 
 

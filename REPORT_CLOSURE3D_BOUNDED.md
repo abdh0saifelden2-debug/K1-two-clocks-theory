@@ -21,7 +21,7 @@ So: **does `[F, P] = 0` survive a wall?**
 | projector `P` | `I - k k^T/|k|^2` (multiplier) | `I - GRAD L^{-1} DIV`, no-penetration wall BC |
 | filter `F` | 3-D sharp Fourier cutoff | horizontal cutoff + DCT-I (cosine) wall-normal low-pass |
 
-The decisive design choice is that the **same** `Dy` builds the divergence, the
+The load-bearing design choice is that the **same** `Dy` builds the divergence, the
 gradient and (squared) the Laplacian, so the discrete Hodge projection is exact.
 
 ## Result 1 -- the wall-aware projector is a genuine, exact Leray projection

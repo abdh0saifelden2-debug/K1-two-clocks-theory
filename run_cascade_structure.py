@@ -163,7 +163,7 @@ def write_report(path, rp, rt, sweep, p_valid, t_valid, n):
 
 ![diagonal-band cascade](figures/73_cascade_band_structure.png)
 
-**The decisive result is CB4.** Real cross-scale coupling (φ(1) ≈ {rp['nn_real']:.2f}–{rt['nn_real']:.2f},
+**The load-bearing result is CB4.** Real cross-scale coupling (φ(1) ≈ {rp['nn_real']:.2f}–{rt['nn_real']:.2f},
 mean off-diagonal ≈ {rp['mean_off_real']:.2f}–{rt['mean_off_real']:.2f}) sits **far above** the
 phase-randomized surrogate (≈ 0, i.e. no cross-scale coupling). A spectrum-matched Gaussian has independent bands;
 the real stratified fluid builds genuine cross-scale amplitude correlation — the
