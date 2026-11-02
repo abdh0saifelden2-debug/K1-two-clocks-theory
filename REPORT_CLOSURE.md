@@ -88,7 +88,12 @@ REPORT_THEORY.md §4 for the explicit caveat about time-locality.
 
 <!-- BEGIN HAND-WRITTEN CONTENT (preserved across regeneration) -->
 
-## Physical implication: the Goldshtik–Sorokin effect
+## Physical implication (speculative): the Goldshtik–Sorokin effect
+
+> **Speculative interpretation — no data.** The application paragraphs below are
+> analogies from the structural benchmark, not measurements. No Otis, biomedical,
+> or subglacial dataset is analyzed in this report; the evidence ends at the three
+> diagnostics and the seed ensemble above.
 
 The benchmark diagnostics map directly onto a classic anomalous phenomenon in turbulent
 flows: the **Goldshtik–Sorokin effect** — stable suspension of a heavy particle in a
@@ -145,7 +150,7 @@ and overpredict stability. The glacier appears "safer" than it is.
 trapping persists; ℙ gives an exact pressure manifold → correct effective pressure and
 sliding prediction. The model correctly captures accelerated melt + uplift risk.
 
-### Extreme weather application: Hurricane Otis rapid intensification (2023)
+### Speculative application: Hurricane Otis rapid intensification (2023)
 
 Otis jumped from tropical storm to Category 5 in 24 hours. Nearly every operational model
 failed to predict this. The models had correct SST data and synoptic steering — they lacked

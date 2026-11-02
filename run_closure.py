@@ -26,6 +26,7 @@ Generates figures 28-30 and REPORT_CLOSURE.md.  Needs no downloaded data.
 from __future__ import annotations
 
 import argparse
+import json
 import os
 
 import numpy as np
@@ -160,7 +161,7 @@ def fig_transfer(sp, ub, vb, mx_true, my_true, mx_smag, my_smag,
 _HAND_WRITTEN_MARKER = "<!-- BEGIN HAND-WRITTEN CONTENT (preserved across regeneration) -->"
 
 
-def write_report(path, figs, div_scores, transfer_corrs, n, kc):
+def write_report(path, figs, div_scores, transfer_corrs, ensemble, n, kc):
     f28, f29, f30 = figs
 
     # Preserve any hand-written content appended after the marker
@@ -217,13 +218,17 @@ from resolved data and is not a predictive closure.
 - **Truth** shows both forward dissipation (T<0, large scales losing energy to
   subgrid) **and** backscatter (T>0, subgrid returning energy to resolved scales) \u2014
   the 2D inverse-cascade signature.
-- **Smagorinsky** has T(k) \u2264 0 everywhere: purely dissipative, **no backscatter**.
-  The fundamental structural error of positive-definite eddy viscosity.
+- **Smagorinsky** has T(k) \u2264 0 for every resolved shell in this realization:
+  purely dissipative, **no backscatter**. The structural error of positive-definite
+  eddy viscosity.
 - **Surrogate** has the right E_m(k) but not a stable transfer structure: matching
   the spectrum randomizes the *direction* of energy transfer along with the phases.
   The correlation below is one fixed realization (`surrogate_force(..., seed=7)`),
-  not a seed average; the 3D convergence runs, which change the realization, span
-  \u22120.276 to +0.268 (`REPORT_CLOSURE3D_CONVERGENCE.md`), so the sign is not stable.
+  not a seed average. A {ensemble['n']}-seed ensemble
+  (`figures/28b_closure_seed_ensemble.json`) gives median {ensemble['median']:.2f},
+  sd {ensemble['sd']:.2f}, range {ensemble['min']:.2f} to {ensemble['max']:.2f};
+  the 3D convergence runs span \u22120.276 to +0.268 (`REPORT_CLOSURE3D_CONVERGENCE.md`),
+  so the sign is not stable across realizations.
 - **Projected-FDT (oracle)** reproduces the forward/backscatter partition: its deterministic
   part carries \u03bd_t(k) with the correct sign (including negative = backscatter) and
   its projected noise fills the remainder without breaking div=0.
@@ -275,6 +280,7 @@ def main():
     ap.add_argument("--n", type=int, default=N_DNS)
     ap.add_argument("--kc", type=int, default=KC)
     ap.add_argument("--steps", type=int, default=STEPS)
+    ap.add_argument("--ensemble-seeds", type=int, default=40)
     args = ap.parse_args()
 
     os.makedirs(args.out_dir, exist_ok=True)
@@ -334,6 +340,38 @@ def main():
     for name, val in transfer_corrs.items():
         print(f"    {name:20s}  corr(T)={val:.3f}")
 
+    # --- surrogate seed ensemble: how much does the headline correlation move? ---
+    print(f"  computing {args.ensemble_seeds}-seed surrogate ensemble ...")
+    ensemble_corrs = []
+    for seed in range(args.ensemble_seeds):
+        ex, ey = surrogate_force(sp, mx_true, my_true, kc, seed=seed)
+        _, T_ens = transfer_spectrum(sp, ub, vb, ex, ey, kc)
+        ensemble_corrs.append(_safe_corr(T_true[m], T_ens[m]))
+    ens = np.asarray(ensemble_corrs, dtype=float)
+    ensemble = {
+        "n": int(ens.size),
+        "median": float(np.median(ens)),
+        "mean": float(ens.mean()),
+        "sd": float(ens.std(ddof=1)) if ens.size > 1 else 0.0,
+        "min": float(ens.min()),
+        "max": float(ens.max()),
+    }
+    ensemble_path = os.path.join(args.out_dir, "28b_closure_seed_ensemble.json")
+    with open(ensemble_path, "w") as fh:
+        json.dump({
+            "what": "seed ensemble of corr(T_true, T_surrogate) for the Part 8b closure benchmark",
+            "n_dns": args.n,
+            "kc": kc,
+            "steps": args.steps,
+            "seeds": list(range(args.ensemble_seeds)),
+            "corr": [float(value) for value in ens],
+            **ensemble,
+        }, fh, indent=2)
+        fh.write("\n")
+    print(f"    median={ensemble['median']:.3f} sd={ensemble['sd']:.3f} "
+          f"range=[{ensemble['min']:.3f}, {ensemble['max']:.3f}]")
+    print(f"  -> {ensemble_path}")
+
     # --- figures ---
     print("  generating figures ...")
     f28 = fig_force_spectrum(sp, mx_true, my_true, mx_smag, my_smag,
@@ -344,12 +382,13 @@ def main():
     for p in (f28, f29, f30):
         print(f"  -> {p}")
 
-    write_report(args.report, (f28, f29, f30), div_scores, transfer_corrs, args.n, kc)
+    write_report(args.report, (f28, f29, f30), div_scores, transfer_corrs,
+                 ensemble, args.n, kc)
     print(f"Report: {args.report}")
 
     # quick sanity summary
     print("\n=== BENCHMARK SUMMARY ===")
-    print(f"  Smagorinsky: T(k)<=0 everywhere? "
+    print(f"  Smagorinsky: T(k)<=0 in this realization? "
           f"{np.all(T_smag[m] <= 0)} (purely dissipative)")
     has_backscatter = np.any(T_true[m] > 0)
     print(f"  Truth has backscatter (T>0)?     {has_backscatter}")
