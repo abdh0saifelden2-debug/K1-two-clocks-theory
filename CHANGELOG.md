@@ -5,7 +5,21 @@ manuscript PDF is attached to each `paper0-v*` release. Entries describe what
 changed between releases; the committed reports and `docs/FINDINGS.md` remain
 the detailed record.
 
-## Unreleased
+## paper0 v1.0.4 — 2026-11-02
+
+The first release after the hygiene cleanup. It includes the report, doc, and
+tooling work below plus one manuscript erratum.
+
+### Erratum
+
+- Abstract: the divergent fraction is now stated as at most `4.0%` of the
+  **rotational** kinetic energy in Reanalysis 1 (`4.5%` in the Reanalysis 2
+  cross-check), not "`≤4%` of the kinetic energy". Table 5 and the results text
+  already reported the ratio correctly; only the abstract's denominator and
+  bound were wrong. `tools/check_claim_map.py` now gates this sentence against
+  `figures/27b_reanalysis_crosscheck.json`.
+- Abstract, introduction, and discussion: "proves" → "shows" for the 2-D
+  surrogate demonstration, matching the scope paragraph.
 
 ### Changed
 

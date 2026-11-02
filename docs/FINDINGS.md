@@ -1,7 +1,7 @@
 # Extended findings
 
 This is the detailed findings list moved out of the README after the v1.0.3
-release. The manuscript (`paper0_two_clocks.tex`, v1.0.3) is the authoritative
+release. The manuscript (`paper0_two_clocks.tex`, v1.0.4) is the authoritative
 claim set; this file preserves supporting and exploratory material that does
 not belong in a one-page entry point.
 
