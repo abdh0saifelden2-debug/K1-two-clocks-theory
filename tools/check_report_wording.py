@@ -40,7 +40,7 @@ FORBIDDEN = {
 
 REPORT_LINK = re.compile(r"\]\(\.\./(REPORT[^)/]*\.md)\)")
 COUNT_LINE = re.compile(r"`(\d+)` files: `(\d+)` `REPORT_\*\.md` plus `REPORT\.md`")
-RUNNER_DEFAULT = re.compile(r'--report",\s*default="(REPORT[^"]+\.md)"')
+RUNNER_DEFAULT = re.compile(r'--report",\s*default="(REPORT[^"]*\.md)"')
 
 
 def read(path: Path) -> str:
