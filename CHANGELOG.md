@@ -21,6 +21,8 @@ tooling work below plus one manuscript erratum.
 - Abstract, introduction, and discussion: "proves" → "shows" for the 2-D
   surrogate demonstration, matching the scope paragraph.
 
+Release PDF SHA-256: `84d023728b06f11a80d6f132ff3207e5ce6b139cdbc77fc88a582430c1bcd19c`.
+
 ### Changed
 
 - Closure wording is conservative: the `0.907` transfer correlation is one

@@ -4,8 +4,8 @@ Code, data artifacts, and manuscript for **paper0**, *Why spectrum-matched
 stochastic closures fail the elliptic test: operator-level pressure–temperature
 decoupling across scales*.
 
-**Current release:** [`paper0-v1.0.3`](https://github.com/abdh0saifelden2-debug/K1-two-clocks-theory/releases/tag/paper0-v1.0.3)
-(2026-10-30, commit `a0b6a45`). The released PDF is attached to that release.
+**Current release:** [`paper0-v1.0.4`](https://github.com/abdh0saifelden2-debug/K1-two-clocks-theory/releases/tag/paper0-v1.0.4)
+(2026-11-02, commit `b4bb65d`). The released PDF is attached to that release.
 
 **Thesis.** Temperature is a local, slow, parabolic field. Pressure, in the
 incompressible limit, is the Lagrange multiplier of the divergence-free
@@ -69,12 +69,12 @@ twice on `paper0_two_clocks.tex`.
 
 ## Status and provenance
 
-- **Paper:** v1.0.3, released from `a0b6a45`; PDF SHA-256 `03e629b145dd6fbbf47b98488fbcd25fd1f3ca2f400691998149bbdc6865e9e4`.
+- **Paper:** v1.0.4, released from `b4bb65d`; PDF SHA-256 `84d023728b06f11a80d6f132ff3207e5ce6b139cdbc77fc88a582430c1bcd19c`.
 - **Lean:** the finite-dimensional surrogate slice is frozen at `249e357` (Parseval freeze) and audited against `553d5c2` in [`K1-lean`](https://github.com/abdh0saifelden2-debug/K1-lean).
 - **Audit:** the public code and claim audit is [`paper0-audit`](https://github.com/abdh0saifelden2-debug/paper0-audit).
 - **Provenance:** split from the K monorepo; the pristine archive SHA-256 is `ef637ff5f912a5d1404f677429f9429eccc8102a8cab23cee79cf055bbf1220`. Split details are in [`AUDIT.md`](AUDIT.md).
 
 ## Citation
 
-Cite the `paper0-v1.0.3` release and this repository. A Zenodo DOI has not been
+Cite the `paper0-v1.0.4` release and this repository. A Zenodo DOI has not been
 minted; use the release URL until one exists.
