@@ -5,6 +5,15 @@ manuscript PDF is attached to each `paper0-v*` release. Entries describe what
 changed between releases; the committed reports and `docs/FINDINGS.md` remain
 the detailed record.
 
+## Unreleased
+
+### Fixed
+
+- The cascade-structure and channel-closure generators now emit the same
+  "load-bearing" wording as their checked-in reports. The wording lint scans
+  the `run_*.py` report runners, so generator text cannot drift from the
+  reports again.
+
 ## paper0 v1.0.4 — 2026-11-02
 
 The first release after the hygiene cleanup. It includes the report, doc, and

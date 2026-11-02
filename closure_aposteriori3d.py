@@ -1,4 +1,4 @@
-r"""P1 a-posteriori closure test in 3-D (paper1 sec 8.1 / the decisive NR31 test).
+r"""P1 a-posteriori closure test in 3-D (paper1 sec 8.1 / the load-bearing NR31 test).
 
 The committed 3-D benchmark ``run_closure3d.py`` is *a-priori* (frozen-field): it
 scores closures on a single filtered DNS snapshot.  The 2-D a-posteriori test

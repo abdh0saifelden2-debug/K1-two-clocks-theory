@@ -2,7 +2,7 @@
 
 These exercise the *one* property the periodic-box Part-9c proof cannot: the
 behaviour of the sharp filter and the Leray pressure projector at a solid wall.
-The decisive checks are (i) the wall-aware projector is an exact Leray projection
+The load-bearing checks are (i) the wall-aware projector is an exact Leray projection
 (machine-zero interior divergence, machine-zero wall-normal velocity, idempotent),
 (ii) the naive periodic projector is wall-blind, and (iii) filter and projector
 COMMUTE to machine precision in a periodic box but NOT in the channel, where the
