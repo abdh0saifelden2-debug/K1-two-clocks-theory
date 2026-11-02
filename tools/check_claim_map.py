@@ -298,6 +298,23 @@ def check_r3() -> None:
     require("15\\% or less" not in text, "paper still contains the old R3 bound")
 
 
+def check_reanalysis_abstract() -> None:
+    """The abstract must call KE_div/KE_rot a ratio to rotational KE, not a share."""
+    text = paper_text()
+    artifact = load_json(ROOT / "figures" / "27b_reanalysis_crosscheck.json")
+    rows = artifact["levels_hPa"].values()
+    r1_max = max(row["R1"] for row in rows)
+    r2_max = max(row["R2"] for row in rows)
+    require(f"{r1_max * 100:.1f}" == "4.0", "R1 maximum ratio changed")
+    require(f"{r2_max * 100:.1f}" == "4.5", "R2 maximum ratio changed")
+    require("at most $4.0\\%$ of the rotational kinetic energy" in text,
+            "abstract lacks the corrected R1 denominator")
+    require("$4.5\\%$ in the Reanalysis 2 cross-check" in text,
+            "abstract lacks the R2 cross-check value")
+    require("$\\leq4\\%$ of the kinetic energy" not in text,
+            "abstract still calls the ratio a share of total kinetic energy")
+
+
 def main() -> int:
     checks = [
         ("F-C15 stability table", check_fc15),
@@ -305,6 +322,7 @@ def main() -> int:
         ("F-C2 common-phase control", check_fc2),
         ("manuscript disclosures", check_disclosures),
         ("R3 cross-check", check_r3),
+        ("reanalysis abstract ratio", check_reanalysis_abstract),
     ]
     failures = 0
     for name, check in checks:

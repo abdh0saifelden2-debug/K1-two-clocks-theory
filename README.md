@@ -59,7 +59,7 @@ spherical-harmonic degree `l ≤ 35`.
 ```bash
 python3 -m venv .venv && . .venv/bin/activate
 pip install -r requirements.txt
-python -m pytest            # full CPU suite (683 tests at v1.0.3)
+python -m pytest            # full CPU suite (690 tests at v1.0.4)
 python run_closure.py --out-dir figures
 ```
 
