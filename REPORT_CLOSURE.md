@@ -43,13 +43,17 @@ from resolved data and is not a predictive closure.
 - **Truth** shows both forward dissipation (T<0, large scales losing energy to
   subgrid) **and** backscatter (T>0, subgrid returning energy to resolved scales) —
   the 2D inverse-cascade signature.
-- **Smagorinsky** has T(k) ≤ 0 everywhere: purely dissipative, **no backscatter**.
-  The fundamental structural error of positive-definite eddy viscosity.
+- **Smagorinsky** has T(k) ≤ 0 for every resolved shell in this realization:
+  purely dissipative, **no backscatter**. The structural error of positive-definite
+  eddy viscosity.
 - **Surrogate** has the right E_m(k) but not a stable transfer structure: matching
   the spectrum randomizes the *direction* of energy transfer along with the phases.
   The correlation below is one fixed realization (`surrogate_force(..., seed=7)`),
-  not a seed average; the 3D convergence runs, which change the realization, span
-  −0.276 to +0.268 (`REPORT_CLOSURE3D_CONVERGENCE.md`), so the sign is not stable.
+  not a seed average. A 40-seed ensemble
+  (`figures/28b_closure_seed_ensemble.json`) gives median 0.05,
+  sd 0.60, range −0.92 to +0.99;
+  the 3D convergence runs span −0.276 to +0.268 (`REPORT_CLOSURE3D_CONVERGENCE.md`),
+  so the sign is not stable across realizations.
 - **Projected-FDT (oracle)** reproduces the forward/backscatter partition: its deterministic
   part carries ν_t(k) with the correct sign (including negative = backscatter) and
   its projected noise fills the remainder without breaking div=0.
@@ -88,7 +92,12 @@ REPORT_THEORY.md §4 for the explicit caveat about time-locality.
 
 <!-- BEGIN HAND-WRITTEN CONTENT (preserved across regeneration) -->
 
-## Physical implication: the Goldshtik–Sorokin effect
+## Physical implication (speculative): the Goldshtik–Sorokin effect
+
+> **Speculative interpretation — no data.** The application paragraphs below are
+> analogies from the structural benchmark, not measurements. No Otis, biomedical,
+> or subglacial dataset is analyzed in this report; the evidence ends at the three
+> diagnostics and the seed ensemble above.
 
 The benchmark diagnostics map directly onto a classic anomalous phenomenon in turbulent
 flows: the **Goldshtik–Sorokin effect** — stable suspension of a heavy particle in a
@@ -145,7 +154,7 @@ and overpredict stability. The glacier appears "safer" than it is.
 trapping persists; ℙ gives an exact pressure manifold → correct effective pressure and
 sliding prediction. The model correctly captures accelerated melt + uplift risk.
 
-### Extreme weather application: Hurricane Otis rapid intensification (2023)
+### Speculative application: Hurricane Otis rapid intensification (2023)
 
 Otis jumped from tropical storm to Category 5 in 24 hours. Nearly every operational model
 failed to predict this. The models had correct SST data and synoptic steering — they lacked

@@ -7,6 +7,19 @@ the detailed record.
 
 ## Unreleased
 
+### Added
+
+- `run_closure.py` computes a 40-seed surrogate ensemble and writes
+  `figures/28b_closure_seed_ensemble.json`; the closure report cites the
+  median, standard deviation, and range instead of leaving the spread
+  unmeasured.
+
+### Changed
+
+- `REPORT_CLOSURE.md` labels the Otis, biomedical, and subglacial application
+  section as speculative (no data), and qualifies the Smagorinsky `T(k) ≤ 0`
+  statement to the reported realization.
+
 ### Fixed
 
 - The cascade-structure and channel-closure generators now emit the same

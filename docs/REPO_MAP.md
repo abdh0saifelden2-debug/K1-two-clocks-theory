@@ -26,9 +26,9 @@ descriptive, not a refactor plan: **no file moves or renames are part of v1.x.**
 
 ## Counts at this commit
 
-- 474 tracked files; 186 root-level tracked files.
+- 475 tracked files; 186 root-level tracked files.
 - 81 report files: 80 `REPORT_*.md` plus `REPORT.md`.
-- 155 files under [`figures/`](../figures).
+- 156 files under [`figures/`](../figures).
 - 49 NR scripts: 46 `new_relationships*.py` plus 3 `nr*.py`.
 - 22 `run_*.py` runners.
 - 78 test files; CI runs the full suite as the authoritative count.
