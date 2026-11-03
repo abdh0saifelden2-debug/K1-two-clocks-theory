@@ -16,6 +16,12 @@ the detailed record.
 
 ### Changed
 
+- The manuscript title now says **unconstrained** spectrum-matched closures, and
+  the abstract, introduction, and Section 4.2 state that solenoidality is standard
+  stochastic-backscatter practice rather than an overlooked constraint. New
+  references: Leith (1990), Mason & Thomson (1992), Shutts (2005), Berner et al.
+  (2009), Mémin (2014), Debussche, Hug & Mémin (2023), Kraichnan (1976), and
+  Frederiksen & Kepert (2006).
 - `REPORT_CLOSURE.md` labels the Otis, biomedical, and subglacial application
   section as speculative (no data), and qualifies the Smagorinsky `T(k) ≤ 0`
   statement to the reported realization.

@@ -14,6 +14,14 @@ in the analysis scripts (`nonmarkov_argo.analyze_floats`,
 `cascade_lifetime.analyze_signal`, and related runners); they were not lodged in an
 external registry, so these are criteria-based tests rather than registered protocols.
 
+**Relation to prior closures.** The solenoidality constraint examined in the
+manuscript is standard design practice, not a new discovery: Leith (1990), Mason and
+Thomson (1992), Shutts (2005), and Berner et al. (2009) generate divergence-free
+backscatter by construction, and Mémin (2014) and Debussche, Hug and Mémin (2023)
+build the constraint into the stochastic formulation. The manuscript measures what
+dropping it costs, with a same-phase control and a committed seed ensemble; it does
+not claim that the constraint was overlooked.
+
 ---
 
 ## 1. The observation
