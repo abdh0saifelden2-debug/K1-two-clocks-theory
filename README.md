@@ -1,8 +1,8 @@
 # K1 — Two clocks: pressure–temperature decoupling across scales
 
-Code, data artifacts, and manuscript for **paper0**, *Why spectrum-matched
-stochastic closures fail the elliptic test: operator-level pressure–temperature
-decoupling across scales*.
+Code, data artifacts, and manuscript for **paper0**, *Why unconstrained
+spectrum-matched stochastic closures fail the elliptic test: operator-level
+pressure–temperature decoupling across scales*.
 
 **Current release:** [`paper0-v1.0.4`](https://github.com/abdh0saifelden2-debug/K1-two-clocks-theory/releases/tag/paper0-v1.0.4)
 (2026-11-02, commit `b4bb65d`). The released PDF is attached to that release.
@@ -11,7 +11,10 @@ decoupling across scales*.
 incompressible limit, is the Lagrange multiplier of the divergence-free
 constraint: a global, boundary-aware elliptic field. Matching the power
 spectrum of an elliptic correction does not reproduce its action as a
-constraint. Spectral equivalence is not dynamical equivalence.
+constraint. Spectral equivalence is not dynamical equivalence. Classic
+stochastic-backscatter schemes already enforce solenoidality by construction;
+the paper measures the cost of dropping it, and a same-phase control rules out
+independent phase scrambling as the cause.
 
 ## The paper in one table
 
