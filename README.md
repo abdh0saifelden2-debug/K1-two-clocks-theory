@@ -62,7 +62,7 @@ spherical-harmonic degree `l ≤ 35`.
 ```bash
 python3 -m venv .venv && . .venv/bin/activate
 pip install -r requirements.txt
-python -m pytest            # full CPU suite (690 tests at v1.0.4)
+python -m pytest            # full CPU suite (690 tests at v1.0.5)
 python run_closure.py --out-dir figures
 ```
 
@@ -72,7 +72,7 @@ twice on `paper0_two_clocks.tex`.
 
 ## Status and provenance
 
-- **Paper:** v1.0.4, released from `b4bb65d`; PDF SHA-256 `84d023728b06f11a80d6f132ff3207e5ce6b139cdbc77fc88a582430c1bcd19c`.
+- **Paper:** v1.0.5, released from `ded59aa` (manuscript `ef74f6c`); PDF SHA-256 `5d7b1e543cc4ac5e570b90df1984c6f0a63456bd46a9c08c253c348872de3917`.
 - **Lean:** the finite-dimensional surrogate slice is frozen at `249e357` (Parseval freeze) and audited against `553d5c2` in [`K1-lean`](https://github.com/abdh0saifelden2-debug/K1-lean).
 - **Audit:** the public code and claim audit is [`paper0-audit`](https://github.com/abdh0saifelden2-debug/paper0-audit).
 - **Provenance:** split from the K monorepo; the pristine archive SHA-256 is `ef637ff5f912a5d1404f677429f9429eccc8102a8cab23cee79cf055bbf1220`. Split details are in [`AUDIT.md`](AUDIT.md).
