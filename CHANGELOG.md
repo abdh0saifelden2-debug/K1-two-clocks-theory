@@ -5,7 +5,10 @@ manuscript PDF is attached to each `paper0-v*` release. Entries describe what
 changed between releases; the committed reports and `docs/FINDINGS.md` remain
 the detailed record.
 
-## Unreleased
+## paper0 v1.0.5 — 2026-11-03
+
+The manuscript reframing after the literature check, plus the closure-hygiene
+work merged since v1.0.4.
 
 ### Added
 

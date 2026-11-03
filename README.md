@@ -4,8 +4,8 @@ Code, data artifacts, and manuscript for **paper0**, *Why unconstrained
 spectrum-matched stochastic closures fail the elliptic test: operator-level
 pressure–temperature decoupling across scales*.
 
-**Current release:** [`paper0-v1.0.4`](https://github.com/abdh0saifelden2-debug/K1-two-clocks-theory/releases/tag/paper0-v1.0.4)
-(2026-11-02, commit `b4bb65d`). The released PDF is attached to that release.
+**Current release:** [`paper0-v1.0.5`](https://github.com/abdh0saifelden2-debug/K1-two-clocks-theory/releases/tag/paper0-v1.0.5)
+(2026-11-03, manuscript commit `ef74f6c`). The released PDF is attached to that release.
 
 **Thesis.** Temperature is a local, slow, parabolic field. Pressure, in the
 incompressible limit, is the Lagrange multiplier of the divergence-free
@@ -79,5 +79,5 @@ twice on `paper0_two_clocks.tex`.
 
 ## Citation
 
-Cite the `paper0-v1.0.4` release and this repository. A Zenodo DOI has not been
+Cite the `paper0-v1.0.5` release and this repository. A Zenodo DOI has not been
 minted; use the release URL until one exists.
