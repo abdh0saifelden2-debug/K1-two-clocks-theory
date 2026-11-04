@@ -19,6 +19,7 @@ from closure.role_budget import (
     BUDGET_KEYS,
     compute_direction,
     force_from_streamfunction,
+    local_transfer,
     positive_sign_reconstruction,
     prepare_realization,
     random_mode_reconstruction,
@@ -74,6 +75,16 @@ def test_reconstructions_are_solenoidal(small_realizations):
         assert div < 1e-12, f"{name} divergence {div}"
 
 
+def test_positive_sign_transfer_is_nonnegative(small_realizations):
+    sp, kc, real = small_realizations
+    test = real[42]
+    pos = positive_sign_reconstruction(sp, test.mx, test.my,
+                                       test.ub, test.vb, kc)
+    t = local_transfer(sp, test.ub, test.vb, pos[0], pos[1])
+    scale = float(np.sqrt(np.mean(t ** 2))) + 1e-30
+    assert float(t.min()) >= -1e-10 * scale, f"negative transfer {t.min()}"
+
+
 def test_wasserstein1_is_nonnegative():
     rng = np.random.default_rng(0)
     idx = np.array([0, 1, 1, 1, 2, 2])
@@ -118,9 +129,18 @@ def test_decision_block_is_mechanical(small_realizations):
                                n_seed=3, n_boot=8, direction_index=0)
     decision = summarise_decision([result, result, result])
     assert set(decision) == {
-        "kill_conditions", "material_rankings", "primary_ranking",
-        "phase_aware_closure", "verdict",
+        "kill_conditions", "unresolved_components", "material_rankings",
+        "primary_ranking", "phase_aware_closure", "verdict",
     }
+    assert set(decision["unresolved_components"]) == {"L", "H"}
+    for band in ("L", "H"):
+        for direction in ("1", "2", "3"):
+            assert set(decision["unresolved_components"][band][direction]) <= {
+                "E_cal", "E_amp", "E_sign",
+            }
+        for i, ranking in enumerate(decision["material_rankings"][band]):
+            assert not (set(ranking) &
+                        set(decision["unresolved_components"][band][str(i + 1)]))
     assert decision["phase_aware_closure"] in {"go", "no_go", "unresolved"}
     assert decision["verdict"] in {
         "continue", "stop_no_residual", "stop_no_sign_role",

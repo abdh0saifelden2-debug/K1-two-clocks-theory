@@ -195,6 +195,8 @@ def positive_sign_reconstruction(sp, mx_true: np.ndarray, my_true: np.ndarray,
 
     In 2D the solenoidal subspace is one-dimensional, so this sets
     ``rhat = |rhat| uhat/|uhat|`` and makes every local transfer non-negative.
+    The aligned field is returned through its streamfunction so that the
+    discrete divergence vanishes in Fourier space even when ``|uhat|`` is small.
     """
     uh, vh = sp.fft(ub), sp.fft(vb)
     rxh, ryh = sp.fft(mx_true), sp.fft(my_true)
@@ -206,7 +208,12 @@ def positive_sign_reconstruction(sp, mx_true: np.ndarray, my_true: np.ndarray,
     ry = np.zeros_like(vh)
     rx[fill] = amp[fill] * uh[fill] / uamp[fill]
     ry[fill] = amp[fill] * vh[fill] / uamp[fill]
-    return sp.ifft(rx), sp.ifft(ry)
+    psi = np.zeros_like(uh)
+    mask = sp.k2 > 0
+    psi[mask] = ((1j * sp.kx[mask] * ry[mask]
+                  - 1j * sp.ky[mask] * rx[mask]) / sp.k2[mask])
+    psi[0, 0] = 0.0
+    return force_from_streamfunction(sp, psi)
 
 
 # ---------------------------------------------------------------------------
@@ -701,10 +708,23 @@ def compute_direction(sp, kc: int, realizations: dict,
 # cross-direction decision rules
 # ---------------------------------------------------------------------------
 
-def _material_ranking(labels: dict, budget: dict) -> list:
+def _material_ranking(labels: dict, budget: dict, exclude=()) -> list:
     return sorted([key for key in ("E_cal", "E_amp", "E_sign")
-                   if labels.get(key) == "material"],
+                   if labels.get(key) == "material" and key not in exclude],
                   key=lambda key: budget[key], reverse=True)
+
+
+def _unresolved_keys(band: dict) -> list:
+    """Components whose 5--95 width exceeds 50% of the point estimate."""
+    keys = []
+    for key in ("E_cal", "E_amp", "E_sign"):
+        point = band["budget"][key]
+        if point is None or not np.isfinite(point) or point == 0.0:
+            continue
+        p05, p95 = band["interval"][key]
+        if (p95 - p05) > 0.5 * abs(point):
+            keys.append(key)
+    return keys
 
 
 def _floor_met(band: dict) -> bool:
@@ -726,38 +746,52 @@ def summarise_decision(directions: list) -> dict:
         for band in bands for d in interpreted[band]
     )
 
+    unresolved = {
+        band: {d["direction"]: _unresolved_keys(d["bands"][band])
+               for d in directions}
+        for band in bands
+    }
+
     split_instability = {band: False for band in bands}
     rankings = {band: [] for band in bands}
     for band in bands:
-        rankings[band] = [_material_ranking(d["bands"][band]["labels"],
-                                            d["bands"][band]["budget"])
-                          for d in directions]
-        ranks = [_material_ranking(d["bands"][band]["labels"],
-                                   d["bands"][band]["budget"])
-                 for d in interpreted[band]]
+        rankings[band] = [
+            _material_ranking(d["bands"][band]["labels"],
+                              d["bands"][band]["budget"],
+                              exclude=unresolved[band][d["direction"]])
+            for d in directions
+        ]
+        ranks = [
+            _material_ranking(d["bands"][band]["labels"],
+                              d["bands"][band]["budget"],
+                              exclude=unresolved[band][d["direction"]])
+            for d in interpreted[band]
+        ]
         if len(ranks) >= 2:
             split_instability[band] = any(r != ranks[0] for r in ranks[1:])
 
     primary = directions[0]
-    unresolved_primary = False
-    for band in bands:
-        b = primary["bands"][band]
-        if not _floor_met(b):
-            continue
-        for key in ("E_cal", "E_amp", "E_sign"):
-            p05, p95 = b["interval"][key]
-            point = b["budget"][key]
-            if not np.isfinite(point) or point == 0.0:
-                continue
-            if (p95 - p05) > 0.5 * abs(point):
-                unresolved_primary = True
+    primary_keys = [key for band in bands if _floor_met(primary["bands"][band])
+                    for key in unresolved[band][primary["direction"]]]
+    unresolved_primary = bool(primary_keys)
+    unresolved_material_primary = any(
+        key in unresolved[band][primary["direction"]]
+        and primary["bands"][band]["labels"][key] == "material"
+        for band in bands if _floor_met(primary["bands"][band])
+        for key in ("E_cal", "E_amp", "E_sign")
+    )
+    sign_unresolved_primary = any(
+        "E_sign" in unresolved[band][primary["direction"]]
+        for band in bands if _floor_met(primary["bands"][band])
+    )
 
     sign_labels = [d["bands"][band]["labels"]["E_sign"]
                    for band in bands for d in interpreted[band]]
     if not sign_labels or all(label == "negligible" for label in sign_labels):
         phase = "no_go"
     elif (all(label == "material" for label in sign_labels)
-          and not split_instability["L"] and not split_instability["H"]):
+          and not split_instability["L"] and not split_instability["H"]
+          and not sign_unresolved_primary):
         phase = "go"
     else:
         phase = "unresolved"
@@ -768,7 +802,7 @@ def summarise_decision(directions: list) -> dict:
         verdict = "stop_no_sign_role"
     elif split_instability["L"] or split_instability["H"]:
         verdict = "report_directions_separately"
-    elif unresolved_primary:
+    elif unresolved_material_primary:
         verdict = "unresolved_noise"
     else:
         verdict = "continue"
@@ -777,15 +811,22 @@ def summarise_decision(directions: list) -> dict:
     for band in bands:
         labels = primary["bands"][band]["labels"]
         budget = primary["bands"][band]["budget"]
-        primary_rank[band] = _material_ranking(labels, budget)
+        primary_rank[band] = _material_ranking(
+            labels, budget, exclude=unresolved[band][primary["direction"]])
 
     return {
         "kill_conditions": {
             "no_residual": bool(no_residual),
             "no_sign_role": bool(no_sign),
             "unresolved_noise_primary": bool(unresolved_primary),
+            "unresolved_material_primary": bool(unresolved_material_primary),
             "split_instability": {band: bool(v) for band, v in
                                   split_instability.items()},
+        },
+        "unresolved_components": {
+            band: {str(d["direction"]): unresolved[band][d["direction"]]
+                   for d in directions}
+            for band in bands
         },
         "material_rankings": {band: rankings[band] for band in bands},
         "primary_ranking": primary_rank,

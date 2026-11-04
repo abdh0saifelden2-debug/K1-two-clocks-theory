@@ -255,7 +255,24 @@ def render_report(data: dict) -> str:
             add(f"| {d['direction']} | {band} | {_f(b['budget']['E_total'])} | "
                 f"{_f(b['budget']['E_cal'])} | {_f(b['budget']['E_amp'])} | "
                 f"{_f(b['budget']['E_sign'])} | "
-                f"{', '.join(ranking) if ranking else 'none material'} |")
+                f"{', '.join(ranking) if ranking else 'none resolved material'} |")
+    add("")
+    add("### Unresolved components")
+    add("")
+    add("A component whose 5--95 width exceeds 50% of its point estimate is "
+        "reported as unresolved and is excluded from the material ranking. "
+        "The `unresolved_noise_primary` flag records any such component in the "
+        "primary direction; `unresolved_material_primary` records the subset "
+        "that is also labelled material, which is the condition that changes "
+        "the verdict to `unresolved_noise`.")
+    add("")
+    add("| direction | band | unresolved components |")
+    add("|---|---|---|")
+    for d in directions:
+        for band in ("L", "H"):
+            keys = decision["unresolved_components"][band][str(d["direction"])]
+            add(f"| {d['direction']} | {band} | "
+                f"{', '.join(keys) if keys else 'none'} |")
     add("")
     add("### Intervals and labels")
     add("")
