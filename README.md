@@ -50,6 +50,7 @@ spherical-harmonic degree `l ≤ 35`.
 - `CLAIM_MAP.md` — claim-to-code/test/artifact map; `tools/check_claim_map.py` is the CI gate.
 - [`docs/FINDINGS.md`](docs/FINDINGS.md) — the detailed findings moved out of this README.
 - [`docs/REPORTS.md`](docs/REPORTS.md) — index of all 81 report files.
+- [`docs/PRESPEC_ROLE_BUDGET.md`](docs/PRESPEC_ROLE_BUDGET.md) — pre-specified role-budget test for the paper0 sequel, frozen as `paper0-roles-prespec-v1`; the SHA-256 record is in [`docs/PRESPEC_ROLE_BUDGET.FREEZE.md`](docs/PRESPEC_ROLE_BUDGET.FREEZE.md).
 - [`docs/REPO_MAP.md`](docs/REPO_MAP.md) — what belongs to the paper surface, the evidence reports, and the exploratory tail.
 - [`CHANGELOG.md`](CHANGELOG.md) — release history, newest first.
 - `run_*.py` — reproduction runners; Table 9 of the paper lists the command for every result.
