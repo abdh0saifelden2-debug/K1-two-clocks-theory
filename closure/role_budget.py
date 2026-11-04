@@ -32,6 +32,9 @@ CS_SMAG = 0.17
 CLARK_FIXED = 1.0 / 12.0
 BUDGET_KEYS = ("E_total", "E_cal", "E_amp", "E_sign")
 MODEL_KEYS = ("d", "ops", "ops_raw", "shell", "mode", "pos", "exact")
+STAT_NAMES = ("mean", "std", "rms", "p05", "p50", "p95", "p_plus", "f_plus")
+STAT_FIELDS = ("truth", "d", "r", "ops", "ops_raw", "shell", "mode", "pos",
+               "exact")
 
 
 # ---------------------------------------------------------------------------
@@ -224,11 +227,11 @@ def wasserstein1(t_true: np.ndarray, t_model: np.ndarray,
 def _stats(t: np.ndarray, mask: np.ndarray) -> dict:
     x = t[mask]
     if x.size == 0:
-        return {key: float("nan") for key in
-                ("mean", "std", "p05", "p50", "p95", "p_plus", "f_plus")}
+        return {key: float("nan") for key in STAT_NAMES}
     return {
         "mean": float(x.mean()),
         "std": float(x.std(ddof=0)),
+        "rms": float(np.sqrt(np.mean(x ** 2))),
         "p05": float(np.percentile(x, 5)),
         "p50": float(np.percentile(x, 50)),
         "p95": float(np.percentile(x, 95)),
@@ -288,10 +291,12 @@ def _bootstrap_band(shells: dict, ks, weights: np.ndarray, n_boot: int,
                     rng, n_seed: int) -> dict:
     """Joint mode-bootstrap + seed-draw distribution of the band budget."""
     draws = {key: [] for key in BUDGET_KEYS}
+    truth_draws = {key: [] for key in ("rms", "p05", "p50", "p95")}
     for _ in range(n_boot):
         seed_index = int(rng.integers(0, n_seed))
         num = {key: 0.0 for key in BUDGET_KEYS}
         den = 0.0
+        truth_parts = []
         for k in ks:
             d = shells[k]
             n = d["n"]
@@ -300,6 +305,7 @@ def _bootstrap_band(shells: dict, ks, weights: np.ndarray, n_boot: int,
             rms = float(np.sqrt(np.mean(tt ** 2)))
             if rms <= 0.0:
                 continue
+            truth_parts.append(tt)
             wd = float(np.mean(np.abs(np.sort(tt) - np.sort(d["t_d"][ii]))) / rms)
             if wd <= 0.0:
                 continue
@@ -314,10 +320,22 @@ def _bootstrap_band(shells: dict, ks, weights: np.ndarray, n_boot: int,
         if den > 0.0:
             for key in BUDGET_KEYS:
                 draws[key].append(num[key] / den)
-    return {key: ([float(np.percentile(draws[key], 5)),
-                   float(np.percentile(draws[key], 95))]
-                  if draws[key] else [float("nan"), float("nan")])
-            for key in BUDGET_KEYS}
+        if truth_parts:
+            x = np.concatenate(truth_parts)
+            truth_draws["rms"].append(float(np.sqrt(np.mean(x ** 2))))
+            truth_draws["p05"].append(float(np.percentile(x, 5)))
+            truth_draws["p50"].append(float(np.percentile(x, 50)))
+            truth_draws["p95"].append(float(np.percentile(x, 95)))
+
+    def _range(values):
+        if not values:
+            return [float("nan"), float("nan")]
+        return [float(np.percentile(values, 5)), float(np.percentile(values, 95))]
+
+    return {
+        "budget": {key: _range(draws[key]) for key in BUDGET_KEYS},
+        "truth": {key: _range(values) for key, values in truth_draws.items()},
+    }
 
 
 # ---------------------------------------------------------------------------
@@ -390,12 +408,17 @@ def compute_direction(sp, kc: int, realizations: dict,
     e_ops = e_cal * z_ratio
 
     # --- reconstructions ---------------------------------------------------
+    base = 100000 * (direction_index + 1)
+    ops_seeds = [base + 10 * s + 1 for s in range(n_seed)]
+    raw_seeds = [base + 10 * s + 2 for s in range(n_seed)]
+    shell_seeds = [base + 10 * s + 3 for s in range(n_seed)]
+    mode_seeds = [base + 10 * s + 4 for s in range(n_seed)]
     ops, ops_raw, shell, mode = [], [], [], []
     for s in range(n_seed):
-        rng_ops = np.random.default_rng(100000 * (direction_index + 1) + 10 * s + 1)
-        rng_raw = np.random.default_rng(100000 * (direction_index + 1) + 10 * s + 2)
-        rng_shell = np.random.default_rng(100000 * (direction_index + 1) + 10 * s + 3)
-        rng_mode = np.random.default_rng(100000 * (direction_index + 1) + 10 * s + 4)
+        rng_ops = np.random.default_rng(ops_seeds[s])
+        rng_raw = np.random.default_rng(raw_seeds[s])
+        rng_shell = np.random.default_rng(shell_seeds[s])
+        rng_mode = np.random.default_rng(mode_seeds[s])
         ops.append(random_shell_reconstruction(sp, e_ops, rng_ops, kc))
         ops_raw.append(random_shell_reconstruction(sp, e_cal, rng_raw, kc))
         shell.append(random_shell_reconstruction(sp, e_test, rng_shell, kc))
@@ -426,10 +449,52 @@ def compute_direction(sp, kc: int, realizations: dict,
     mamp_shell = [mode_magnitude(sp, d2x + p[0], d2y + p[1]) for p in shell]
     mamp_mode = [mode_magnitude(sp, d2x + p[0], d2y + p[1]) for p in mode]
 
-    # --- per-shell W1 ------------------------------------------------------
-    per_shell = {"k": list(range(1, kmax + 1)), "n_modes": []}
+    # --- per-shell W1 and secondary diagnostics ---------------------------
+    per_shell = {
+        "k": list(range(1, kmax + 1)),
+        "n_modes": [],
+        "W1": {key: [] for key in MODEL_KEYS},
+        "budget": {key: [] for key in BUDGET_KEYS},
+        "T": {field: [] for field in ("truth", "d", "ops", "ops_raw",
+                                       "shell", "mode", "pos", "exact")},
+        "stats": {field: {name: [] for name in STAT_NAMES}
+                  for field in STAT_FIELDS},
+        "alignment": {field: [] for field in ("truth", "d", "r", "ops",
+                                              "shell", "mode")},
+    }
     w1 = {key: np.full(kmax + 1, np.nan) for key in MODEL_KEYS}
     budget_shell = {key: np.full(kmax + 1, np.nan) for key in BUDGET_KEYS}
+    skipped = []
+
+    stat_rows = {
+        "truth": [t_true],
+        "d": [t_d],
+        "r": [t_r_true],
+        "ops": t_ops,
+        "ops_raw": t_ops_raw,
+        "shell": t_shell,
+        "mode": t_mode,
+        "pos": [t_pos],
+        "exact": [t_exact],
+    }
+    transfer_rows = {
+        "truth": [t_true],
+        "d": [t_d],
+        "ops": t_ops,
+        "ops_raw": t_ops_raw,
+        "shell": t_shell,
+        "mode": t_mode,
+        "pos": [t_pos],
+        "exact": [t_exact],
+    }
+    alignment_rows = {
+        "truth": [(t_true, mamp_true)],
+        "d": [(t_d, mamp_d)],
+        "r": [(t_r_true, mamp_r)],
+        "ops": list(zip(t_ops, mamp_ops)),
+        "shell": list(zip(t_shell, mamp_shell)),
+        "mode": list(zip(t_mode, mamp_mode)),
+    }
 
     for k in range(1, kmax + 1):
         m = idx == k
@@ -442,6 +507,8 @@ def compute_direction(sp, kc: int, realizations: dict,
         w1["mode"][k] = float(np.nanmean([wasserstein1(t_true, t, m) for t in t_mode]))
         w1["pos"][k] = wasserstein1(t_true, t_pos, m)
         w1["exact"][k] = 0.0
+        if not np.isfinite(w1["d"][k]):
+            skipped.append(k)
 
         wd = w1["d"][k]
         if np.isfinite(wd) and wd > 0.0:
@@ -449,6 +516,25 @@ def compute_direction(sp, kc: int, realizations: dict,
             budget_shell["E_cal"][k] = (w1["ops"][k] - w1["shell"][k]) / wd
             budget_shell["E_amp"][k] = (w1["shell"][k] - w1["mode"][k]) / wd
             budget_shell["E_sign"][k] = w1["mode"][k] / wd
+
+        for key in MODEL_KEYS:
+            per_shell["W1"][key].append(float(w1[key][k]))
+        for key in BUDGET_KEYS:
+            per_shell["budget"][key].append(float(budget_shell[key][k]))
+
+        for field, rows in stat_rows.items():
+            values = [_stats(t, m) for t in rows]
+            for name in STAT_NAMES:
+                per_shell["stats"][field][name].append(
+                    float(np.mean([value[name] for value in values])))
+
+        for field, rows in transfer_rows.items():
+            per_shell["T"][field].append(
+                float(np.mean([t[m].sum() for t in rows])))
+
+        for field, rows in alignment_rows.items():
+            per_shell["alignment"][field].append(
+                float(np.mean([_alignment(t, uamp, mag, m) for t, mag in rows])))
 
     # --- band summaries ----------------------------------------------------
     bands = band_masks(sp, kc)
@@ -460,7 +546,7 @@ def compute_direction(sp, kc: int, realizations: dict,
               bool(np.any(mask & (idx == k)))]
         w1_band = {key: _weighted(w1[key], ks, weights) for key in MODEL_KEYS}
         budget = {key: _weighted(budget_shell[key], ks, weights) for key in BUDGET_KEYS}
-        interval = _bootstrap_band(
+        boot = _bootstrap_band(
             {k: {"n": int((idx == k).sum()),
                  "t_true": t_true[idx == k],
                  "t_d": t_d[idx == k],
@@ -469,6 +555,8 @@ def compute_direction(sp, kc: int, realizations: dict,
                  "t_mode": [t[idx == k] for t in t_mode]}
              for k in ks},
             ks, weights, n_boot, rng, n_seed)
+        interval = boot["budget"]
+        truth_interval = boot["truth"]
 
         labels = {}
         for key in BUDGET_KEYS:
@@ -516,9 +604,11 @@ def compute_direction(sp, kc: int, realizations: dict,
 
         band_out[band] = {
             "k_min": min(ks), "k_max": max(ks),
+            "skipped_shells": int(sum(1 for k in ks if k in skipped)),
             "W1": w1_band,
             "budget": budget,
             "interval": interval,
+            "truth_interval": truth_interval,
             "labels": labels,
             "stats": stats,
             "alignment": alignment,
@@ -591,14 +681,16 @@ def compute_direction(sp, kc: int, realizations: dict,
         "Z_cal": float(cal.strain_z),
         "Z_test": float(test.strain_z),
         "Z_ratio": float(z_ratio),
-        "bands": band_out,
-        "per_shell": {
-            "k": per_shell["k"],
-            "n_modes": per_shell["n_modes"],
-            "W1": {key: [float(v) for v in w1[key][1:]] for key in MODEL_KEYS},
-            "budget": {key: [float(v) for v in budget_shell[key][1:]]
-                       for key in BUDGET_KEYS},
+        "bootstrap_seed": 20261104 + direction_index,
+        "rng_seeds": {
+            "ops": ops_seeds,
+            "ops_raw": raw_seeds,
+            "shell": shell_seeds,
+            "mode": mode_seeds,
         },
+        "skipped_shells": {"count": len(skipped), "k": skipped},
+        "bands": band_out,
+        "per_shell": per_shell,
         "seed_ensemble": seed_ensemble,
         "divergence": div,
         "arm_w1": arm_w1,
@@ -615,32 +707,43 @@ def _material_ranking(labels: dict, budget: dict) -> list:
                   key=lambda key: budget[key], reverse=True)
 
 
+def _floor_met(band: dict) -> bool:
+    """The pre-specified interpretation floor: ``W1(d) > 0.05``."""
+    w = band["W1"]["d"]
+    return w is not None and bool(np.isfinite(w)) and w > 0.05
+
+
 def summarise_decision(directions: list) -> dict:
     """Apply the pre-specified labels and kill conditions to all directions."""
     bands = ("L", "H")
-    no_residual = True
-    no_sign = True
+    interpreted = {
+        band: [d for d in directions if _floor_met(d["bands"][band])]
+        for band in bands
+    }
+    no_residual = all(not interpreted[band] for band in bands)
+    no_sign = all(
+        d["bands"][band]["labels"]["E_sign"] == "negligible"
+        for band in bands for d in interpreted[band]
+    )
+
     split_instability = {band: False for band in bands}
     rankings = {band: [] for band in bands}
-
     for band in bands:
         rankings[band] = [_material_ranking(d["bands"][band]["labels"],
                                             d["bands"][band]["budget"])
                           for d in directions]
-        first = rankings[band][0]
-        split_instability[band] = any(r != first for r in rankings[band][1:])
-        for d in directions:
-            b = d["bands"][band]
-            if b["W1"]["d"] <= 0.05:
-                continue
-            no_residual = False
-            if b["labels"]["E_sign"] != "negligible":
-                no_sign = False
+        ranks = [_material_ranking(d["bands"][band]["labels"],
+                                   d["bands"][band]["budget"])
+                 for d in interpreted[band]]
+        if len(ranks) >= 2:
+            split_instability[band] = any(r != ranks[0] for r in ranks[1:])
 
     primary = directions[0]
     unresolved_primary = False
     for band in bands:
         b = primary["bands"][band]
+        if not _floor_met(b):
+            continue
         for key in ("E_cal", "E_amp", "E_sign"):
             p05, p95 = b["interval"][key]
             point = b["budget"][key]
@@ -650,10 +753,11 @@ def summarise_decision(directions: list) -> dict:
                 unresolved_primary = True
 
     sign_labels = [d["bands"][band]["labels"]["E_sign"]
-                   for d in directions for band in bands]
-    if all(label == "negligible" for label in sign_labels):
+                   for band in bands for d in interpreted[band]]
+    if not sign_labels or all(label == "negligible" for label in sign_labels):
         phase = "no_go"
-    elif all(label == "material" for label in sign_labels) and not split_instability["L"] and not split_instability["H"]:
+    elif (all(label == "material" for label in sign_labels)
+          and not split_instability["L"] and not split_instability["H"]):
         phase = "go"
     else:
         phase = "unresolved"

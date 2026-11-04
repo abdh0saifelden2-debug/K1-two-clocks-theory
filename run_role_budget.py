@@ -189,6 +189,12 @@ def render_report(data: dict) -> str:
         "spectrum. `R_ops` rescales the calibration residual shell spectrum by "
         "`Z_test/Z_cal`; `R_ops_raw` is the no-rescale sensitivity.")
     add("")
+    add("The pre-spec's section 3 uses the phrase \"calibration realization\" "
+        "for the coefficient fits. This implementation follows the section 2 "
+        "three-way split: `C` and `nu_t(k)` are fitted on the fit realization, "
+        "and the separate calibration realization supplies `E_r(k)` for "
+        "`R_ops`. No test truth enters either stage.")
+    add("")
     add("## 2. Deterministic arms")
     add("")
     add(f"D1 is Smagorinsky with `Cs = {cfg['cs_smag']}`. D2 is the Clark/"
@@ -226,8 +232,15 @@ def render_report(data: dict) -> str:
     for d in directions:
         for band in ("L", "H"):
             w = d["bands"][band]["W1"]["d"]
+            met = w is not None and w > 0.05
             add(f"| {d['direction']} | {band} | {_u(w)} | "
-                f"{'yes' if w > 0.05 else 'no'} |")
+                f"{'yes' if met else 'no'} |")
+    add("")
+    add("Skipped shells (zero truth RMS): " + ", ".join(
+        f"dir {d['direction']} total {d['skipped_shells']['count']} "
+        f"(L {d['bands']['L']['skipped_shells']}, "
+        f"H {d['bands']['H']['skipped_shells']})"
+        for d in directions) + ".")
     add("")
     add("## 4. Additive budget")
     add("")
@@ -248,7 +261,12 @@ def render_report(data: dict) -> str:
     add("")
     add("The interval is the combined 5--95 range from the joint mode-bootstrap "
         "and seed draw. A negative component is reported as adverse and is not "
-        "clipped.")
+        "clipped. A component is **material** if its point estimate is at least "
+        "`0.10 E_total` and its 5--95 range lies entirely above "
+        "`0.05 E_total`; **negligible** if its point estimate is below "
+        "`0.05 E_total`; otherwise **unresolved**. If `E_total <= 0` the "
+        "material labels are not applied. Rankings list material components "
+        "by point estimate, descending.")
     add("")
     add("| direction | band | component | estimate | 5--95 | label |")
     add("|---|---|---|---|---|---|")
@@ -278,22 +296,74 @@ def render_report(data: dict) -> str:
     add("")
     add("## 5. Secondary distribution diagnostics")
     add("")
-    add("Per-band statistics for the truth, deterministic arm, and true "
-        "residual. `A` is the amplitude-weighted sign alignment in `[-1, 1]`.")
+    add("### Band-mean transfer")
     add("")
-    add("| direction | band | field | mean | std | p05 | p50 | p95 | f+ | A |")
-    add("|---|---|---|---|---|---|---|---|---|---|")
+    add("`T = sum_shell t` over the band, for the truth, the deterministic "
+        "arm, and each reconstruction. `R_ops` is the operational model; "
+        "`R_exact` is the truth by construction.")
+    add("")
+    add("| direction | band | truth | d | R_ops | R_shell | R_mode | R_pos | "
+        "R_exact |")
+    add("|---|---|---|---|---|---|---|---|---|")
+    for d in directions:
+        for band in ("L", "H"):
+            t = d["bands"][band]["transfer"]
+            add(f"| {d['direction']} | {band} | {_f(t['truth'])} | "
+                f"{_f(t['d'])} | {_f(t['ops'])} | {_f(t['shell'])} | "
+                f"{_f(t['mode'])} | {_f(t['pos'])} | {_f(t['exact'])} |")
+    add("")
+    add("### Transfer distribution")
+    add("")
+    add("Per-band statistics for the truth, deterministic arm, and true "
+        "residual. `P+ = mean(max(t, 0))`; `f+ = mean(t > 0)`; `A` is the "
+        "amplitude-weighted sign alignment in `[-1, 1]`. Per-shell arrays for "
+        "`W1`, the budget, `T`, the percentiles, `P+`, `f+`, and `A` are in "
+        "the JSON artifact.")
+    add("")
+    add("| direction | band | field | mean | std | P+ | p05 | p50 | p95 | f+ | A |")
+    add("|---|---|---|---|---|---|---|---|---|---|---|")
     for d in directions:
         for band in ("L", "H"):
             b = d["bands"][band]
             for field in ("truth", "d", "r"):
                 s = b["stats"][field]
                 add(f"| {d['direction']} | {band} | {field} | "
-                    f"{_f(s['mean'])} | {_u(s['std'])} | {_f(s['p05'])} | "
-                    f"{_f(s['p50'])} | {_f(s['p95'])} | {_u(s['f_plus'])} | "
-                    f"{_f(b['alignment'][field])} |")
+                    f"{_f(s['mean'])} | {_u(s['std'])} | {_u(s['p_plus'])} | "
+                    f"{_f(s['p05'])} | {_f(s['p50'])} | {_f(s['p95'])} | "
+                    f"{_u(s['f_plus'])} | {_f(b['alignment'][field])} |")
+    add("")
+    add("Reconstruction statistics (mean over the 32 stochastic seeds):")
+    add("")
+    add("| direction | band | field | mean | std | P+ | f+ | A |")
+    add("|---|---|---|---|---|---|---|---|")
+    for d in directions:
+        for band in ("L", "H"):
+            b = d["bands"][band]
+            for field in ("r", "ops", "shell", "mode"):
+                s = b["stats"][field]
+                add(f"| {d['direction']} | {band} | {field} | "
+                    f"{_f(s['mean'])} | {_u(s['std'])} | {_u(s['p_plus'])} | "
+                    f"{_u(s['f_plus'])} | {_f(b['alignment'][field])} |")
+    add("")
+    add("Truth bootstrap intervals (5--95, mode resampling):")
+    add("")
+    add("| direction | band | RMS | p05 | p50 | p95 |")
+    add("|---|---|---|---|---|---|")
+    for d in directions:
+        for band in ("L", "H"):
+            ti = d["bands"][band]["truth_interval"]
+            add(f"| {d['direction']} | {band} | "
+                f"[{_u(ti['rms'][0])}, {_u(ti['rms'][1])}] | "
+                f"[{_f(ti['p05'][0])}, {_f(ti['p05'][1])}] | "
+                f"[{_f(ti['p50'][0])}, {_f(ti['p50'][1])}] | "
+                f"[{_f(ti['p95'][0])}, {_f(ti['p95'][1])}] |")
     add("")
     add("## 6. Decision and kill conditions")
+    add("")
+    add("The prior-art stop condition was checked before the freeze in "
+        "[`docs/STOPLIST_ROLE_BUDGET.md`](docs/STOPLIST_ROLE_BUDGET.md); no "
+        "located paper reports this held-out additive budget in a comparable "
+        "exact-force setting.")
     add("")
     add("| condition | value |")
     add("|---|---|")
@@ -307,6 +377,11 @@ def render_report(data: dict) -> str:
         f"L = {decision['primary_ranking']['L']}, "
         f"H = {decision['primary_ranking']['H']}")
     add(f"- **Phase-aware closure:** `{decision['phase_aware_closure']}`")
+    add("")
+    add("Split-instability and phase-aware labels are evaluated only in "
+        "direction/band cells that meet the `W1(d) > 0.05` floor; if no cell "
+        "meets it, the phase-aware label is `no_go`. The ranking table above "
+        "lists all directions for transparency.")
     add("")
     add("## 7. Scope")
     add("")

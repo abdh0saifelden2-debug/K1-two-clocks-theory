@@ -17,7 +17,6 @@ import pytest
 from compressible.ns import Spectral2D
 from closure.role_budget import (
     BUDGET_KEYS,
-    band_masks,
     compute_direction,
     force_from_streamfunction,
     positive_sign_reconstruction,
@@ -28,7 +27,7 @@ from closure.role_budget import (
     summarise_decision,
     wasserstein1,
 )
-from closure.sgs import divergence_rms, exact_sgs_force, force_spectrum, shell_index
+from closure.sgs import divergence_rms, exact_sgs_force, force_spectrum
 
 ROOT = Path(__file__).resolve().parents[1]
 ARTIFACT = ROOT / "figures" / "31_role_budget.json"
@@ -40,7 +39,7 @@ PROTOCOL_SHA256 = "c02735bb034ea704ec686aa419dbb14e0154252f9aa7c70007a6517acc4d4
 def small_realizations():
     sp = Spectral2D(64)
     kc = 8
-    real = {seed: prepare_realization(sp, kc, seed, steps=250, k_f=12.0)
+    real = {seed: prepare_realization(sp, kc, seed, steps=500, k_f=12.0)
             for seed in (42, 43, 44)}
     return sp, kc, real
 
@@ -62,13 +61,15 @@ def test_reconstructions_are_solenoidal(small_realizations):
     test = real[44]
     _, e_test = force_spectrum(sp, test.mx, test.my, kc)
     ops = random_shell_reconstruction(sp, e_test, np.random.default_rng(1), kc)
+    ops_raw = random_shell_reconstruction(sp, e_test, np.random.default_rng(4), kc)
     shell = random_shell_reconstruction(sp, e_test, np.random.default_rng(2), kc)
     mode = random_mode_reconstruction(sp, test.mx, test.my,
                                       np.random.default_rng(3), kc)
     pos = positive_sign_reconstruction(sp, test.mx, test.my,
                                        test.ub, test.vb, kc)
-    for name, (fx, fy) in (("ops", ops), ("shell", shell),
-                           ("mode", mode), ("pos", pos)):
+    for name, (fx, fy) in (("ops", ops), ("ops_raw", ops_raw),
+                           ("shell", shell), ("mode", mode), ("pos", pos),
+                           ("exact", (test.mx, test.my))):
         div = divergence_rms(sp, fx, fy)
         assert div < 1e-12, f"{name} divergence {div}"
 
@@ -97,10 +98,18 @@ def test_budget_identity_and_bounds(small_realizations):
             assert not np.isfinite(b["closure"][key]) or b["closure"][key] <= 1.0 + 1e-12
 
     per = result["per_shell"]
+    n_shells = len(per["k"])
+    for field in ("truth", "d", "r", "ops", "shell", "mode"):
+        assert len(per["stats"][field]["mean"]) == n_shells
+        assert len(per["alignment"][field]) == n_shells
+    for field in ("truth", "d", "ops", "shell", "mode"):
+        assert len(per["T"][field]) == n_shells
     for i, _k in enumerate(per["k"]):
         vals = [per["budget"][key][i] for key in ("E_cal", "E_amp", "E_sign")]
         if all(v is not None for v in vals + [per["budget"]["E_total"][i]]):
             assert abs(sum(vals) - per["budget"]["E_total"][i]) < 1e-12
+    assert result["skipped_shells"]["count"] == sum(
+        1 for v in per["W1"]["d"] if not np.isfinite(v))
 
 
 def test_decision_block_is_mechanical(small_realizations):
@@ -130,6 +139,8 @@ def test_artifact_and_report_are_consistent():
     assert len(data["directions"]) == 3
 
     for d in data["directions"]:
+        for key, value in d["divergence"].items():
+            assert value is None or value < 1e-12, f"divergence {key}={value}"
         for band in ("L", "H"):
             b = d["bands"][band]
             total = sum(b["budget"][key] for key in ("E_cal", "E_amp", "E_sign"))
@@ -138,8 +149,13 @@ def test_artifact_and_report_are_consistent():
                 lo, hi = b["interval"][key]
                 if lo is not None and hi is not None:
                     assert lo <= hi
-            for key in ("d", "ops", "shell", "mode", "pos", "exact"):
+            for key in ("rms", "p05", "p50", "p95"):
+                assert len(b["truth_interval"][key]) == 2
+            for key in ("d", "ops", "ops_raw", "shell", "mode", "pos", "exact"):
                 if b["W1"][key] is not None:
                     assert b["W1"][key] >= 0.0
+            for key in ("ops", "ops_raw", "shell", "mode", "pos", "exact"):
+                if b["closure"][key] is not None:
+                    assert b["closure"][key] <= 1.0 + 1e-12
 
     assert REPORT.read_text() == render_report(data)
