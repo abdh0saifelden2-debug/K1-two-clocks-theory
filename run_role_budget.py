@@ -176,6 +176,22 @@ def render_report(data: dict) -> str:
     add(f"**Mechanical verdict:** `{decision['verdict']}`. "
         f"**Phase-aware closure:** `{decision['phase_aware_closure']}`.")
     add("")
+    primary = directions[0]
+    shares = []
+    for band in ("L", "H"):
+        b = primary["bands"][band]
+        total = b["budget"]["E_total"]
+        sign = b["budget"]["E_sign"]
+        share = (sign / total if total not in (None, 0.0)
+                 and sign is not None
+                 and np.isfinite(total) and np.isfinite(sign) else None)
+        shares.append(f"`{band}`: E_sign/E_total = {_u(share)}, "
+                      f"C_ops = {_f(b['closure']['ops'])}")
+    add("In the primary direction, " + "; ".join(shares) + ". "
+        "`C_ops < 0` means the operational random-phase reconstruction is "
+        "worse than the deterministic arm `d`; the budget then says which "
+        "missing information the operational model failed to supply.")
+    add("")
     add("## 1. Data and held-out split")
     add("")
     add("| direction | fit `d` | calibrate `E_ops` | test | D2 `C` | "

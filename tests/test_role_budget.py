@@ -125,9 +125,11 @@ def test_budget_identity_and_bounds(small_realizations):
 
 def test_decision_block_is_mechanical(small_realizations):
     sp, kc, real = small_realizations
-    result = compute_direction(sp, kc, real, 42, 43, 44,
-                               n_seed=3, n_boot=8, direction_index=0)
-    decision = summarise_decision([result, result, result])
+    rotations = ((42, 43, 44), (43, 44, 42), (44, 42, 43))
+    results = [compute_direction(sp, kc, real, fit, cal, test,
+                                 n_seed=3, n_boot=8, direction_index=i)
+               for i, (fit, cal, test) in enumerate(rotations)]
+    decision = summarise_decision(results)
     assert set(decision) == {
         "kill_conditions", "unresolved_components", "material_rankings",
         "primary_ranking", "phase_aware_closure", "verdict",
