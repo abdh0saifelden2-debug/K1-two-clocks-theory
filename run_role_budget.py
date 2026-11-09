@@ -365,7 +365,8 @@ def render_report(data: dict) -> str:
                     f"{_f(s['p05'])} | {_f(s['p50'])} | {_f(s['p95'])} | "
                     f"{_u(s['f_plus'])} | {_f(b['alignment'][field])} |")
     add("")
-    add("Reconstruction statistics (mean over the 32 stochastic seeds):")
+    add(f"Reconstruction statistics (mean over the {cfg['n_seed']} "
+        "stochastic seeds):")
     add("")
     add("| direction | band | field | mean | std | P+ | f+ | A |")
     add("|---|---|---|---|---|---|---|---|")
