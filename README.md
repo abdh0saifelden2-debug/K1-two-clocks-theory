@@ -49,14 +49,15 @@ spherical-harmonic degree `l ≤ 35`.
 - `paper0_two_clocks.tex` — the manuscript. CI builds it with XeLaTeX and attaches the PDF to `paper0-v*` releases.
 - `CLAIM_MAP.md` — claim-to-code/test/artifact map; `tools/check_claim_map.py` is the CI gate.
 - [`docs/FINDINGS.md`](docs/FINDINGS.md) — the detailed findings moved out of this README.
-- [`docs/REPORTS.md`](docs/REPORTS.md) — index of all 81 report files.
+- [`docs/REPORTS.md`](docs/REPORTS.md) — index of all 82 report files.
 - [`docs/PRESPEC_ROLE_BUDGET.md`](docs/PRESPEC_ROLE_BUDGET.md) — pre-specified role-budget test for the paper0 sequel, frozen as `paper0-roles-prespec-v1`; the SHA-256 record is in [`docs/PRESPEC_ROLE_BUDGET.FREEZE.md`](docs/PRESPEC_ROLE_BUDGET.FREEZE.md).
+- [`REPORT_ROLE_BUDGET.md`](REPORT_ROLE_BUDGET.md) — the held-out calibration/amplitude/sign budget from that frozen protocol.
 - [`docs/REPO_MAP.md`](docs/REPO_MAP.md) — what belongs to the paper surface, the evidence reports, and the exploratory tail.
 - [`CHANGELOG.md`](CHANGELOG.md) — release history, newest first.
 - `run_*.py` — reproduction runners; Table 9 of the paper lists the command for every result.
 - `closure/`, `boussinesq/`, `compressible/`, `neon_pt/`, `asos/`, `reanalysis/` — analysis libraries.
 - `figures/`, `data/`, `claims/`, `tests/` — artifacts, caches, gated claim data, and the test suite.
-- `REPORT_*.md` — 80 reports, plus `REPORT.md` (81 report files total); see [`docs/REPORTS.md`](docs/REPORTS.md).
+- `REPORT_*.md` — 81 reports, plus `REPORT.md` (82 report files total); see [`docs/REPORTS.md`](docs/REPORTS.md).
 
 ## Reproduce
 
